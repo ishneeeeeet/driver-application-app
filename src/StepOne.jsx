@@ -1,116 +1,220 @@
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import StepTwo from './StepTwo';
+import React, { useState } from "react";
+
+const RadioInput = ({ name, value, checkedValue, onChange }) => (
+  <>
+    <input
+      type="radio"
+      name={name}
+      value={value}
+      checked={checkedValue === value}
+      onChange={onChange}
+    />
+    <label htmlFor={name} className="text-gray-800">
+      {value}
+    </label>
+  </>
+);
 
 const StepOne = ({ onNext }) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    getValues,
-    watch,
-  } = useForm({
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      status: '',
-      company: '',
-    },
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    position: "",
+    status: "", // Added "status" field to formData
+    company: "",
+    dateOfBirth: "",
+    province: "",
+    driverLicenseNumber: "",
+    driverLicenseExpiry: "",
+    driverLicenseClass: "",
+    questionOne: "",
+    questionTwo: "",
+    questionThree: "",
+    questionFour: "",
+    questionFive: "",
   });
 
-  const selectedStatus = watch('status'); // Get the value of the 'status' field
+  const [errors, setErrors] = useState({});
 
-  const onSubmit = (data) => {
-    if (selectedStatus === '') {
-      // Custom validation for 'status' field
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (formData.status === "") {
+      setErrors({ ...errors, status: "Status is required" });
       return;
     }
 
-    onNext(data); // Send the form data to the next step
+    onNext(formData); // Send the form data to the next step
   };
 
   return (
-    <form className="max-w-screen-md mx-auto" onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col mb-4">
-        <label htmlFor="name" className="inline-flex mb-2 text-sm text-gray-800">
-          Please enter your name
-        </label>
-        <Controller
-          name="name"
-          control={control}
-          rules={{ required: 'Name is required' }}
-          render={({ field }) => (
-            <input
-              {...field}
-              className="w-full px-3 py-2 text-gray-800 border rounded outline-none bg-gray-50 focus:ring ring-indigo-300"
-            />
-          )}
-        />
-        {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
-      </div>
-      <div className="flex flex-col mb-4">
-        <label htmlFor="email" className="inline-flex mb-2 text-sm text-gray-800">
-          Please enter your email
-        </label>
-        <Controller
-          name="email"
-          control={control}
-          rules={{ required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email format' } }}
-          render={({ field }) => (
-            <input
-              {...field}
-              className="w-full px-3 py-2 text-gray-800 border rounded outline-none bg-gray-50 focus:ring ring-indigo-300"
-            />
-          )}
-        />
-        {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
-      </div>
-      {/* ... (similar pattern for other fields) ... */}
-      <div className="flex flex-col mb-4">
-        <label htmlFor="status" className="inline-flex mb-2 text-sm text-gray-800">
-          Status?
-        </label>
-        <div className="flex items-center space-x-4">
-          <input type="radio" {...control('status')} value="Citizen" />
-          <label htmlFor="status" className="text-gray-800">
-            Citizen
-          </label>
-          <input type="radio" {...control('status')} value="PR" />
-          <label htmlFor="status" className="text-gray-800">
-            PR
-          </label>
-          <input type="radio" {...control('status')} value="WP" />
-          <label htmlFor="status" className="text-gray-800">
-            WP
-          </label>
+    <form className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
+      <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
+        <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
+          Personal Information
+        </h2>
+
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              First name
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="first-name"
+                id="first-name"
+                autoComplete="given-name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="last-name"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Last name
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="last-name"
+                id="last-name"
+                autoComplete="family-name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-4">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Email address
+            </label>
+            <div className="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          {/* Date of Birth Field */}
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="date-of-birth"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Date of Birth
+            </label>
+            <div className="mt-2">
+              <input
+                type="date"
+                name="dateOfBirth"
+                id="date-of-birth"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          {/* End Date of Birth Field */}
+
+          {/* Status Field */}
+          
+          {/* End Status Field */}
         </div>
-        {errors.status && <span className="text-red-500 text-sm">{errors.status.message}</span>}
-      </div>
-      <div className="flex flex-col mb-2">
-        <label htmlFor="company" className="inline-flex mb-2 text-sm text-gray-800">
-          Please enter your company name (optional)
-        </label>
-        <Controller
-          name="company"
-          control={control}
-          render={({ field }) => (
-            <input
-              {...field}
-              className="w-full px-3 py-2 text-gray-800 border rounded outline-none bg-gray-50 focus:ring ring-indigo-300"
-            />
-          )}
-        />
-      </div>
-      <div className="flex items-center justify-between">
-        {/* ... (similar pattern for Back button) ... */}
-        <button
-          type="submit"
-          className="px-6 py-2 text-sm text-white bg-indigo-500 rounded-lg outline-none hover:bg-indigo-600 ring-indigo-300"
-        >
-          Next
-        </button>
+        <div className="sm:col-span-3 w-full mt-6">
+          <label htmlFor="question-one" className="block text-sm font-medium leading-6 text-gray-900">
+            Status
+          </label>
+          <div className="mt-2">
+            <div className="flex items-center space-x-4">
+              <input
+                type="radio"
+                name="question-one"
+                value="Citizen"
+                id="question-one-true"
+                className="text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="question-one-true" className="text-gray-900">
+                Citizen
+              </label>
+              <input
+                type="radio"
+                name="question-one"
+                value="False"
+                id="question-one-false"
+                className="text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="question-one-false" className="text-gray-900">
+               PR
+              </label>
+              <input
+                type="radio"
+                name="question-one"
+                value="False"
+                id="question-one-false"
+                className="text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="question-one-false" className="text-gray-900">
+               Work Permit
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="sm:col-span-3 w-full mt-6">
+          <label htmlFor="question-one" className="block text-sm font-medium leading-6 text-gray-900">
+            Position Applied For?
+          </label>
+          <div className="mt-2">
+            <div className="flex items-center space-x-4">
+              <input
+                type="radio"
+                name="question-one"
+                value="Citizen"
+                id="question-one-true"
+                className="text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="question-one-true" className="text-gray-900">
+                Driver 
+              </label>
+              <input
+                type="radio"
+                name="question-one"
+                value="False"
+                id="question-one-false"
+                className="text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="question-one-false" className="text-gray-900">
+               Owner Operator
+              </label>
+              <input
+                type="radio"
+                name="question-one"
+                value="False"
+                id="question-one-false"
+                className="text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="question-one-false" className="text-gray-900">
+               Other
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </form>
   );
