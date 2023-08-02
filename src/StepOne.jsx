@@ -156,11 +156,7 @@ const StepOne = ({ onNext }) => {
               />
             </div>
           </div>
-          {/* End Date of Birth Field */}
-
-          {/* Status Field */}
-
-          {/* End Status Field */}
+          
         </div>
         <div className="sm:col-span-3 w-full mt-6">
           <label
@@ -294,7 +290,7 @@ const StepOne = ({ onNext }) => {
               htmlFor="country"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              Country
+              Province
             </label>
             <div className="mt-2">
               <select
@@ -316,7 +312,7 @@ const StepOne = ({ onNext }) => {
               htmlFor="date-of-birth"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              Date of Birth
+              Date of Expiry
             </label>
             <div className="mt-2">
               <input
@@ -327,11 +323,7 @@ const StepOne = ({ onNext }) => {
               />
             </div>
           </div>
-          {/* End Date of Birth Field */}
-
-          {/* Status Field */}
-
-          {/* End Status Field */}
+          
         </div>
         <div className="mt-6">
           {questionFields.map(({ name, question }) => (
