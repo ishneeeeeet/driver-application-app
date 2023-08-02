@@ -16,7 +16,7 @@ function App() {
     <>
       <div className="mt-8">
         <h2 className="mb-4 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
-          Get in touch
+          Driver Application Form
         </h2>
         <p className="max-w-screen-md mx-auto text-center text-gray-500 md:text-lg">
           Please fill in the details below so that we can get in contact with you.
@@ -33,17 +33,17 @@ function App() {
               } rounded-t sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(1)}
             >
-              STEP 1
+              Personal Info
             </button>
             <button
-              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+              className={`inline-flex items-right justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
                 activeStep === 2
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(2)}
             >
-              STEP 2
+              Address History
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
@@ -53,7 +53,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(3)}
             >
-              STEP 3
+              Employment History
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
@@ -63,7 +63,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(4)}
             >
-              STEP 4
+              Consent
             </button>
           </div>
           <div className="flex flex-col w-full text-center">

@@ -51,15 +51,40 @@ const StepOne = ({ onNext }) => {
 
     onNext(formData); // Send the form data to the next step
   };
+  const questionFields = [
+    {
+      name: "questionOne",
+      question:
+        "1. Do you hold a driver's license in any other jurisdiction other than the mentioned above or do you hold any driver's license in any other name?",
+    },
+    {
+      name: "questionTwo",
+      question:
+        "2. Have you ever been denied a license, permit, or privilege to operate a motor vehicle?",
+    },
+    {
+      name: "questionThree",
+      question:
+        "3. Has any license, permit, or privilege ever been suspended or revoked?",
+    },
+    {
+      name: "questionFour",
+      question:
+        "4. Have you ever tested positive or refused to submit an alcohol or controlled substance test?",
+    },
+    {
+      name: "questionFive",
+      question:
+        "5. Have you had any injury or medical condition which might affect your job (convulsive disorder, epilepsy, fainting, or heart disease)?",
+    },
+  ];
 
   return (
     <form className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
-        <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
-          Personal Information
-        </h2>
+       
 
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="sm:col-span-3">
             <label
               htmlFor="first-name"
@@ -134,11 +159,14 @@ const StepOne = ({ onNext }) => {
           {/* End Date of Birth Field */}
 
           {/* Status Field */}
-          
+
           {/* End Status Field */}
         </div>
         <div className="sm:col-span-3 w-full mt-6">
-          <label htmlFor="question-one" className="block text-sm font-medium leading-6 text-gray-900">
+          <label
+            htmlFor="question-one"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
             Status
           </label>
           <div className="mt-2">
@@ -161,7 +189,7 @@ const StepOne = ({ onNext }) => {
                 className="text-indigo-600 focus:ring-indigo-500"
               />
               <label htmlFor="question-one-false" className="text-gray-900">
-               PR
+                PR
               </label>
               <input
                 type="radio"
@@ -171,13 +199,16 @@ const StepOne = ({ onNext }) => {
                 className="text-indigo-600 focus:ring-indigo-500"
               />
               <label htmlFor="question-one-false" className="text-gray-900">
-               Work Permit
+                Work Permit
               </label>
             </div>
           </div>
         </div>
         <div className="sm:col-span-3 w-full mt-6">
-          <label htmlFor="question-one" className="block text-sm font-medium leading-6 text-gray-900">
+          <label
+            htmlFor="question-one"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
             Position Applied For?
           </label>
           <div className="mt-2">
@@ -190,7 +221,7 @@ const StepOne = ({ onNext }) => {
                 className="text-indigo-600 focus:ring-indigo-500"
               />
               <label htmlFor="question-one-true" className="text-gray-900">
-                Driver 
+                Driver
               </label>
               <input
                 type="radio"
@@ -200,7 +231,7 @@ const StepOne = ({ onNext }) => {
                 className="text-indigo-600 focus:ring-indigo-500"
               />
               <label htmlFor="question-one-false" className="text-gray-900">
-               Owner Operator
+                Owner Operator
               </label>
               <input
                 type="radio"
@@ -210,7 +241,7 @@ const StepOne = ({ onNext }) => {
                 className="text-indigo-600 focus:ring-indigo-500"
               />
               <label htmlFor="question-one-false" className="text-gray-900">
-               Other
+                Other
               </label>
             </div>
           </div>
@@ -245,7 +276,7 @@ const StepOne = ({ onNext }) => {
               htmlFor="last-name"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-            Driver License Class
+              Driver License Class
             </label>
             <div className="mt-2">
               <input
@@ -259,25 +290,25 @@ const StepOne = ({ onNext }) => {
           </div>
 
           <div className="sm:col-span-3">
-          <label
-            htmlFor="country"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Country
-          </label>
-          <div className="mt-2">
-            <select
-              id="country"
-              name="country"
-              autoComplete="country-name"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium leading-6 text-gray-900"
             >
-              <option>AB</option>
-              <option>BC</option>
-              <option>ON</option>
-            </select>
+              Country
+            </label>
+            <div className="mt-2">
+              <select
+                id="country"
+                name="country"
+                autoComplete="country-name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option>AB</option>
+                <option>BC</option>
+                <option>ON</option>
+              </select>
+            </div>
           </div>
-        </div>
 
           {/* Date of Birth Field */}
           <div className="sm:col-span-3">
@@ -299,120 +330,38 @@ const StepOne = ({ onNext }) => {
           {/* End Date of Birth Field */}
 
           {/* Status Field */}
-          
+
           {/* End Status Field */}
         </div>
-        
-        <div className="flex flex-col mb-4 mt-6">
-        <label htmlFor="questionOne" className="block text-sm font-medium leading-6 text-gray-900">
-           1. Do you hold a driver's license in any other jurisdiction other than the mentioned above or do you hold any driver's license in any other name?
-        </label>
-        <div className="flex items-center space-x-4">
-          <RadioInput
-            name="questionOne"
-            value="True"
-            checkedValue={formData.questionOne}
-            onChange={handleChange}
-          />
-          <RadioInput
-            name="questionOne"
-            value="False"
-            checkedValue={formData.questionOne}
-            onChange={handleChange}
-          />
+        <div className="mt-6">
+          {questionFields.map(({ name, question }) => (
+            <div key={name} className="flex flex-col mb-4">
+              <label
+                htmlFor={name}
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                {question}
+              </label>
+              <div className="flex items-center space-x-4">
+                <RadioInput
+                  name={name}
+                  value="True"
+                  checkedValue={formData[name]}
+                  onChange={handleChange}
+                />
+                <RadioInput
+                  name={name}
+                  value="False"
+                  checkedValue={formData[name]}
+                  onChange={handleChange}
+                />
+              </div>
+              {errors[name] && (
+                <span className="text-red-500 text-sm">{errors[name]}</span>
+              )}
+            </div>
+          ))}
         </div>
-        {errors.questionOne ? (
-          <span className="text-red-500 text-sm">{errors.questionOne}</span>
-        ) : null}
-      </div>
-      <div className="flex flex-col mb-4">
-        <label htmlFor="questionTwo" className="block text-sm font-medium leading-6 text-gray-900">
-          2. Have you ever been denied a license, permit, or privilege to operate a motor vehicle?
-        </label>
-        <div className="flex items-center space-x-4">
-          <RadioInput
-            name="questionTwo"
-            value="True"
-            checkedValue={formData.questionTwo}
-            onChange={handleChange}
-          />
-          <RadioInput
-            name="questionTwo"
-            value="False"
-            checkedValue={formData.questionTwo}
-            onChange={handleChange}
-          />
-        </div>
-        {errors.questionTwo ? (
-          <span className="text-red-500 text-sm">{errors.questionTwo}</span>
-        ) : null}
-      </div>
-      <div className="flex flex-col mb-4">
-        <label htmlFor="questionThree" className="block text-sm font-medium leading-6 text-gray-900">
-          3. Has any license, permit, or privilege ever been suspended or revoked?
-        </label>
-        <div className="flex items-center space-x-4">
-          <RadioInput
-            name="questionThree"
-            value="True"
-            checkedValue={formData.questionThree}
-            onChange={handleChange}
-          />
-          <RadioInput
-            name="questionThree"
-            value="False"
-            checkedValue={formData.questionThree}
-            onChange={handleChange}
-          />
-        </div>
-        {errors.questionThree ? (
-          <span className="text-red-500 text-sm">{errors.questionThree}</span>
-        ) : null}
-      </div>
-      <div className="flex flex-col mb-4">
-        <label htmlFor="questionFour" className="block text-sm font-medium leading-6 text-gray-900">
-          4. Have you ever tested positive or refused to submit an alcohol or controlled substance test?
-        </label>
-        <div className="flex items-center space-x-4">
-          <RadioInput
-            name="questionFour"
-            value="True"
-            checkedValue={formData.questionFour}
-            onChange={handleChange}
-          />
-          <RadioInput
-            name="questionFour"
-            value="False"
-            checkedValue={formData.questionFour}
-            onChange={handleChange}
-          />
-        </div>
-        {errors.questionFour ? (
-          <span className="text-red-500 text-sm">{errors.questionFour}</span>
-        ) : null}
-      </div>
-      <div className="flex flex-col mb-4">
-        <label htmlFor="questionFive" className="block text-sm font-medium leading-6 text-gray-900">
-          5. Have you had any injury or medical condition which might affect your job (convulsive disorder, epilepsy, fainting, or heart disease)?
-        </label>
-        <div className="flex items-center space-x-4">
-          <RadioInput
-            name="questionFive"
-            value="True"
-            checkedValue={formData.questionFive}
-            onChange={handleChange}
-          />
-          <RadioInput
-            name="questionFive"
-            value="False"
-            checkedValue={formData.questionFive}
-            onChange={handleChange}
-          />
-        </div>
-        {errors.questionFive ? (
-          <span className="text-red-500 text-sm">{errors.questionFive}</span>
-        ) : null}
-      </div>
       </div>
     </form>
   );
