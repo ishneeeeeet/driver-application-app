@@ -131,7 +131,7 @@ const StepOne = ({ onNext }) => {
               Email address
             </Form.Label>
             <Form.Message
-              className="text-[13px] text-white opacity-[0.8]"
+              className="text-[13px] text-red-500 opacity-[0.8]"
               match="valueMissing"
             >
               Please enter your email
