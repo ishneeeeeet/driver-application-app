@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { FormContext } from "./context";
+import * as Form from "@radix-ui/react-form";
+import * as Label from "@radix-ui/react-label";
 
 const RadioInput = ({ name, value, checkedValue, onChange }) => (
   <>
@@ -16,6 +19,7 @@ const RadioInput = ({ name, value, checkedValue, onChange }) => (
 );
 
 const StepOne = ({ onNext }) => {
+  const { form, setForm } = useContext(FormContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -44,13 +48,13 @@ const StepOne = ({ onNext }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (formData.status === "") {
-      setErrors({ ...errors, status: "Status is required" });
-      return;
-    }
-
-    onNext(formData); // Send the form data to the next step
+    setForm((prevForm) => ({ ...prevForm, stepOneData: formData }));
+    console.log(form);
   };
+
+  useEffect(() => {
+    console.log("Updated form data:", form);
+  }, [form]);
   const questionFields = [
     {
       name: "questionOne",
@@ -80,18 +84,16 @@ const StepOne = ({ onNext }) => {
   ];
 
   return (
-    <form className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
+    <Form.Root className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
-       
-
         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="sm:col-span-3">
-            <label
+            <Label.Root
               htmlFor="first-name"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               First name
-            </label>
+            </Label.Root>
             <div className="mt-2">
               <input
                 type="text"
@@ -121,23 +123,36 @@ const StepOne = ({ onNext }) => {
             </div>
           </div>
 
-          <div className="sm:col-span-4">
-            <label
+          <Form.Field className="sm:col-span-4">
+            <Form.Label
               htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Email address
-            </label>
-            <div className="mt-2">
+            </Form.Label>
+            <Form.Message
+              className="text-[13px] text-white opacity-[0.8]"
+              match="valueMissing"
+            >
+              Please enter your email
+            </Form.Message>
+            <Form.Message
+              className="text-[13px] text-black opacity-[0.8]"
+              match="typeMismatch"
+            >
+              Please provide a valid email
+            </Form.Message>
+            <Form.Control asChild className="mt-2">
               <input
+                required
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
-            </div>
-          </div>
+            </Form.Control>
+          </Form.Field>
 
           {/* Date of Birth Field */}
           <div className="sm:col-span-3">
@@ -156,7 +171,6 @@ const StepOne = ({ onNext }) => {
               />
             </div>
           </div>
-          
         </div>
         <div className="sm:col-span-3 w-full mt-6">
           <label
@@ -323,7 +337,6 @@ const StepOne = ({ onNext }) => {
               />
             </div>
           </div>
-          
         </div>
         <div className="mt-6">
           {questionFields.map(({ name, question }) => (
@@ -355,7 +368,13 @@ const StepOne = ({ onNext }) => {
           ))}
         </div>
       </div>
-    </form>
+
+      <Form.Submit asChild>
+        <button className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
+          Next
+        </button>
+      </Form.Submit>
+    </Form.Root>
   );
 };
 
