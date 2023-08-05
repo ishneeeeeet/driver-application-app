@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import * as Form from "@radix-ui/react-form";
+import { FormContext } from "./context";
 
-const StepTwo = () => {
+const StepTwo = ({ onNextStep, onPreviousStep }) => {
+  const { form, setForm } = useContext(FormContext);
   const [addresses, setAddresses] = useState([
-    { streetAddress: "", city: "", region: "", postalCode: "", fromDate: "", toDate: "" },
+    {
+      streetAddress: "",
+      city: "",
+      region: "",
+      postalCode: "",
+      fromDate: "",
+      toDate: "",
+    },
   ]);
 
   const handleAddressChange = (index, field, value) => {
@@ -14,17 +24,45 @@ const StepTwo = () => {
   };
 
   const addAddress = () => {
-    setAddresses([...addresses, { streetAddress: "", city: "", region: "", postalCode: "", fromDate: "", toDate: "" }]);
+    setAddresses([
+      ...addresses,
+      {
+        streetAddress: "",
+        city: "",
+        region: "",
+        postalCode: "",
+        fromDate: "",
+        toDate: "",
+      },
+    ]);
+  };
+  
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setForm((prevForm) => ({ ...prevForm, stepTwoData: addresses }));
+    
+    onNextStep();
+  };
+  const handlePreviousStep = () => {
+    onPreviousStep(); // Call the onPreviousStep function from props to move back to Step 1
   };
 
+  useEffect(() => {
+    console.log("Updated form data:", form);
+  }, [form]);
+
   return (
-    <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-6 text-left">
+    <Form.Root className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-6 text-left" onSubmit={onSubmit}>
       <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
         Address History
       </h2>
 
       {addresses.map((address, index) => (
-        <div key={index} className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div
+          key={index}
+          className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+        >
           <div className="col-span-full">
             <label
               htmlFor={`street-address-${index}`}
@@ -40,7 +78,9 @@ const StepTwo = () => {
                 autoComplete="street-address"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={address.streetAddress}
-                onChange={(e) => handleAddressChange(index, "streetAddress", e.target.value)}
+                onChange={(e) =>
+                  handleAddressChange(index, "streetAddress", e.target.value)
+                }
               />
             </div>
           </div>
@@ -60,7 +100,9 @@ const StepTwo = () => {
                 autoComplete="address-level2"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={address.city}
-                onChange={(e) => handleAddressChange(index, "city", e.target.value)}
+                onChange={(e) =>
+                  handleAddressChange(index, "city", e.target.value)
+                }
               />
             </div>
           </div>
@@ -80,7 +122,9 @@ const StepTwo = () => {
                 autoComplete="address-level1"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={address.region}
-                onChange={(e) => handleAddressChange(index, "region", e.target.value)}
+                onChange={(e) =>
+                  handleAddressChange(index, "region", e.target.value)
+                }
               />
             </div>
           </div>
@@ -100,7 +144,9 @@ const StepTwo = () => {
                 autoComplete="postal-code"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={address.postalCode}
-                onChange={(e) => handleAddressChange(index, "postalCode", e.target.value)}
+                onChange={(e) =>
+                  handleAddressChange(index, "postalCode", e.target.value)
+                }
               />
             </div>
           </div>
@@ -119,7 +165,9 @@ const StepTwo = () => {
                 name={`from-date-${index}`}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={address.fromDate}
-                onChange={(e) => handleAddressChange(index, "fromDate", e.target.value)}
+                onChange={(e) =>
+                  handleAddressChange(index, "fromDate", e.target.value)
+                }
               />
             </div>
           </div>
@@ -138,14 +186,16 @@ const StepTwo = () => {
                 name={`to-date-${index}`}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={address.toDate}
-                onChange={(e) => handleAddressChange(index, "toDate", e.target.value)}
+                onChange={(e) =>
+                  handleAddressChange(index, "toDate", e.target.value)
+                }
               />
             </div>
           </div>
         </div>
       ))}
 
-<div className="mt-8 flex justify-end">
+      <div className="mt-8 flex justify-end">
         <button
           type="button"
           className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -154,7 +204,28 @@ const StepTwo = () => {
           Add Address
         </button>
       </div>
-    </div>
+      <div className="flex justify-between">
+      
+        <button
+          type="button"
+          onClick={handlePreviousStep}
+          className="box-border w-full text-gray-700 bg-gray-100 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+        >
+          Previous Step
+        </button>
+      
+
+      <Form.Submit asChild>
+        <button
+          type="submit"
+          
+          className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+        >
+          Next
+        </button>
+      </Form.Submit>
+      </div>
+    </Form.Root>
   );
 };
 

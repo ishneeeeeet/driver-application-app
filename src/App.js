@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -70,8 +69,8 @@ function App() {
             <div className="py-6 bg-white sm:py-8 lg:py-12">
               <div className="px-4 mx-auto max-w-screen-2xl md:px-8">
                 {activeStep === 1 && <StepOne onNextStep={() => handleStepChange(2)}  />}
-                {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)}  />}
-                {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)} />}
+                {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)} onPreviousStep={() => handleStepChange(1)} />}
+                {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)}  onPreviousStep={() => handleStepChange(2)}/>}
                 {activeStep === 4 && <StepFour />}
                 
               </div>

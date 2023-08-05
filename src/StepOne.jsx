@@ -4,26 +4,14 @@ import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
 import RadioInput from "./components/RadioInput";
 
-const StepOne = ({ onNextStep, onPreviousStep }) => {
+const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    position: "",
-    status: "", // Added "status" field to formData
-    company: "",
-    dateOfBirth: "",
-    province: "",
-    driverLicenseNumber: "",
-    driverLicenseExpiry: "",
-    driverLicenseClass: "",
-    questionOne: "",
-    questionTwo: "",
-    questionThree: "",
-    questionFour: "",
-    questionFive: "",
+    
   });
   const questionFields = [
     {
@@ -63,9 +51,6 @@ const StepOne = ({ onNextStep, onPreviousStep }) => {
     setForm((prevForm) => ({ ...prevForm, stepOneData: formData }));
     console.log(form);
     onNextStep();
-  };
-  const handlePreviousStep = () => {
-    onPreviousStep(); // Call the onPreviousStep function from props to move back to Step 1
   };
 
   useEffect(() => {
@@ -336,16 +321,6 @@ const StepOne = ({ onNextStep, onPreviousStep }) => {
       </div>
 
       <div className="flex justify-between">
-        <Form.Submit asChild>
-          <button
-            type="button"
-            onClick={handlePreviousStep}
-            className="box-border w-full text-gray-700 bg-gray-100 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
-          >
-            Previous Step
-          </button>
-        </Form.Submit>
-
         <Form.Submit asChild>
           <button
             type="submit"
