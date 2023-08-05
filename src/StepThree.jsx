@@ -6,19 +6,63 @@ import * as Label from "@radix-ui/react-label";
 const StepThree = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    
+    employmentHistory: [
+      {
+        employerName: "",
+        positionHeld: "",
+        streetAddress: "",
+        city: "",
+        region: "",
+        postalCode: "",
+        fromDate: "",
+        toDate: "",
+        reasonForLeaving: "",
+        subjectToFMCSRs: "",
+        safetySensitiveFunction: "",
+      },
+    ],
   });
+
   const handlePreviousStep = () => {
-    onPreviousStep(); // Call the onPreviousStep function from props to move back to Step 1
+    onPreviousStep();
   };
+
+  const addEmployment = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      employmentHistory: [
+        ...prevFormData.employmentHistory,
+        {
+          employerName: "",
+          positionHeld: "",
+          streetAddress: "",
+          city: "",
+          region: "",
+          postalCode: "",
+          fromDate: "",
+          toDate: "",
+          reasonForLeaving: "",
+          subjectToFMCSRs: "",
+          safetySensitiveFunction: "",
+        },
+      ],
+    }));
+  };
+
+  const handleEmploymentChange = (index, field, value) => {
+    setFormData((prevFormData) => {
+      const updatedHistory = [...prevFormData.employmentHistory];
+      updatedHistory[index][field] = value;
+      return { ...prevFormData, employmentHistory: updatedHistory };
+    });
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
     setForm((prevForm) => ({ ...prevForm, stepThreeData: formData }));
-    
     onNextStep();
   };
+
   return (
     <Form.Root className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left" onSubmit={onSubmit}>
       <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
@@ -248,6 +292,15 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             </label>
           </div>
         </div>
+      </div>
+      <div className="mt-8 flex justify-end">
+        <button
+          type="button"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          
+        >
+          Add Employer
+        </button>
       </div>
       <div className="flex justify-between">
       <button

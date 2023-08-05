@@ -4,7 +4,7 @@ const FormContext = createContext();
 
 const FormDataContext = ({ children }) => {
   const [form, setForm] = useState({
-   
+   name: ""
     
   });
   const data = {
