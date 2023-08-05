@@ -69,9 +69,9 @@ function App() {
           <div className="flex flex-col w-full text-center">
             <div className="py-6 bg-white sm:py-8 lg:py-12">
               <div className="px-4 mx-auto max-w-screen-2xl md:px-8">
-                {activeStep === 1 && <StepOne />}
-                {activeStep === 2 && <StepTwo />}
-                {activeStep === 3 && <StepThree />}
+                {activeStep === 1 && <StepOne onNextStep={() => handleStepChange(2)}  />}
+                {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)}  />}
+                {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)} />}
                 {activeStep === 4 && <StepFour />}
                 
               </div>

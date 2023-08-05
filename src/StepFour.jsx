@@ -2,7 +2,8 @@ import React from 'react'
 
 const StepFour = () => {
   return (
-    <div>StepFour</div>
+    <button>download pdf</button>
+
   )
 }
 

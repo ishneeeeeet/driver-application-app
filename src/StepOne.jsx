@@ -2,26 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
+import RadioInput from "./components/RadioInput";
 
-const RadioInput = ({ name, value, checkedValue, onChange }) => (
-  <>
-    <input
-      type="radio"
-      name={name}
-      value={value}
-      checked={checkedValue === value}
-      onChange={onChange}
-    />
-    <label htmlFor={name} className="text-gray-800">
-      {value}
-    </label>
-  </>
-);
-
-const StepOne = ({ onNext }) => {
+const StepOne = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     position: "",
@@ -38,24 +25,6 @@ const StepOne = ({ onNext }) => {
     questionFour: "",
     questionFive: "",
   });
- 
-
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setForm((prevForm) => ({ ...prevForm, stepOneData: formData }));
-    console.log(form);
-  };
-
-  useEffect(() => {
-    console.log("Updated form data:", form);
-  }, [form]);
   const questionFields = [
     {
       name: "questionOne",
@@ -84,6 +53,25 @@ const StepOne = ({ onNext }) => {
     },
   ];
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setForm((prevForm) => ({ ...prevForm, stepOneData: formData }));
+    console.log(form);
+    onNextStep();
+  };
+  const handlePreviousStep = () => {
+    onPreviousStep(); // Call the onPreviousStep function from props to move back to Step 1
+  };
+
+  useEffect(() => {
+    console.log("Updated form data:", form);
+  }, [form]);
+
   return (
     <Form.Root className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
@@ -98,8 +86,9 @@ const StepOne = ({ onNext }) => {
             <div className="mt-2">
               <input
                 type="text"
-                name="first-name"
+                name="firstName"
                 id="first-name"
+                onChange={handleChange}
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -116,8 +105,9 @@ const StepOne = ({ onNext }) => {
             <div className="mt-2">
               <input
                 type="text"
-                name="last-name"
+                name="lastName"
                 id="last-name"
+                onChange={handleChange}
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -156,7 +146,6 @@ const StepOne = ({ onNext }) => {
             </Form.Control>
           </Form.Field>
 
-          
           <div className="sm:col-span-3">
             <label
               htmlFor="date-of-birth"
@@ -169,6 +158,7 @@ const StepOne = ({ onNext }) => {
                 type="date"
                 name="dateOfBirth"
                 id="date-of-birth"
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -183,36 +173,24 @@ const StepOne = ({ onNext }) => {
           </label>
           <div className="mt-2">
             <div className="flex items-center space-x-4">
-              <input
-                type="radio"
-                name="question-one"
+              <RadioInput
+                name="status"
                 value="Citizen"
-                id="question-one-true"
-                className="text-indigo-600 focus:ring-indigo-500"
+                checkedValue={formData.status}
+                onChange={handleChange}
               />
-              <label htmlFor="question-one-true" className="text-gray-900">
-                Citizen
-              </label>
-              <input
-                type="radio"
-                name="question-one"
-                value="False"
-                id="question-one-false"
-                className="text-indigo-600 focus:ring-indigo-500"
+              <RadioInput
+                name="status"
+                value="PR"
+                checkedValue={formData.status}
+                onChange={handleChange}
               />
-              <label htmlFor="question-one-false" className="text-gray-900">
-                PR
-              </label>
-              <input
-                type="radio"
-                name="question-one"
-                value="False"
-                id="question-one-false"
-                className="text-indigo-600 focus:ring-indigo-500"
+              <RadioInput
+                name="status"
+                value="Work Permit"
+                checkedValue={formData.status}
+                onChange={handleChange}
               />
-              <label htmlFor="question-one-false" className="text-gray-900">
-                Work Permit
-              </label>
             </div>
           </div>
         </div>
@@ -225,36 +203,24 @@ const StepOne = ({ onNext }) => {
           </label>
           <div className="mt-2">
             <div className="flex items-center space-x-4">
-              <input
-                type="radio"
-                name="question-one"
-                value="Citizen"
-                id="question-one-true"
-                className="text-indigo-600 focus:ring-indigo-500"
+              <RadioInput
+                name="position"
+                value="Driver"
+                checkedValue={formData.position}
+                onChange={handleChange}
               />
-              <label htmlFor="question-one-true" className="text-gray-900">
-                Driver
-              </label>
-              <input
-                type="radio"
-                name="question-one"
-                value="False"
-                id="question-one-false"
-                className="text-indigo-600 focus:ring-indigo-500"
+              <RadioInput
+                name="position"
+                value="Owner Operator"
+                checkedValue={formData.position}
+                onChange={handleChange}
               />
-              <label htmlFor="question-one-false" className="text-gray-900">
-                Owner Operator
-              </label>
-              <input
-                type="radio"
-                name="question-one"
-                value="False"
-                id="question-one-false"
-                className="text-indigo-600 focus:ring-indigo-500"
+              <RadioInput
+                name="position"
+                value="Other"
+                checkedValue={formData.position}
+                onChange={handleChange}
               />
-              <label htmlFor="question-one-false" className="text-gray-900">
-                Other
-              </label>
             </div>
           </div>
         </div>
@@ -275,8 +241,9 @@ const StepOne = ({ onNext }) => {
             <div className="mt-2">
               <input
                 type="number"
-                name="first-name"
-                id="first-name"
+                name="driverLicenseNumber"
+                onChange={handleChange}
+                id="driver-license-number"
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -293,8 +260,8 @@ const StepOne = ({ onNext }) => {
             <div className="mt-2">
               <input
                 type="text"
-                name="last-name"
-                id="last-name"
+                onChange={handleChange}
+                name="driverLicenseNumber"
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -311,18 +278,18 @@ const StepOne = ({ onNext }) => {
             <div className="mt-2">
               <select
                 id="country"
-                name="country"
+                name="province"
                 autoComplete="country-name"
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                <option>AB</option>
-                <option>BC</option>
-                <option>ON</option>
+                <option value="AB">AB</option>
+                <option value="BC">BC</option>
+                <option value="ON">ON</option>
               </select>
             </div>
           </div>
 
-          {/* Date of Birth Field */}
           <div className="sm:col-span-3">
             <label
               htmlFor="date-of-birth"
@@ -333,8 +300,8 @@ const StepOne = ({ onNext }) => {
             <div className="mt-2">
               <input
                 type="date"
-                name="dateOfBirth"
-                id="date-of-birth"
+                name="driverLicenseExpiry"
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -363,19 +330,31 @@ const StepOne = ({ onNext }) => {
                   onChange={handleChange}
                 />
               </div>
-              {errors[name] && (
-                <span className="text-red-500 text-sm">{errors[name]}</span>
-              )}
             </div>
           ))}
         </div>
       </div>
 
-      <Form.Submit asChild>
-        <button className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
-          Next
-        </button>
-      </Form.Submit>
+      <div className="flex justify-between">
+        <Form.Submit asChild>
+          <button
+            type="button"
+            onClick={handlePreviousStep}
+            className="box-border w-full text-gray-700 bg-gray-100 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          >
+            Previous Step
+          </button>
+        </Form.Submit>
+
+        <Form.Submit asChild>
+          <button
+            type="submit"
+            className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          >
+            Next
+          </button>
+        </Form.Submit>
+      </div>
     </Form.Root>
   );
 };
