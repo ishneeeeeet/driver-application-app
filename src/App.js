@@ -3,6 +3,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
+import StepFive from "./StepFive";
 
 function App() {
   const [activeStep, setActiveStep] = useState(1);
@@ -32,7 +33,7 @@ function App() {
               } rounded-t sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(1)}
             >
-              Personal Info
+              Personal
             </button>
             <button
               className={`inline-flex items-right justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
@@ -62,6 +63,16 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(4)}
             >
+              Accident History
+            </button>
+            <button
+              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+                activeStep === 5
+                  ? "text-indigo-500 border-b-2 border-indigo-500"
+                  : "border-b-2 border-gray-200"
+              } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
+              onClick={() => handleStepChange(5)}
+            >
               Consent
             </button>
           </div>
@@ -72,6 +83,7 @@ function App() {
                 {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)} onPreviousStep={() => handleStepChange(1)} />}
                 {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)}  onPreviousStep={() => handleStepChange(2)}/>}
                 {activeStep === 4 && <StepFour />}
+                {activeStep === 5 && <StepFive />}
                 
               </div>
               
