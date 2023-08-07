@@ -5,9 +5,9 @@ import { saveAs } from "file-saver";
 
 const StepFive = () => {
   const { form, setForm } = useContext(FormContext);
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    axios
+    await axios
       .post(`http://localhost:8000/createPdf`, form) //create pdf next => get pdf
       .then((response) => {
         axios
@@ -19,7 +19,7 @@ const StepFive = () => {
           })
           .then(() => {
             axios
-              .post("http://localhost:8000/sendPdf", form.stepOneData.email)
+              .post("http://localhost:8000/sendPdf")
               .then((response) => {
                 console.log(response);
                 alert(response.data);
