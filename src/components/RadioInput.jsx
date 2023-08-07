@@ -1,6 +1,7 @@
 const RadioInput = ({ name, value, checkedValue, onChange }) => (
   <>
     <input
+   
       type="radio"
       name={name}
       value={value}

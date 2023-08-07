@@ -1,34 +1,35 @@
-import React, { useEffect, useReducer } from 'react';
+import { Form } from "@radix-ui/react-form";
+import React, { useEffect, useReducer } from "react";
 
 const initialState = {
-  accidentInLast3Years: false,
-  dateOfAccident: '',
-  accidentDescription: '',
-  accidentLocation: '',
+  accidentInLast3Years: null,
+  dateOfAccident: "",
+  accidentDescription: "",
+  accidentLocation: "",
   hasFatalities: false,
   hasInjuries: false,
   accidentsArray: [],
   trafficConvictions: false,
-  convictionDate: '',
-  convictionLocation: '',
-  charge: '',
-  penalty: '',
+  convictionDate: "",
+  convictionLocation: "",
+  charge: "",
+  penalty: "",
   trafficConvictionsArray: [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'SET_VALUE':
+    case "SET_VALUE":
       return { ...state, [action.field]: action.payload };
-    case 'ADD_ACCIDENT':
+    case "ADD_ACCIDENT":
       return {
         ...state,
         accidentsArray: state.accidentInLast3Years
           ? [...state.accidentsArray, { ...state }]
           : state.accidentsArray,
-          showAdditionalAccidentFields: false,
+        showAdditionalAccidentFields: false,
       };
-    case 'ADD_TRAFFIC_CONVICTION':
+    case "ADD_TRAFFIC_CONVICTION":
       return {
         ...state,
         trafficConvictionsArray: state.trafficConvictions
@@ -43,75 +44,96 @@ const reducer = (state, action) => {
             ]
           : state.trafficConvictionsArray,
       };
-    case 'TOGGLE_ACCIDENT_STATUS':
+    case "TOGGLE_ACCIDENT_STATUS":
       return {
         ...state,
         accidentInLast3Years: action.payload,
         accidentsArray: action.payload ? state.accidentsArray : [], // Clear the accidentsArray if status changes to false
         showAdditionalAccidentFields: false,
       };
-    case 'TOGGLE_TRAFFIC_CONVICTIONS_STATUS':
+    case "TOGGLE_TRAFFIC_CONVICTIONS_STATUS":
       return {
         ...state,
         trafficConvictions: action.payload,
-        trafficConvictionsArray: action.payload ? state.trafficConvictionsArray : [], // Clear the trafficConvictionsArray if status changes to false
+        trafficConvictionsArray: action.payload
+          ? state.trafficConvictionsArray
+          : [], // Clear the trafficConvictionsArray if status changes to false
       };
     default:
       return state;
   }
 };
 
-
-
-
-const StepFour = ({onNextStep}) => {
+const StepFour = ({ onNextStep }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+  
+    // Check if any required questions are not answered
+    if (
+      (state.accidentInLast3Years &&
+        (!state.dateOfAccident || !state.accidentDescription || !state.accidentLocation)) ||
+      (state.trafficConvictions &&
+        (!state.convictionDate || !state.convictionLocation || !state.charge || !state.penalty))
+    ) {
+      alert("Please answer all required questions.");
+      return;
+    }
+  
+    console.log("Form submitted successfully!");
+    onNextStep();
+  };
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-    
+
     // For radio buttons, 'checked' indicates the selected value.
     // So we directly set the value to 'checked' instead of 'value'.
-    const payload = type === 'radio' ? e.target.checked : value;
-  
-    dispatch({ type: 'SET_VALUE', field: name, payload });
-    
-    if (name === 'accidentInLast3Years') {
-      const isAccidentInLast3Years = payload === 'true';
+    const payload = type === "radio" ? e.target.checked : value;
+
+    dispatch({ type: "SET_VALUE", field: name, payload });
+
+    if (name === "accidentInLast3Years") {
+      const isAccidentInLast3Years = payload === "true";
       dispatch({
-        type: 'TOGGLE_ACCIDENT_STATUS',
+        type: "TOGGLE_ACCIDENT_STATUS",
         payload: isAccidentInLast3Years,
       });
     }
-  
-    if (name === 'trafficConvictions') {
-      const hasTrafficConvictions = payload === 'true';
+
+    if (name === "trafficConvictions") {
+      const hasTrafficConvictions = payload === "true";
       dispatch({
-        type: 'TOGGLE_TRAFFIC_CONVICTIONS_STATUS',
+        type: "TOGGLE_TRAFFIC_CONVICTIONS_STATUS",
         payload: hasTrafficConvictions,
       });
     }
   };
   const handleAddAccident = () => {
-    const { dateOfAccident, accidentDescription, accidentLocation, hasFatalities, hasInjuries } = state;
+    const {
+      dateOfAccident,
+      accidentDescription,
+      accidentLocation,
+      hasFatalities,
+      hasInjuries,
+    } = state;
     const newAccident = {
       dateOfAccident,
       accidentDescription,
       accidentLocation,
-      hasFatalities: hasFatalities === 'true',
-      hasInjuries: hasInjuries === 'true',
+      hasFatalities: hasFatalities === "true",
+      hasInjuries: hasInjuries === "true",
     };
-    dispatch({ type: 'ADD_ACCIDENT', payload: newAccident });
+    dispatch({ type: "ADD_ACCIDENT", payload: newAccident });
   };
-  
-  
 
   useEffect(() => {
     console.log("latest: ", state.accidentInLast3Years);
-  }, [state.accidentInLast3Years])
+  }, [state.accidentInLast3Years]);
 
   return (
-    <div className="max-w-screen-md mx-auto">
+    <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
       <div className="sm:col-span-3">
         <label
           htmlFor="country"
@@ -121,13 +143,16 @@ const StepFour = ({onNextStep}) => {
         </label>
         <div className="mt-2">
           <select
+          required
             id="country"
             name="accidentInLast3Years"
             autoComplete="country-name"
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             onChange={handleChange}
           >
-            <option disabled selected hidden>Select</option>
+            <option disabled selected hidden>
+              Select
+            </option>
             <option value="true">True</option>
             <option value="false">False</option>
           </select>
@@ -194,9 +219,7 @@ const StepFour = ({onNextStep}) => {
           </div>
 
           <div className="sm:col-span-3">
-            <label
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
+            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
               Fatalities
             </label>
             <div className="mt-2">
@@ -221,7 +244,7 @@ const StepFour = ({onNextStep}) => {
                   value="false"
                   checked={state.hasFatalities}
                   onChange={handleChange}
-                  className='mr-2'
+                  className="mr-2"
                 />
                 <label htmlFor="fatalities-false">No</label>
               </div>
@@ -229,9 +252,7 @@ const StepFour = ({onNextStep}) => {
           </div>
 
           <div className="sm:col-span-3">
-            <label
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
+            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
               Injuries
             </label>
             <div className="mt-2">
@@ -256,16 +277,18 @@ const StepFour = ({onNextStep}) => {
                   value="false"
                   checked={state.hasInjuries}
                   onChange={handleChange}
-                  className='mr-2'
+                  className="mr-2"
                 />
                 <label htmlFor="injuries-false">No</label>
               </div>
             </div>
           </div>
         </>
-      ): ""}
-       {/* Button to add an additional accident */}
-       {state.accidentInLast3Years  && (
+      ) : (
+        ""
+      )}
+      {/* Button to add an additional accident */}
+      {state.accidentInLast3Years && (
         <div className="sm:col-span-3">
           <button
             type="button"
@@ -277,7 +300,7 @@ const StepFour = ({onNextStep}) => {
         </div>
       )}
 
-<div className="sm:col-span-3">
+      <div className="sm:col-span-3">
         <label
           htmlFor="traffic-convictions"
           className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
@@ -291,7 +314,9 @@ const StepFour = ({onNextStep}) => {
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             onChange={handleChange}
           >
-            <option disabled selected hidden>Select</option>
+            <option disabled selected hidden>
+              Select
+            </option>
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
@@ -377,14 +402,14 @@ const StepFour = ({onNextStep}) => {
           </div>
         </>
       )}
-     <button
-            type="submit"
-            onSubmit={onNextStep}
-            className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
-          >
-            Next
-          </button>
-    </div>
+      <button
+        type="submit"
+        onSubmit={onSubmit}
+        className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+      >
+        Next
+      </button>
+    </form>
   );
 };
 

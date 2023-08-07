@@ -70,6 +70,7 @@ const StepOne = ({ onNextStep }) => {
             </Label.Root>
             <div className="mt-2">
               <input
+              required
                 type="text"
                 name="firstName"
                 id="first-name"
@@ -138,10 +139,10 @@ const StepOne = ({ onNextStep }) => {
             >
               Date of Birth
             </label>
+            
             <div className="mt-2">
               <input
-              datepicker
-              datepicker-autohide
+              required
                 type="date"
                 name="dateOfBirth"
                 id="date-of-birth"
@@ -159,7 +160,7 @@ const StepOne = ({ onNextStep }) => {
             Status
           </label>
           <div className="mt-2">
-            <div className="flex items-center space-x-4">
+            <div  className="flex items-center space-x-4">
               <RadioInput
                 name="status"
                 value="Citizen"
@@ -231,7 +232,7 @@ const StepOne = ({ onNextStep }) => {
                 name="driverLicenseNumber"
                 onChange={handleChange}
                 id="driver-license-number"
-                autoComplete="given-name"
+                autoComplete="number"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -249,7 +250,7 @@ const StepOne = ({ onNextStep }) => {
                 type="text"
                 onChange={handleChange}
                 name="driverLicenseNumber"
-                autoComplete="family-name"
+                autoComplete="number"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -286,6 +287,7 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="date"
                 name="driverLicenseExpiry"
                 onChange={handleChange}
