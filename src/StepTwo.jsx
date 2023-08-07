@@ -44,6 +44,20 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
     
     onNextStep();
   };
+  const areAddressFieldsEmpty = (address) => {
+    return (
+      address.streetAddress.trim() === "" ||
+      address.city.trim() === "" ||
+      address.region.trim() === "" ||
+      address.postalCode.trim() === "" ||
+      address.fromDate.trim() === "" ||
+      address.toDate.trim() === ""
+    );
+  };
+
+  const validateAddresses = () => {
+    return addresses.every((address) => !areAddressFieldsEmpty(address));
+  };
   const handlePreviousStep = () => {
     onPreviousStep(); // Call the onPreviousStep function from props to move back to Step 1
   };
@@ -54,6 +68,13 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
 
   return (
     <Form.Root className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-6 text-left" onSubmit={onSubmit}>
+
+      {/* Validation message for required fields */}
+      {!validateAddresses() && (
+        <div className="mt-4 text-red-500">
+          Please fill out all required fields.
+        </div>
+      )}
       <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
         Address History
       </h2>
@@ -94,6 +115,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="text"
                 id={`city-${index}`}
                 name={`city-${index}`}
@@ -116,6 +138,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="text"
                 id={`region-${index}`}
                 name={`region-${index}`}
@@ -160,6 +183,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="date"
                 id={`from-date-${index}`}
                 name={`from-date-${index}`}
@@ -181,6 +205,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="date"
                 id={`to-date-${index}`}
                 name={`to-date-${index}`}
