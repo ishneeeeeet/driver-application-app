@@ -36,6 +36,7 @@ const StepFive = () => {
       >
         Submit
       </button>
+      {console.log(form)}
     </form>
   );
 };
