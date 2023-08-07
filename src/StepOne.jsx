@@ -11,7 +11,7 @@ const StepOne = ({ onNextStep }) => {
       firstName: "",
       lastName: "",
       email: "",
-      phone: "",
+      
     }
   );
   const questionFields = [
@@ -101,6 +101,45 @@ const StepOne = ({ onNextStep }) => {
             </div>
           </div>
 
+          
+          <div className="sm:col-span-3">
+          <label
+            htmlFor="company-applied-for"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Company applying for?
+          </label>
+          <div className="mt-2">
+            <input
+              type="text"
+              name="companyAppliedFor"
+              id="company-applied-for"
+              onChange={handleChange}
+              autoComplete="organization"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="date-of-birth"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Date of Birth
+            </label>
+
+            <div className="mt-2">
+              <input
+                required
+                type="date"
+                name="dateOfBirth"
+                id="date-of-birth"
+                onChange={handleChange}
+                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
           <Form.Field className="sm:col-span-4">
             <Form.Label
               htmlFor="email"
@@ -132,26 +171,6 @@ const StepOne = ({ onNextStep }) => {
               />
             </Form.Control>
           </Form.Field>
-
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="date-of-birth"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Date of Birth
-            </label>
-
-            <div className="mt-2">
-              <input
-                required
-                type="date"
-                name="dateOfBirth"
-                id="date-of-birth"
-                onChange={handleChange}
-                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
         </div>
         <div className="sm:col-span-3 w-full mt-6">
           <label
@@ -283,9 +302,7 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                <option hidden selected disabled>
-                  Select
-                </option>
+                <option selected disabled value="">Select an option</option>
                 <option value="AB">Alberta</option>
                 <option value="BC">British Columbia</option>
                 <option value="ON">Ontario</option>

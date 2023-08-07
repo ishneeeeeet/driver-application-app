@@ -78,14 +78,15 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
       );
     });
   
-    if (hasInvalidFields) {
-      // Handle invalid fields, e.g., display an error message
-      alert("Please fill out all required fields.");
-      return;
-    }
+    // if (hasInvalidFields) {
+    //   // Handle invalid fields, e.g., display an error message
+    //   alert("Please fill out all required fields.");
+    //   return;
+    // }
   
     setForm((prevForm) => ({ ...prevForm, stepThreeData: formData }));
     onNextStep();
+    console.log(form);
   };
   
 
@@ -112,6 +113,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="text"
                   name={`employer-name-${index}`}
                   id={`employer-name-${index}`}
@@ -138,6 +140,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="text"
                   name={`position-held-${index}`}
                   id={`position-held-${index}`}
@@ -164,6 +167,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="text"
                   name={`street-address-${index}`}
                   id={`street-address-${index}`}
@@ -190,6 +194,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="text"
                   name={`city-${index}`}
                   id={`city-${index}`}
@@ -212,6 +217,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="text"
                   name={`region-${index}`}
                   id={`region-${index}`}
@@ -234,6 +240,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="text"
                   name={`postal-code-${index}`}
                   id={`postal-code-${index}`}
@@ -256,6 +263,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="date"
                   name={`from-date-${index}`}
                   id={`from-date-${index}`}
@@ -277,6 +285,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="date"
                   name={`to-date-${index}`}
                   id={`to-date-${index}`}
@@ -298,6 +307,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-2">
                 <input
+                required
                   type="text"
                   name={`reason-for-leaving-${index}`}
                   id={`reason-for-leaving-${index}`}
@@ -330,6 +340,10 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   value="True"
                   id={`question-one-true-${index}`}
                   className="text-indigo-600 focus:ring-indigo-500"
+                  checked={employment.subjectToFMCSRs === "True"}
+                  onChange={(e) =>
+                    handleEmploymentChange(index, "subjectToFMCSRs", e.target.value)
+                  }
                 />
                 <label
                   htmlFor={`question-one-true-${index}`}
@@ -343,6 +357,10 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   value="False"
                   id={`question-one-false-${index}`}
                   className="text-indigo-600 focus:ring-indigo-500"
+                  checked={employment.subjectToFMCSRs === "False"}
+                  onChange={(e) =>
+                    handleEmploymentChange(index, "subjectToFMCSRs", e.target.value)
+                  }
                 />
                 <label
                   htmlFor={`question-one-false-${index}`}
@@ -370,6 +388,10 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   value="True"
                   id={`question-two-true-${index}`}
                   className="text-indigo-600 focus:ring-indigo-500"
+                  checked={employment.safetySensitiveFunction === "True"}
+                  onChange={(e) =>
+                    handleEmploymentChange(index, "safetySensitiveFunction", e.target.value)
+                  }
                 />
                 <label
                   htmlFor={`question-two-true-${index}`}
@@ -383,6 +405,10 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   value="False"
                   id={`question-two-false-${index}`}
                   className="text-indigo-600 focus:ring-indigo-500"
+                  checked={employment.safetySensitiveFunction === "False"}
+                  onChange={(e) =>
+                    handleEmploymentChange(index, "safetySensitiveFunction", e.target.value)
+                  }
                 />
                 <label
                   htmlFor={`question-two-false-${index}`}
