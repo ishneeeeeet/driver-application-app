@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 const initialState = {
   accidentInLast3Years: false,
@@ -26,6 +26,7 @@ const reducer = (state, action) => {
         accidentsArray: state.accidentInLast3Years
           ? [...state.accidentsArray, { ...state }]
           : state.accidentsArray,
+          showAdditionalAccidentFields: false,
       };
     case 'ADD_TRAFFIC_CONVICTION':
       return {
@@ -42,19 +43,72 @@ const reducer = (state, action) => {
             ]
           : state.trafficConvictionsArray,
       };
+    case 'TOGGLE_ACCIDENT_STATUS':
+      return {
+        ...state,
+        accidentInLast3Years: action.payload,
+        accidentsArray: action.payload ? state.accidentsArray : [], // Clear the accidentsArray if status changes to false
+        showAdditionalAccidentFields: false,
+      };
+    case 'TOGGLE_TRAFFIC_CONVICTIONS_STATUS':
+      return {
+        ...state,
+        trafficConvictions: action.payload,
+        trafficConvictionsArray: action.payload ? state.trafficConvictionsArray : [], // Clear the trafficConvictionsArray if status changes to false
+      };
     default:
       return state;
   }
 };
 
 
-const StepFour = () => {
+
+
+const StepFour = ({onNextStep}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    dispatch({ type: 'SET_VALUE', field: name, payload: value });
+    const { name, value, type } = e.target;
+    
+    // For radio buttons, 'checked' indicates the selected value.
+    // So we directly set the value to 'checked' instead of 'value'.
+    const payload = type === 'radio' ? e.target.checked : value;
+  
+    dispatch({ type: 'SET_VALUE', field: name, payload });
+    
+    if (name === 'accidentInLast3Years') {
+      const isAccidentInLast3Years = payload === 'true';
+      dispatch({
+        type: 'TOGGLE_ACCIDENT_STATUS',
+        payload: isAccidentInLast3Years,
+      });
+    }
+  
+    if (name === 'trafficConvictions') {
+      const hasTrafficConvictions = payload === 'true';
+      dispatch({
+        type: 'TOGGLE_TRAFFIC_CONVICTIONS_STATUS',
+        payload: hasTrafficConvictions,
+      });
+    }
   };
+  const handleAddAccident = () => {
+    const { dateOfAccident, accidentDescription, accidentLocation, hasFatalities, hasInjuries } = state;
+    const newAccident = {
+      dateOfAccident,
+      accidentDescription,
+      accidentLocation,
+      hasFatalities: hasFatalities === 'true',
+      hasInjuries: hasInjuries === 'true',
+    };
+    dispatch({ type: 'ADD_ACCIDENT', payload: newAccident });
+  };
+  
+  
+
+  useEffect(() => {
+    console.log("latest: ", state.accidentInLast3Years);
+  }, [state.accidentInLast3Years])
 
   return (
     <div className="max-w-screen-md mx-auto">
@@ -73,14 +127,14 @@ const StepFour = () => {
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             onChange={handleChange}
           >
-            <option>Select</option>
+            <option disabled selected hidden>Select</option>
             <option value="true">True</option>
             <option value="false">False</option>
           </select>
         </div>
       </div>
 
-      {state.accidentInLast3Years && (
+      {state.accidentInLast3Years ? (
         <>
           <div className="sm:col-span-3">
             <label
@@ -165,8 +219,9 @@ const StepFour = () => {
                   name="hasFatalities"
                   id="fatalities-false"
                   value="false"
-                  checked={!state.hasFatalities}
+                  checked={state.hasFatalities}
                   onChange={handleChange}
+                  className='mr-2'
                 />
                 <label htmlFor="fatalities-false">No</label>
               </div>
@@ -188,7 +243,7 @@ const StepFour = () => {
                   value="true"
                   checked={state.hasInjuries}
                   onChange={handleChange}
-                  className="mr-2"
+                  className="mr-2 "
                 />
                 <label htmlFor="injuries-true" className="mr-4">
                   Yes
@@ -199,14 +254,27 @@ const StepFour = () => {
                   name="hasInjuries"
                   id="injuries-false"
                   value="false"
-                  checked={!state.hasInjuries}
+                  checked={state.hasInjuries}
                   onChange={handleChange}
+                  className='mr-2'
                 />
                 <label htmlFor="injuries-false">No</label>
               </div>
             </div>
           </div>
         </>
+      ): ""}
+       {/* Button to add an additional accident */}
+       {state.accidentInLast3Years  && (
+        <div className="sm:col-span-3">
+          <button
+            type="button"
+            onClick={handleAddAccident}
+            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Add Additional Accident
+          </button>
+        </div>
       )}
 
 <div className="sm:col-span-3">
@@ -223,7 +291,7 @@ const StepFour = () => {
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             onChange={handleChange}
           >
-            <option>Select</option>
+            <option disabled selected hidden>Select</option>
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
@@ -309,7 +377,13 @@ const StepFour = () => {
           </div>
         </>
       )}
-      {/* ... Existing JSX for accidents list ... */}
+     <button
+            type="submit"
+            onSubmit={onNextStep}
+            className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          >
+            Next
+          </button>
     </div>
   );
 };

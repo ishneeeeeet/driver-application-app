@@ -82,7 +82,7 @@ function App() {
                 {activeStep === 1 && <StepOne onNextStep={() => handleStepChange(2)}  />}
                 {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)} onPreviousStep={() => handleStepChange(1)} />}
                 {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)}  onPreviousStep={() => handleStepChange(2)}/>}
-                {activeStep === 4 && <StepFour />}
+                {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(5)}  />}
                 {activeStep === 5 && <StepFive />}
                 
               </div>
