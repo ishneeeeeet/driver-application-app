@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      <div className="mt-8">
+      <div className="mt-6">
         <h2 className="mb-4 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
           Driver Application Form
         </h2>
@@ -77,7 +77,7 @@ function App() {
             </button>
           </div>
           <div className="flex flex-col w-full text-center">
-            <div className="py-6 bg-white sm:py-8 lg:py-12">
+            <div className="py-4 bg-white sm:py-8 lg:py-12">
               <div className="px-4 mx-auto max-w-screen-2xl md:px-8">
                 {activeStep === 1 && <StepOne onNextStep={() => handleStepChange(2)}  />}
                 {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)} onPreviousStep={() => handleStepChange(1)} />}

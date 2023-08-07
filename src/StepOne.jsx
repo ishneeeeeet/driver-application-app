@@ -6,13 +6,14 @@ import RadioInput from "./components/RadioInput";
 
 const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    
-  });
+  const [formData, setFormData] = useState(
+    form.stepOneData || {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+    }
+  );
   const questionFields = [
     {
       name: "questionOne",
@@ -70,7 +71,7 @@ const StepOne = ({ onNextStep }) => {
             </Label.Root>
             <div className="mt-2">
               <input
-              required
+                required
                 type="text"
                 name="firstName"
                 id="first-name"
@@ -139,10 +140,10 @@ const StepOne = ({ onNextStep }) => {
             >
               Date of Birth
             </label>
-            
+
             <div className="mt-2">
               <input
-              required
+                required
                 type="date"
                 name="dateOfBirth"
                 id="date-of-birth"
@@ -160,7 +161,7 @@ const StepOne = ({ onNextStep }) => {
             Status
           </label>
           <div className="mt-2">
-            <div  className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <RadioInput
                 name="status"
                 value="Citizen"
@@ -228,6 +229,7 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-2">
               <input
+                required
                 type="number"
                 name="driverLicenseNumber"
                 onChange={handleChange}
@@ -246,13 +248,22 @@ const StepOne = ({ onNextStep }) => {
               Driver License Class
             </label>
             <div className="mt-2">
-              <input
-                type="text"
+              <select
+                required
                 onChange={handleChange}
                 name="driverLicenseNumber"
-                autoComplete="number"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+              >
+                <option selected disabled value="">Select an option</option>
+                <option value="option1">Class 1</option>
+                <option value="option2">Class 2</option>
+                <option value="option2">Class 3</option>
+                <option value="option2">Class 4</option>
+                <option value="option2">Class 5</option>
+                <option value="option2">Class 6</option>
+                <option value="option2">Class 7</option>
+                
+              </select>
             </div>
           </div>
 
@@ -265,15 +276,25 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-2">
               <select
+                required
                 id="country"
                 name="province"
                 autoComplete="country-name"
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                <option value="AB">AB</option>
-                <option value="BC">BC</option>
-                <option value="ON">ON</option>
+                <option hidden selected disabled>
+                  Select
+                </option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="ON">Ontario</option>
+                <option value="ON">Saskatchewan</option>
+                <option value="ON">Manitoba</option>
+                <option value="ON">Nova Scotia</option>
+                <option value="ON">New Brunswick</option>
+                <option value="ON">Newfoundland</option>
+                <option value="ON">Quebec</option>
               </select>
             </div>
           </div>
@@ -287,7 +308,7 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-2">
               <input
-              required
+                required
                 type="date"
                 name="driverLicenseExpiry"
                 onChange={handleChange}
@@ -324,11 +345,11 @@ const StepOne = ({ onNextStep }) => {
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-end mt-6">
         <Form.Submit asChild>
           <button
             type="submit"
-            className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+            className="box-border text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
           >
             Next
           </button>

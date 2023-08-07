@@ -69,18 +69,23 @@ const StepFour = ({ onNextStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-  
+
     // Check if any required questions are not answered
     if (
       (state.accidentInLast3Years &&
-        (!state.dateOfAccident || !state.accidentDescription || !state.accidentLocation)) ||
+        (!state.dateOfAccident ||
+          !state.accidentDescription ||
+          !state.accidentLocation)) ||
       (state.trafficConvictions &&
-        (!state.convictionDate || !state.convictionLocation || !state.charge || !state.penalty))
+        (!state.convictionDate ||
+          !state.convictionLocation ||
+          !state.charge ||
+          !state.penalty))
     ) {
       alert("Please answer all required questions.");
       return;
     }
-  
+
     console.log("Form submitted successfully!");
     onNextStep();
   };
@@ -127,6 +132,15 @@ const StepFour = ({ onNextStep }) => {
     };
     dispatch({ type: "ADD_ACCIDENT", payload: newAccident });
   };
+  const handleAddTrafficConviction = () => {
+    const newTrafficConviction = {
+      convictionDate: state.convictionDate,
+      convictionLocation: state.convictionLocation,
+      charge: state.charge,
+      penalty: state.penalty,
+    };
+    dispatch({ type: "ADD_TRAFFIC_CONVICTION", payload: newTrafficConviction });
+  };
 
   useEffect(() => {
     console.log("latest: ", state.accidentInLast3Years);
@@ -143,7 +157,7 @@ const StepFour = ({ onNextStep }) => {
         </label>
         <div className="mt-2">
           <select
-          required
+            required
             id="country"
             name="accidentInLast3Years"
             autoComplete="country-name"
@@ -158,6 +172,132 @@ const StepFour = ({ onNextStep }) => {
           </select>
         </div>
       </div>
+      {state.accidentsArray.map((accident, index) => (
+        <div key={index}>
+          <div className="sm:col-span-3">
+            <label
+              htmlFor={`accident-date-${index}`}
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Date of Accident
+            </label>
+            <div className="mt-2">
+              <input
+                type="date"
+                name={`accidentDate-${index}`}
+                id={`accident-date-${index}`}
+                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={accident.dateOfAccident}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="accident-description"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Nature of Accident (Head-On, Rear-End, Upset, Etc)
+            </label>
+            <div className="mt-2">
+              <textarea
+                id="accident-description"
+                name="accidentDescription"
+                rows="3"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.accidentDescription}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="accident-location"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Location of Accident
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                id="accident-location"
+                name="accidentLocation"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.accidentLocation}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
+              Fatalities
+            </label>
+            <div className="mt-2">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="hasFatalities"
+                  id="fatalities-true"
+                  value="true"
+                  checked={state.hasFatalities}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="fatalities-true" className="mr-4">
+                  Yes
+                </label>
+
+                <input
+                  type="radio"
+                  name="hasFatalities"
+                  id="fatalities-false"
+                  value="false"
+                  checked={state.hasFatalities}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="fatalities-false">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
+              Injuries
+            </label>
+            <div className="mt-2">
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="hasInjuries"
+                  id="injuries-true"
+                  value="true"
+                  checked={state.hasInjuries}
+                  onChange={handleChange}
+                  className="mr-2 "
+                />
+                <label htmlFor="injuries-true" className="mr-4">
+                  Yes
+                </label>
+
+                <input
+                  type="radio"
+                  name="hasInjuries"
+                  id="injuries-false"
+                  value="false"
+                  checked={state.hasInjuries}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="injuries-false">No</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
 
       {state.accidentInLast3Years ? (
         <>
@@ -289,7 +429,7 @@ const StepFour = ({ onNextStep }) => {
       )}
       {/* Button to add an additional accident */}
       {state.accidentInLast3Years && (
-        <div className="sm:col-span-3">
+        <div className="sm:col-span-3 flex justify-end">
           <button
             type="button"
             onClick={handleAddAccident}
@@ -322,7 +462,88 @@ const StepFour = ({ onNextStep }) => {
           </select>
         </div>
       </div>
+      {state.trafficConvictionsArray.map((conviction, index) => (
+        <div key={index}>
+          <h3>Traffic Conviction {index + 1}</h3>
+          <div className="sm:col-span-3">
+            <label
+              htmlFor={`conviction-date-${index}`}
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Conviction Date
+            </label>
+            <div className="mt-2">
+              <input
+                required
+                type="date"
+                name={`convictionDate-${index}`}
+                id={`conviction-date-${index}`}
+                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={conviction.convictionDate}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="conviction-location"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Conviction Location
+            </label>
+            <div className="mt-2">
+              <input
+                required
+                type="text"
+                id="conviction-location"
+                name="convictionLocation"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.convictionLocation}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="charge"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Charge
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                id="charge"
+                name="charge"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.charge}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="penalty"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Penalty
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                id="penalty"
+                name="penalty"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.penalty}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
+      ))}
       {state.trafficConvictions && (
         <>
           <div className="sm:col-span-3">
@@ -401,6 +622,17 @@ const StepFour = ({ onNextStep }) => {
             </div>
           </div>
         </>
+      )}
+      {state.trafficConvictions && (
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={handleAddTrafficConviction}
+            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Add Additional Traffic Conviction
+          </button>
+        </div>
       )}
       <button
         type="submit"

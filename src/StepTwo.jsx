@@ -36,12 +36,11 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
       },
     ]);
   };
-  
 
   const onSubmit = (e) => {
     e.preventDefault();
     setForm((prevForm) => ({ ...prevForm, stepTwoData: addresses }));
-    
+
     onNextStep();
   };
   const areAddressFieldsEmpty = (address) => {
@@ -67,18 +66,19 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
   }, [form]);
 
   return (
-    <Form.Root className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-6 text-left" onSubmit={onSubmit}>
-
+    <Form.Root
+      className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-6 text-left"
+      onSubmit={onSubmit}
+    >
+      <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
+        Pleae provide us your residential history for the last 3 
+      </h2>
       {/* Validation message for required fields */}
       {!validateAddresses() && (
         <div className="mt-4 text-red-500">
           Please fill out all required fields.
         </div>
       )}
-      <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
-        Address History
-      </h2>
-
       {addresses.map((address, index) => (
         <div
           key={index}
@@ -93,6 +93,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
+                required
                 type="text"
                 id={`street-address-${index}`}
                 name={`street-address-${index}`}
@@ -115,7 +116,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
-              required
+                required
                 type="text"
                 id={`city-${index}`}
                 name={`city-${index}`}
@@ -138,7 +139,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
-              required
+                required
                 type="text"
                 id={`region-${index}`}
                 name={`region-${index}`}
@@ -183,7 +184,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
-              required
+                required
                 type="date"
                 id={`from-date-${index}`}
                 name={`from-date-${index}`}
@@ -205,7 +206,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
-              required
+                required
                 type="date"
                 id={`to-date-${index}`}
                 name={`to-date-${index}`}
@@ -230,7 +231,6 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
         </button>
       </div>
       <div className="flex justify-between">
-      
         <button
           type="button"
           onClick={handlePreviousStep}
@@ -238,17 +238,15 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
         >
           Previous Step
         </button>
-      
 
-      <Form.Submit asChild>
-        <button
-          type="submit"
-          
-          className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
-        >
-          Next
-        </button>
-      </Form.Submit>
+        <Form.Submit asChild>
+          <button
+            type="submit"
+            className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          >
+            Next
+          </button>
+        </Form.Submit>
       </div>
     </Form.Root>
   );
