@@ -4,6 +4,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import StepFive from "./StepFive";
+import StepSix from "./StepSix";
 
 function App() {
   const [activeStep, setActiveStep] = useState(1);
@@ -43,7 +44,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(2)}
             >
-              Address History
+              Address
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
@@ -53,7 +54,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(3)}
             >
-              Employment History
+              Employment
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
@@ -63,7 +64,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(4)}
             >
-              Accident History
+              Accident
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
@@ -75,6 +76,16 @@ function App() {
             >
               Consent
             </button>
+            <button
+              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+                activeStep === 6
+                  ? "text-indigo-500 border-b-2 border-indigo-500"
+                  : "border-b-2 border-gray-200"
+              } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
+              onClick={() => handleStepChange(6)}
+            >
+              last 14 days
+            </button>
           </div>
           <div className="flex flex-col w-full text-center">
             <div className="py-4 bg-white sm:py-8 lg:py-12">
@@ -84,6 +95,7 @@ function App() {
                 {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)}  onPreviousStep={() => handleStepChange(2)}/>}
                 {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(5)}  />}
                 {activeStep === 5 && <StepFive />}
+                {activeStep === 6 && <StepSix />}
                 
               </div>
               
