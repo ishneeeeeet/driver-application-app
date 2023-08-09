@@ -11,7 +11,6 @@ const StepOne = ({ onNextStep }) => {
       firstName: "",
       lastName: "",
       email: "",
-      
     }
   );
   const questionFields = [
@@ -101,25 +100,24 @@ const StepOne = ({ onNextStep }) => {
             </div>
           </div>
 
-          
           <div className="sm:col-span-3">
-          <label
-            htmlFor="company-applied-for"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Company applying for?
-          </label>
-          <div className="mt-2">
-            <input
-              type="text"
-              name="companyAppliedFor"
-              id="company-applied-for"
-              onChange={handleChange}
-              autoComplete="organization"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
+            <label
+              htmlFor="company-applied-for"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Company applying for?
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="companyAppliedFor"
+                id="company-applied-for"
+                onChange={handleChange}
+                autoComplete="organization"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
           </div>
-        </div>
 
           <div className="sm:col-span-3">
             <label
@@ -171,67 +169,96 @@ const StepOne = ({ onNextStep }) => {
               />
             </Form.Control>
           </Form.Field>
-        </div>
-        <div className="sm:col-span-3 w-full mt-6">
-          <label
-            htmlFor="question-one"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Status
-          </label>
-          <div className="mt-2">
-            <div className="flex items-center space-x-4">
-              <RadioInput
-                name="status"
-                value="Citizen"
-                checkedValue={formData.status}
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="cellno"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Cell Phone Number
+            </label>
+            <div className="mt-2">
+              <input
+                type="tel"
+                name="cellno"
+                id="cellno"
+                placeholder="123-45-678"
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                required=""
                 onChange={handleChange}
-              />
-              <RadioInput
-                name="status"
-                value="PR"
-                checkedValue={formData.status}
-                onChange={handleChange}
-              />
-              <RadioInput
-                name="status"
-                value="Work Permit"
-                checkedValue={formData.status}
-                onChange={handleChange}
+                autoComplete="organization"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-        </div>
-        <div className="sm:col-span-3 w-full mt-6">
-          <label
-            htmlFor="question-one"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Position Applied For?
-          </label>
-          <div className="mt-2">
-            <div className="flex items-center space-x-4">
-              <RadioInput
-                name="position"
-                value="Driver"
-                checkedValue={formData.position}
-                onChange={handleChange}
-              />
-              <RadioInput
-                name="position"
-                value="Owner Operator"
-                checkedValue={formData.position}
-                onChange={handleChange}
-              />
-              <RadioInput
-                name="position"
-                value="Other"
-                checkedValue={formData.position}
-                onChange={handleChange}
-              />
-            </div>
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="phone"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Home Phone number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              placeholder="123-45-678"
+              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+            />
           </div>
         </div>
+        <div className="sm:col-span-3 mt-6">
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Your Status in Canada
+            </label>
+            <div className="mt-2">
+              <select
+                required
+                id="status"
+                name="status"
+                autoComplete=""
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option selected disabled value="">
+                  Select an option
+                </option>
+                <option value="WP">Work Permit</option>
+                <option value="PR">Permanent Resident</option>
+                <option value="CC">Canadian Citizen</option>
+                <option value="Other">Other</option>
+                
+              </select>
+            </div>
+          </div>
+          <div className="sm:col-span-3 mt-6">
+            <label
+              htmlFor="position"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Position Applying for?
+            </label>
+            <div className="mt-2">
+              <select
+                required
+                id="position"
+                name="position"
+                autoComplete="country-name"
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option selected disabled value="">
+                  Select an option
+                </option>
+                <option value="Driver">Driver</option>
+                <option value="Owner Operator">Owner Operator</option>
+                <option value="Owner Operator">Other</option>
+              </select>
+            </div>
+          </div>
       </div>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
         <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
@@ -273,7 +300,9 @@ const StepOne = ({ onNextStep }) => {
                 name="driverLicenseNumber"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               >
-                <option selected disabled value="">Select an option</option>
+                <option selected disabled value="">
+                  Select an option
+                </option>
                 <option value="option1">Class 1</option>
                 <option value="option2">Class 2</option>
                 <option value="option2">Class 3</option>
@@ -281,7 +310,6 @@ const StepOne = ({ onNextStep }) => {
                 <option value="option2">Class 5</option>
                 <option value="option2">Class 6</option>
                 <option value="option2">Class 7</option>
-                
               </select>
             </div>
           </div>
@@ -302,7 +330,9 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                <option selected disabled value="">Select an option</option>
+                <option selected disabled value="">
+                  Select an option
+                </option>
                 <option value="AB">Alberta</option>
                 <option value="BC">British Columbia</option>
                 <option value="ON">Ontario</option>
@@ -337,26 +367,31 @@ const StepOne = ({ onNextStep }) => {
         <div className="mt-6">
           {questionFields.map(({ name, question }) => (
             <div key={name} className="flex flex-col mb-4">
-              <label
-                htmlFor={name}
-                className="block text-sm font-medium leading-6 text-gray-900"
+              <div className="sm:col-span-3">
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              {question}
+            </label>
+            <div className="mt-2">
+              <select
+                required
+                id="country"
+                name="province"
+                autoComplete="country-name"
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                {question}
-              </label>
-              <div className="flex items-center space-x-4">
-                <RadioInput
-                  name={name}
-                  value="True"
-                  checkedValue={formData[name]}
-                  onChange={handleChange}
-                />
-                <RadioInput
-                  name={name}
-                  value="False"
-                  checkedValue={formData[name]}
-                  onChange={handleChange}
-                />
-              </div>
+                <option selected disabled value="">
+                  Select an option
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                
+              </select>
+            </div>
+          </div>
             </div>
           ))}
         </div>
