@@ -96,10 +96,10 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 required
                 type="text"
                 id={`street-address-${index}`}
-                name={`street-address-${index}`}
+                name="streetAddress"
                 autoComplete="street-address"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={address.streetAddress}
+                value={form.stepTwoData[index]?.streetAddress ? form.stepTwoData[index].streetAddress : null }
                 onChange={(e) =>
                   handleAddressChange(index, "streetAddress", e.target.value)
                 }
@@ -119,10 +119,10 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 required
                 type="text"
                 id={`city-${index}`}
-                name={`city-${index}`}
+                name="city"
                 autoComplete="address-level2"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={address.city}
+                value={form.stepTwoData[index]?.city ? form.stepTwoData[index].city : null }
                 onChange={(e) =>
                   handleAddressChange(index, "city", e.target.value)
                 }
@@ -142,10 +142,10 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 required
                 type="text"
                 id={`region-${index}`}
-                name={`region-${index}`}
+                name="province"
                 autoComplete="address-level1"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={address.region}
+                value={form.stepTwoData[index]?.province ? form.stepTwoData[index].province : null }
                 onChange={(e) =>
                   handleAddressChange(index, "region", e.target.value)
                 }

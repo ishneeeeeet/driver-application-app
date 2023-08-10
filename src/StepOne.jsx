@@ -2,28 +2,7 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
-const initialState = {
-  formData: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    cellNo: "",
-    homeNo: "",
-    companyAppliedFor: "",
-    dateOfBirth: "",
-    status: "",
-    position: "",
-    driverLicenseNumber: "",
-    driverLicenseClass: "",
-    province: "",
-    driverLicenseExpiry: "",
-    questionOne: "",
-    questionTwo: "",
-    questionThree: "",
-    questionFour: "",
-    questionFive: "",
-  },
-};
+
 const experienceFields = [
   {
     name: "tractorSemiTrailer",
@@ -51,39 +30,11 @@ const experienceFields = [
   },
 ];
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "SET_FIELD":
-      return {
-        ...state,
-        formData: {
-          ...state.formData,
-          [action.field]: action.value,
-        },
-      };
-    case "SET_CELL_NO":
-      return {
-        ...state,
-        cellNo: action.value,
-      };
-    case "SET_HOME_NO":
-      return {
-        ...state,
-        homeNo: action.value,
-      };
-    default:
-      return state;
-  }
-}
+
 
 const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleExperienceChange = (e) => {
-    const { name, value } = e.target;
-    dispatch({ type: "SET_FIELD", field: name, value });
-  };
 
   const questionFields = [
     {
@@ -119,12 +70,21 @@ const StepOne = ({ onNextStep }) => {
     if (name === "cellno" || name === "phone") {
       const input = value;
       const formattedInput = formatCellNo(input);
-      dispatch({
-        type: name === "cellno" ? "SET_CELL_NO" : "SET_HOME_NO",
-        value: formattedInput,
-      });
+      setForm((prevForm) => ({
+        ...prevForm,
+        stepOneData: {
+          ...prevForm.stepOneData,
+          [name]: formattedInput,
+        },
+      }));
     } else {
-      dispatch({ type: "SET_FIELD", field: name, value });
+      setForm((prevForm) => ({
+        ...prevForm,
+        stepOneData: {
+          ...prevForm.stepOneData,
+          [name]: value,
+        },
+      }));
     }
   };
 
@@ -145,9 +105,7 @@ const StepOne = ({ onNextStep }) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const updatedForm = { ...form, stepOneData: state.formData };
-    setForm(updatedForm);
-    console.log(updatedForm);
+    console.log(form);
     onNextStep();
   };
 
@@ -168,6 +126,7 @@ const StepOne = ({ onNextStep }) => {
                 type="text"
                 name="firstName"
                 id="first-name"
+                value={form.stepOneData?.firstName ? form.stepOneData?.firstName : null}
                 onChange={handleChange}
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -187,6 +146,7 @@ const StepOne = ({ onNextStep }) => {
                 type="text"
                 name="lastName"
                 id="last-name"
+                value={form.stepOneData?.lastName ? form.stepOneData?.lastName : null}
                 onChange={handleChange}
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -207,6 +167,7 @@ const StepOne = ({ onNextStep }) => {
                 type="text"
                 name="companyAppliedFor"
                 id="company-applied-for"
+                value={form.stepOneData?.companyAppliedFor ? form.stepOneData?.companyAppliedFor : null}
                 onChange={handleChange}
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -228,6 +189,7 @@ const StepOne = ({ onNextStep }) => {
                 type="date"
                 name="dateOfBirth"
                 id="date-of-birth"
+                value={form.stepOneData?.dateOfBirth ? form.stepOneData?.dateOfBirth : null}
                 onChange={handleChange}
                 className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -258,6 +220,7 @@ const StepOne = ({ onNextStep }) => {
                 id="email"
                 name="email"
                 type="email"
+                value={form.stepOneData?.email ? form.stepOneData?.email : null}
                 onChange={handleChange}
                 autoComplete="email"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -275,9 +238,9 @@ const StepOne = ({ onNextStep }) => {
               <input
                 type="tel"
                 name="cellno"
-                id="cellno"
+                id="cellNo"
                 placeholder="123-456-7890"
-                value={state.cellNo}
+                value={form.stepOneData?.cellNo ? form.stepOneData?.cellNo : null}
                 onChange={handleChange}
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -295,8 +258,9 @@ const StepOne = ({ onNextStep }) => {
             <input
               type="tel"
               id="phone"
+              name="homeNo"
               placeholder="123-456-7890"
-              value={state.homeNo}
+              value={form.stepOneData?.homeNo ? form.stepOneData?.homeNo : null}
               onChange={handleChange}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
@@ -315,6 +279,7 @@ const StepOne = ({ onNextStep }) => {
               id="status"
               name="status"
               autoComplete=""
+              value={form.stepOneData?.status ? form.stepOneData?.status : null}
               onChange={handleChange}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             >
@@ -340,6 +305,7 @@ const StepOne = ({ onNextStep }) => {
               required
               id="position"
               name="position"
+              value={form.stepOneData?.position ? form.stepOneData?.position : null}
               autoComplete="country-name"
               onChange={handleChange}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -372,6 +338,7 @@ const StepOne = ({ onNextStep }) => {
                 required
                 type="number"
                 name="driverLicenseNumber"
+                value={form.stepOneData?.driverLicenseNumber ? form.stepOneData?.driverLicenseNumber : null}
                 onChange={handleChange}
                 id="driver-license-number"
                 autoComplete="number"
@@ -390,8 +357,10 @@ const StepOne = ({ onNextStep }) => {
             <div className="mt-2">
               <select
                 required
+                name="driverLicenseClass"
+                value={form.stepOneData?.driverLicenseClass ? form.stepOneData?.driverLicenseClass : null}
                 onChange={handleChange}
-                name="driverLicenseNumber"
+                
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               >
                 <option selected disabled value="">
@@ -420,6 +389,7 @@ const StepOne = ({ onNextStep }) => {
                 required
                 id="country"
                 name="province"
+                value={form.stepOneData?.province ? form.stepOneData?.province : null}
                 autoComplete="country-name"
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -452,6 +422,7 @@ const StepOne = ({ onNextStep }) => {
                 required
                 type="date"
                 name="driverLicenseExpiry"
+                value={form.stepOneData?.driverLicenseExpiry ? form.stepOneData?.driverLicenseExpiry : null}
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -469,7 +440,8 @@ const StepOne = ({ onNextStep }) => {
             <input
               type="text"
               id="driver-license-condition"
-              name="questionSix"
+              name="driverLicenseCondition"
+              value={form.stepOneData?.driverLicenseCondition ? form.stepOneData?.driverLicenseCondition : null}
               onChange={handleChange}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               required
@@ -490,8 +462,9 @@ const StepOne = ({ onNextStep }) => {
                   <select
                     required
                     id="country"
-                    name="province"
+                    name={name}
                     autoComplete="country-name"
+                    value={form.stepOneData?.[name] ? form.stepOneData?.[name] : null}
                     onChange={handleChange}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
@@ -521,10 +494,11 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="number"
                 id={name}
                 name={name}
-                onChange={handleExperienceChange}
+                value={form.stepOneData?.[name] ? form.stepOneData?.[name] : null}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
