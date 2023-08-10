@@ -1,65 +1,126 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import axios from "axios";
+import { FormContext } from "./context";
+import { saveAs } from "file-saver";
+import { Label } from "@radix-ui/react-label";
+import myimage from "./images/roadtestevaluation.png";
+import empploymentImage from "./images/Employment-verification.png"
+import SignatureCanvas from "react-signature-canvas";
 
-const StepSix = ({ onNextStep }) => {
-  const [workHistory, setWorkHistory] = useState([]);
+const StepSix = () => {
+  const { form, setForm } = useContext(FormContext);
+  const [sign1, setSign1] = useState();
+  const [sign2, setSign2] = useState();
 
-  // Calculate the dates for the last 14 days
-  const today = new Date();
-  const last14Days = Array.from({ length: 14 }, (_, i) => {
-    const date = new Date();
-    date.setDate(today.getDate() - i);
-    return date.toISOString().split("T")[0];
-  });
-
-  const handleHoursWorkedChange = (index, hoursWorked) => {
-    const updatedWorkHistory = [...workHistory];
-    updatedWorkHistory[index].hoursWorked = hoursWorked;
-    setWorkHistory(updatedWorkHistory);
-  };
-
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate work history here if needed
+    if (sign1 && sign2 && !sign1.isEmpty() && !sign2.isEmpty()) {
+      // Signature fields are filled
+      console.log("Signature fields are filled. Submitting the form...");
 
-    console.log("Work history submitted successfully!");
-    onNextStep();
+      // Your form submission logic here
+
+      // Send form data to backend and get PDF
+      await axios.post(`http://localhost:8000/createPdf`, form);
+      const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, { responseType: "blob" });
+
+      // Save and download PDF
+      const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
+      saveAs(pdfBlob, "InvoiceDocument.pdf");
+
+      // Send PDF via email
+      const emailResponse = await axios.post("http://localhost:8000/sendPdf");
+      console.log(emailResponse.data);
+
+      // Clear form data or navigate to next step
+      setForm({}); // Clear form data
+      // or
+      // navigateToNextStep();
+    } else {
+      // Signature fields are not filled
+      alert("Please provide your signature in both fields before submitting.");
+    }
+  };
+
+  const handleClear = (e, signRef) => {
+    e.preventDefault();
+    signRef.clear();
   };
 
   return (
-    <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mt-6 mb-4 lg:text-3xl md:mb-6">
-        Work History for the Last 14 Days
-      </h1>
-      {last14Days.map((date, index) => (
-        <div key={index} className="sm:col-span-3">
-          <label
-            htmlFor={`hours-worked-${index}`}
-            className="block text-sm font-medium leading-6 text-gray-900 text-left mt-4"
-          >
-            Date: {date}
-          </label>
-          <div className="mt-2">
-            <input
-              type="number"
-              id={`hours-worked-${index}`}
-              name={`hoursWorked-${index}`}
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={workHistory[index]?.hoursWorked || ""}
-              onChange={(e) => handleHoursWorkedChange(index, e.target.value)}
-            />
+    <>
+      <form onClick={onSubmit} className="max-w-screen-md mx-auto text-center">
+        <h1 className="mb-4 mt-6 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
+          APLLICANT'S CONSENT
+        </h1>
+        <p>
+          I hereby give my consent and authorize my prospect employer and/or
+          Compliance Wizard Inc. to contact my previous employer(s) in order to
+          verify my employment History. Safety performance history and drug &
+          alcohol history and to obtain the following information. I release my
+          prospective and previous employer(s) and its employee(s) from any and
+          all liabilities which may result from furnishing such information.
+        </p>
+        <div className="flex justify-center mt-6 mb-6">
+          <img
+            src={empploymentImage}
+            alt="EmploymentImage"
+            style={{ maxWidth: "800px", maxHeight: "600px" }}
+          />
+        </div>
+        {/* Signature 1 */}
+        <label className="text-base font-semibold leading-7 text-gray-900 text-center" htmlFor="">
+          Signature 1
+        </label>
+        <div className="flex justify-center">
+          <div className="sm:col-span-3 ">
+            <div className="border border-gray-300 p-4 rounded mb-6">
+              <SignatureCanvas
+                canvasProps={{ width: 400, height: 70, className: "signCanvas" }}
+                ref={(data) => setSign1(data)}
+              />
+            </div>
+            <button onClick={(e) => handleClear(e, sign1)}>Clear</button>
           </div>
         </div>
-      ))}
-      <div className="flex justify-end">
-        <button
-          type="submit"
-          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Next
-        </button>
+        <div className="flex justify-center mt-6 mb-6">
+          <img
+            src={myimage}
+            alt="EmploymentImage"
+            style={{ maxWidth: "800px", maxHeight: "600px" }}
+          />
+        </div>
+        {/* Signature 2 */}
+        <label className="text-base font-semibold leading-7 text-gray-900 text-center" htmlFor="">
+          Signature 2
+        </label>
+        <div className="flex justify-center">
+          <div className="sm:col-span-3 ">
+            <div className="border border-gray-300 p-4 rounded mb-6">
+              <SignatureCanvas
+                canvasProps={{ width: 400, height: 70, className: "signCanvas" }}
+                ref={(data) => setSign2(data)}
+              />
+            </div>
+            <button onClick={(e) => handleClear(e, sign2)}>Clear</button>
+          </div>
+        </div>
+  
+        <div className="flex justify-between">
+       
+
+       
+          <button
+            type="submit"
+            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Next
+          </button>
+       
       </div>
-    </form>
+      </form>
+    </>
   );
 };
 

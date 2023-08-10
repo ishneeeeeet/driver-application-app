@@ -69,6 +69,12 @@ const StepFour = ({ onNextStep }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [sign, setSign] = useState();
 
+  const handleClear = (e) => {
+    e.preventDefault();
+    sign.clear();
+  };
+  
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -667,22 +673,36 @@ const StepFour = ({ onNextStep }) => {
         also, that I am required to abide by all rules and regulations of the
         company.
       </p>
+      <h2 className="mt-6 mb-6 text-base font-semibold leading-7 text-gray-900 text-center">Signature</h2>
       <div className="flex justify-center">
-        <div className="sm:col-span-3">
+        
+        <div className="sm:col-span-3 border border-black">
           <SignatureCanvas
             required
             canvasProps={{ width: 400, height: 70, className: "signCanvas" }}
             ref={(data) => setSign(data)}
           />
         </div>
+        
       </div>
-      <button
-        type="submit"
-        onSubmit={onSubmit}
-        className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
-      >
-        Next
-      </button>
+      <button className="mt-2 mb-6" onClick={handleClear}>Clear</button>
+      <div className="flex justify-between">
+        <button
+          type="button"
+          
+          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+        >
+          Previous Step
+        </button>
+        
+          <button
+            type="submit"
+            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Next
+          </button>
+        
+      </div>
     </form>
   );
 };

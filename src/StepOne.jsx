@@ -1,18 +1,60 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
 import RadioInput from "./components/RadioInput";
+const initialState = {
+  formData: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    cellNo: "",
+    homeNo: "",
+    companyAppliedFor: "",
+    dateOfBirth: "",
+    status: "",
+    position: "",
+    driverLicenseNumber: "",
+    driverLicenseClass: "",
+    province: "",
+    driverLicenseExpiry: "",
+    questionOne: "",
+    questionTwo: "",
+    questionThree: "",
+    questionFour: "",
+    questionFive: "",
+  },
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_FIELD":
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          [action.field]: action.value,
+        },
+      };
+    case "SET_CELL_NO":
+      return {
+        ...state,
+        cellNo: action.value,
+      };
+    case "SET_HOME_NO":
+      return {
+        ...state,
+        homeNo: action.value,
+      };
+    default:
+      return state;
+  }
+}
 
 const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [formData, setFormData] = useState(
-    form.stepOneData || {
-      firstName: "",
-      lastName: "",
-      email: "",
-    }
-  );
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const questionFields = [
     {
       name: "questionOne",
@@ -43,19 +85,41 @@ const StepOne = ({ onNextStep }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setForm((prevForm) => ({ ...prevForm, stepOneData: formData }));
-    console.log(form);
-    onNextStep();
+    if (name === "cellno" || name === "phone") {
+      const input = value;
+      const formattedInput = formatCellNo(input);
+      dispatch({
+        type: name === "cellno" ? "SET_CELL_NO" : "SET_HOME_NO",
+        value: formattedInput,
+      });
+    } else {
+      dispatch({ type: "SET_FIELD", field: name, value });
+    }
   };
 
   useEffect(() => {
     console.log("Updated form data:", form);
   }, [form]);
+
+  const formatCellNo = (input) => {
+    // Remove all non-numeric characters
+    const numericInput = input.replace(/\D/g, "");
+
+    // Apply the pattern XXX-XXX-XXXX
+    const formattedInput = numericInput
+      .replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")
+      .slice(0, 12); // Limit to 12 characters
+
+    return formattedInput;
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const updatedForm = { ...form, stepOneData: state.formData };
+    setForm(updatedForm);
+    console.log(updatedForm);
+    onNextStep();
+  };
 
   return (
     <Form.Root className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
@@ -109,6 +173,7 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-2">
               <input
+                required
                 type="text"
                 name="companyAppliedFor"
                 id="company-applied-for"
@@ -181,12 +246,12 @@ const StepOne = ({ onNextStep }) => {
                 type="tel"
                 name="cellno"
                 id="cellno"
-                placeholder="123-45-678"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                required=""
+                placeholder="123-456-7890"
+                value={state.cellNo}
                 onChange={handleChange}
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                required
               />
             </div>
           </div>
@@ -200,65 +265,64 @@ const StepOne = ({ onNextStep }) => {
             <input
               type="tel"
               id="phone"
+              placeholder="123-456-7890"
+              value={state.homeNo}
               onChange={handleChange}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="123-45-678"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
             />
           </div>
         </div>
         <div className="sm:col-span-3 mt-6">
-            <label
-              htmlFor="country"
-              className="block text-sm font-medium leading-6 text-gray-900"
+          <label
+            htmlFor="country"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Your Status in Canada
+          </label>
+          <div className="mt-2">
+            <select
+              required
+              id="status"
+              name="status"
+              autoComplete=""
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             >
-              Your Status in Canada
-            </label>
-            <div className="mt-2">
-              <select
-                required
-                id="status"
-                name="status"
-                autoComplete=""
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option selected disabled value="">
-                  Select an option
-                </option>
-                <option value="WP">Work Permit</option>
-                <option value="PR">Permanent Resident</option>
-                <option value="CC">Canadian Citizen</option>
-                <option value="Other">Other</option>
-                
-              </select>
-            </div>
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="WP">Work Permit</option>
+              <option value="PR">Permanent Resident</option>
+              <option value="CC">Canadian Citizen</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
-          <div className="sm:col-span-3 mt-6">
-            <label
-              htmlFor="position"
-              className="block text-sm font-medium leading-6 text-gray-900"
+        </div>
+        <div className="sm:col-span-3 mt-6">
+          <label
+            htmlFor="position"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Position Applying for?
+          </label>
+          <div className="mt-2">
+            <select
+              required
+              id="position"
+              name="position"
+              autoComplete="country-name"
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             >
-              Position Applying for?
-            </label>
-            <div className="mt-2">
-              <select
-                required
-                id="position"
-                name="position"
-                autoComplete="country-name"
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option selected disabled value="">
-                  Select an option
-                </option>
-                <option value="Driver">Driver</option>
-                <option value="Owner Operator">Owner Operator</option>
-                <option value="Owner Operator">Other</option>
-              </select>
-            </div>
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="Driver">Driver</option>
+              <option value="Owner Operator">Owner Operator</option>
+              <option value="Owner Operator">Other</option>
+            </select>
           </div>
+        </div>
       </div>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
         <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
@@ -368,30 +432,29 @@ const StepOne = ({ onNextStep }) => {
           {questionFields.map(({ name, question }) => (
             <div key={name} className="flex flex-col mb-4">
               <div className="sm:col-span-3">
-            <label
-              htmlFor="country"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              {question}
-            </label>
-            <div className="mt-2">
-              <select
-                required
-                id="country"
-                name="province"
-                autoComplete="country-name"
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option selected disabled value="">
-                  Select an option
-                </option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-                
-              </select>
-            </div>
-          </div>
+                <label
+                  htmlFor="country"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {question}
+                </label>
+                <div className="mt-2">
+                  <select
+                    required
+                    id="country"
+                    name="province"
+                    autoComplete="country-name"
+                    onChange={handleChange}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  >
+                    <option selected disabled value="">
+                      Select an option
+                    </option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -401,7 +464,7 @@ const StepOne = ({ onNextStep }) => {
         <Form.Submit asChild>
           <button
             type="submit"
-            className="box-border text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none"
+            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
             Next
           </button>

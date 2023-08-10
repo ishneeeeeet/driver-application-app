@@ -71,7 +71,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
       onSubmit={onSubmit}
     >
       <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
-        Pleae provide us your residential history for the last 3 
+        Pleae provide us your residential history for the last 3 years
       </h2>
       {/* Validation message for required fields */}
       {!validateAddresses() && (
@@ -175,6 +175,28 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </div>
           </div>
 
+          <div className="sm:col-span-4 ">
+            <label
+              htmlFor={`country-${index}`}
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Country
+            </label>
+            <div className="mt-2">
+              <input
+                required
+                type="text"
+                id={`country-${index}`}
+                name={`country-${index}`}
+                autoComplete="country"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={address.country}
+                onChange={(e) =>
+                  handleAddressChange(index, "country", e.target.value)
+                }
+              />
+            </div>
+          </div>
           <div className="sm:col-span-3">
             <label
               htmlFor={`from-date-${index}`}
@@ -234,7 +256,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
         <button
           type="button"
           onClick={handlePreviousStep}
-          className="box-border w-full text-gray-700 bg-gray-100 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
         >
           Previous Step
         </button>
@@ -242,7 +264,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
         <Form.Submit asChild>
           <button
             type="submit"
-            className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
             Next
           </button>

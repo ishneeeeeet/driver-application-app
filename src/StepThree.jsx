@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
@@ -60,35 +60,14 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-  
-    // Perform field validation here
-    const hasInvalidFields = formData.employmentHistory.some((employment) => {
-      // Add your validation conditions here
-      return (
-        employment.employerName === "" ||
-        employment.positionHeld === "" ||
-        employment.streetAddress === "" ||
-        employment.city === "" ||
-        employment.region === "" ||
-        employment.postalCode === "" ||
-        employment.fromDate === "" ||
-        employment.toDate === "" ||
-        employment.reasonForLeaving === "" ||
-        employment.subjectToFMCSRs === "" ||
-        employment.safetySensitiveFunction === ""
-      );
-    });
-  
-    // if (hasInvalidFields) {
-    //   // Handle invalid fields, e.g., display an error message
-    //   alert("Please fill out all required fields.");
-    //   return;
-    // }
-  
+
     setForm((prevForm) => ({ ...prevForm, stepThreeData: formData }));
     onNextStep();
     console.log(form);
   };
+  useEffect(() => {
+    console.log("Updated form data:", form);
+  }, [form]);
   
 
   return (
@@ -348,7 +327,13 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 </option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
-                
+                onChange={(e) =>
+                    handleEmploymentChange(
+                      index,
+                      "subjectToFMCSRs",
+                      e.target.value
+                    )
+                  }
               </select>
                
                 
@@ -372,7 +357,13 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 id="country"
                 name="province"
                 autoComplete="country-name"
-                
+                onChange={(e) =>
+                  handleEmploymentChange(
+                    index,
+                    "safetySensitiveFunction",
+                    e.target.value
+                  )
+                }
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option selected disabled value="">
@@ -403,14 +394,14 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
         <button
           type="button"
           onClick={handlePreviousStep}
-          className="box-border w-full text-gray-700 bg-gray-100 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
         >
           Previous Step
         </button>
         <Form.Submit asChild>
           <button
             type="submit"
-            className="box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-white px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
             Next
           </button>

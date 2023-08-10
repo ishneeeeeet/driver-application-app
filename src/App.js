@@ -3,8 +3,8 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
-import StepFive from "./StepFive";
-import StepSix from "./StepSix";
+import StepFive from "./StepSix";
+import StepSix from "./StepFive";
 
 function App() {
   const [activeStep, setActiveStep] = useState(1);
@@ -74,7 +74,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(5)}
             >
-              Consent
+              Last 14 Days
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
@@ -84,7 +84,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(6)}
             >
-              last 14 days
+              Consent
             </button>
           </div>
           <div className="flex flex-col w-full text-center">
