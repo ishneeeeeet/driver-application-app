@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer} from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
-import RadioInput from "./components/RadioInput";
 const initialState = {
   formData: {
     firstName: "",

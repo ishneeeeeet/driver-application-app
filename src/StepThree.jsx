@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
-import * as Label from "@radix-ui/react-label";
+
 
 const StepThree = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
@@ -137,6 +137,51 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 />
               </div>
             </div>
+            
+          <div className="sm:col-span-3 mt-4">
+            <label
+              htmlFor={`contact-name-${index}`}
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Contact Name
+            </label>
+            <div className="mt-2">
+              <input
+                required
+                type="text"
+                name={`contact-name-${index}`}
+                id={`contact-name-${index}`}
+                autoComplete="off"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={employment.contactName}
+                onChange={(e) =>
+                  handleEmploymentChange(index, "contactName", e.target.value)
+                }
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-3 mt-4">
+            <label
+              htmlFor={`contact-phone-${index}`}
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Contact's Phone Number
+            </label>
+            <div className="mt-2">
+              <input
+                required
+                type="tel"
+                name={`contact-phone-${index}`}
+                id={`contact-phone-${index}`}
+                autoComplete="tel"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={employment.contactPhone}
+                onChange={(e) =>
+                  handleEmploymentChange(index, "contactPhone", e.target.value)
+                }
+              />
+            </div>
+          </div>
 
             <div className="col-span-full">
               <label
@@ -233,6 +278,29 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 />
               </div>
             </div>
+            <div className="sm:col-span-4">
+            <label
+              htmlFor={`country-${index}`}
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Country
+            </label>
+            <div className="mt-2">
+              <input
+                required
+                type="text"
+                name={`country-${index}`}
+                id={`country-${index}`}
+                autoComplete="country-name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={employment.country}
+                onChange={(e) =>
+                  handleEmploymentChange(index, "country", e.target.value)
+                }
+              />
+            </div>
+          </div>
+            
 
             <div className="sm:col-span-3">
               <label
