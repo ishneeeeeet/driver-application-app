@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer} from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
@@ -24,6 +24,32 @@ const initialState = {
     questionFive: "",
   },
 };
+const experienceFields = [
+  {
+    name: "tractorSemiTrailer",
+    label: "Tractor, Semi-Trailer",
+  },
+  {
+    name: "dryVanReefer",
+    label: "Dry Van Reefer",
+  },
+  {
+    name: "turnPikeSuperB",
+    label: "Turn Pike/Super B",
+  },
+  {
+    name: "manualTransmission",
+    label: "Manual Transmission",
+  },
+  {
+    name: "chassisTrailer",
+    label: "Chassis Trailer",
+  },
+  {
+    name: "longHaul",
+    label: "Long Haul",
+  },
+];
 
 function reducer(state, action) {
   switch (action.type) {
@@ -53,6 +79,11 @@ function reducer(state, action) {
 const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleExperienceChange = (e) => {
+    const { name, value } = e.target;
+    dispatch({ type: "SET_FIELD", field: name, value });
+  };
 
   const questionFields = [
     {
@@ -427,6 +458,24 @@ const StepOne = ({ onNextStep }) => {
             </div>
           </div>
         </div>
+        <div className="sm:col-span-3 mt-6">
+          <label
+            htmlFor="driver-license-condition"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Any Driver License Condition?
+          </label>
+          <div className="mt-2">
+            <input
+              type="text"
+              id="driver-license-condition"
+              name="questionSix"
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              required
+            />
+          </div>
+        </div>
         <div className="mt-6">
           {questionFields.map(({ name, question }) => (
             <div key={name} className="flex flex-col mb-4">
@@ -457,6 +506,30 @@ const StepOne = ({ onNextStep }) => {
             </div>
           ))}
         </div>
+      </div>
+      <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
+          Driver Experience(years)
+        </h2>
+      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        {experienceFields.map(({ name, label }) => (
+          <div className="sm:col-span-3" key={name}>
+            <label
+              htmlFor={name}
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              {label}
+            </label>
+            <div className="mt-2">
+              <input
+                type="number"
+                id={name}
+                name={name}
+                onChange={handleExperienceChange}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="flex justify-end mt-6">

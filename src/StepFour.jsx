@@ -243,71 +243,62 @@ const StepFour = ({ onNextStep }) => {
           </div>
 
           <div className="sm:col-span-3">
-            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
-              Fatalities
+            <label
+              htmlFor="number-of-injuries"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Number of Injuries
             </label>
             <div className="mt-2">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="hasFatalities"
-                  id="fatalities-true"
-                  value="true"
-                  checked={state.hasFatalities}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="fatalities-true" className="mr-4">
-                  Yes
-                </label>
-
-                <input
-                  type="radio"
-                  name="hasFatalities"
-                  id="fatalities-false"
-                  value="false"
-                  checked={state.hasFatalities}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="fatalities-false">No</label>
-              </div>
+              <input
+                type="number"
+                name="numberOfInjuries"
+                id="number-of-injuries"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.numberOfInjuries}
+                onChange={handleChange}
+              />
             </div>
           </div>
 
           <div className="sm:col-span-3">
-            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
-              Injuries
+            <label
+              htmlFor="number-of-fatalities"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Number of Fatalities
             </label>
             <div className="mt-2">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="hasInjuries"
-                  id="injuries-true"
-                  value="true"
-                  checked={state.hasInjuries}
-                  onChange={handleChange}
-                  className="mr-2 "
-                />
-                <label htmlFor="injuries-true" className="mr-4">
-                  Yes
-                </label>
-
-                <input
-                  type="radio"
-                  name="hasInjuries"
-                  id="injuries-false"
-                  value="false"
-                  checked={state.hasInjuries}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="injuries-false">No</label>
-              </div>
+              <input
+                type="number"
+                name="numberOfFatalities"
+                id="number-of-fatalities"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.numberOfFatalities}
+                onChange={handleChange}
+              />
             </div>
           </div>
-        </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="number-of-hazardous-material-spill"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Number of Hazardous Material Spills
+            </label>
+            <div className="mt-2">
+              <input
+                type="number"
+                name="numberOfHazardousMaterialSpills"
+                id="number-of-hazardous-material-spill"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.numberOfHazardousMaterialSpills}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          </div>
       ))}
 
       {state.accidentInLast3Years ? (
@@ -403,35 +394,59 @@ const StepFour = ({ onNextStep }) => {
           </div>
 
           <div className="sm:col-span-3">
-            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
-              Injuries
+            <label
+              htmlFor="number-of-injuries"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Number of Injuries
             </label>
             <div className="mt-2">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="hasInjuries"
-                  id="injuries-true"
-                  value="true"
-                  checked={state.hasInjuries}
-                  onChange={handleChange}
-                  className="mr-2 "
-                />
-                <label htmlFor="injuries-true" className="mr-4">
-                  Yes
-                </label>
+              <input
+                type="number"
+                name="numberOfInjuries"
+                id="number-of-injuries"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.numberOfInjuries}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-                <input
-                  type="radio"
-                  name="hasInjuries"
-                  id="injuries-false"
-                  value="false"
-                  checked={state.hasInjuries}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="injuries-false">No</label>
-              </div>
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="number-of-fatalities"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Number of Fatalities
+            </label>
+            <div className="mt-2">
+              <input
+                type="number"
+                name="numberOfFatalities"
+                id="number-of-fatalities"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.numberOfFatalities}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-3">
+            <label
+              htmlFor="number-of-hazardous-material-spill"
+              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            >
+              Number of Hazardous Material Spills
+            </label>
+            <div className="mt-2">
+              <input
+                type="number"
+                name="numberOfHazardousMaterialSpills"
+                id="number-of-hazardous-material-spill"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={state.numberOfHazardousMaterialSpills}
+                onChange={handleChange}
+              />
             </div>
           </div>
         </>
@@ -456,7 +471,7 @@ const StepFour = ({ onNextStep }) => {
           htmlFor="traffic-convictions"
           className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
         >
-          Any Traffic Convictions in the last 3 years?
+          Any Traffic Convictions in the last 3 years? (Other than parking violations)
         </label>
         <div className="mt-2">
           <select
