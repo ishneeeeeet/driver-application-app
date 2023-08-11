@@ -1,88 +1,103 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useReducer } from "react";
 import { FormContext } from "./context";
 
-const StepSix = ({ onNextStep }) => {
-  const { form, setForm } = useContext(FormContext);
-  const [workHistory, setWorkHistory] = useState(form.workHistory);
 
-  const handleHoursWorkedChange = (index, hoursWorked) => {
-    const updatedWorkHistory = [...workHistory];
-    updatedWorkHistory[index] = { ...updatedWorkHistory[index], hoursWorked };
-    
-    setWorkHistory(updatedWorkHistory);
+const initialState = {
+  hoursWorked: new Array(14).fill(0),
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_HOURS":
+      return { ...state, hoursWorked: action.payload };
+    default:
+      return state;
+  }
+};
+
+const StepFive = ({ onNextStep, onPreviousStep }) => {
+  const { form, setForm } = useContext(FormContext);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleChange = (index, value) => {
+    const updatedHours = [...state.hoursWorked];
+    updatedHours[index] = value;
+    dispatch({ type: "SET_HOURS", payload: updatedHours });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    // Validate work history
-    
-
-    // const workHistoryObjects = workHistory.map((hours, index) => ({
-    //   date: last14Days[index],
-    //   hoursWorked: hours,
-    // }));
-
-    // setForm({ ...form, workHistory: workHistoryObjects });
-
-    // console.log("Work history submitted successfully!");
+    setForm({
+      ...form,
+      stepFiveData: {
+        hoursWorked: state.hoursWorked,
+      },
+    });
     onNextStep();
   };
 
-  const today = new Date();
-  const last14Days = Array.from({ length: 14 }, (_, i) => {
-    const date = new Date();
-    date.setDate(today.getDate() - i);
-    return date;
-  });
-
-  useEffect(() => {
-    if (form.workHistory) {
-      setWorkHistory(form.workHistory);
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log(form);
-  }, [form])
-
-  const formatDate = (date) => {
-    const options = { weekday: "short", month: "short", day: "numeric" };
-    return date.toLocaleDateString("en-US", options);
+  const getFormattedDate = (index) => {
+    const today = new Date();
+    const date = new Date(today);
+    date.setDate(today.getDate() - index);
+    return date.toISOString().split("T")[0];
   };
 
   return (
     <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
-      {/* <h1 className="text-2xl font-bold text-center text-gray-800 mt-6 mb-4 lg:text-3xl md:mb-6">
-        Work History for the Last 14 Days
+      <h1 className="mb-4 mt-6 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
+        Hours Worked in the Last 14 Days
       </h1>
-      <div className="grid grid-cols-2 gap-4">
-        {last14Days.map((date, index) => (
-          <div key={index}>
-            <label
-              htmlFor={`hours-worked-${index}`}
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-4"
+      {state.hoursWorked.map((hours, index) => (
+        <div key={index} className="sm:col-span-3">
+          <label
+            htmlFor={`hours-worked-${index}`}
+            className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+          >
+            Date: {getFormattedDate(index)}
+          </label>
+          <div className="mt-2">
+            <select
+            required
+              name={`hoursWorked-${index}`}
+              id={`hours-worked-${index}`}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              value={hours}
+              onChange={(e) => handleChange(index, e.target.value)}
             >
-              Date: {formatDate(date)}
-            </label>
-            <div className="mt-2">
-              <input
-                type="number"
-                id={`hours-worked-${index}`}
-                name={`hoursWorked-${index}`}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                onChange={(e) => handleHoursWorkedChange(index, e.target.value)}
-                required
-                min="0"
-              />
-              {!workHistory[index] && (
-                <p className="text-red-600 text-xs mt-1">Hours worked is required.</p>
-              )}
-            </div>
+              <option selected disabled value="">Select from options</option>
+              <option value="did not work">Did not work</option>
+              <option value="1">1 hour</option>
+              <option value="3">2 hours</option>
+              <option value="3">3 hours</option>
+              <option value="2">4 hours</option>
+              <option value="5">5 hours</option>
+              <option value="6">6 hours</option>
+              <option value="7">7 hours</option>
+              <option value="8">8 hours</option>
+              <option value="9">9 hours</option>
+              <option value="10">10 hours</option>
+              <option value="1">11 hours</option>
+              <option value="2">12 hours</option>
+              <option value="3">13 hours</option>
+              <option value="4">14 hours</option>
+              <option value="5">15 hours</option>
+              <option value="6">16 hours</option>
+              
+            </select>
           </div>
-        ))}
-      </div> */}
-      <div className="flex justify-end">
+        </div>
+      ))}
+
+      <div className="flex justify-between">
+        <button
+          type="button"
+          onClick={onPreviousStep}
+          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+        >
+          Previous Step
+        </button>
+
         <button
           type="submit"
           className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
@@ -94,4 +109,4 @@ const StepSix = ({ onNextStep }) => {
   );
 };
 
-export default StepSix;
+export default StepFive;

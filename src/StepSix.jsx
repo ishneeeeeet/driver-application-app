@@ -4,8 +4,9 @@ import { FormContext } from "./context";
 import { saveAs } from "file-saver";
 
 import myimage from "./images/roadtestevaluation.png";
-import empploymentImage from "./images/Employment-verification.png"
+import empploymentImage from "./images/Employment-verification.png";
 import SignatureCanvas from "react-signature-canvas";
+import Document from "./Document";
 
 const StepSix = () => {
   const { form, setForm } = useContext(FormContext);
@@ -23,7 +24,9 @@ const StepSix = () => {
 
       // Send form data to backend and get PDF
       await axios.post(`http://localhost:8000/createPdf`, form);
-      const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, { responseType: "blob" });
+      const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
+        responseType: "blob",
+      });
 
       // Save and download PDF
       const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
@@ -70,14 +73,21 @@ const StepSix = () => {
           />
         </div>
         {/* Signature 1 */}
-        <label className="text-base font-semibold leading-7 text-gray-900 text-center" htmlFor="">
+        <label
+          className="text-base font-semibold leading-7 text-gray-900 text-center"
+          htmlFor=""
+        >
           Signature 1
         </label>
         <div className="flex justify-center">
           <div className="sm:col-span-3 ">
             <div className="border border-gray-300 p-4 rounded mb-6">
               <SignatureCanvas
-                canvasProps={{ width: 400, height: 70, className: "signCanvas" }}
+                canvasProps={{
+                  width: 400,
+                  height: 70,
+                  className: "signCanvas",
+                }}
                 ref={(data) => setSign1(data)}
               />
             </div>
@@ -92,33 +102,38 @@ const StepSix = () => {
           />
         </div>
         {/* Signature 2 */}
-        <label className="text-base font-semibold leading-7 text-gray-900 text-center" htmlFor="">
+        <label
+          className="text-base font-semibold leading-7 text-gray-900 text-center"
+          htmlFor=""
+        >
           Signature 2
         </label>
         <div className="flex justify-center">
           <div className="sm:col-span-3 ">
             <div className="border border-gray-300 p-4 rounded mb-6">
               <SignatureCanvas
-                canvasProps={{ width: 400, height: 70, className: "signCanvas" }}
+                canvasProps={{
+                  width: 400,
+                  height: 70,
+                  className: "signCanvas",
+                }}
                 ref={(data) => setSign2(data)}
               />
             </div>
             <button onClick={(e) => handleClear(e, sign2)}>Clear</button>
           </div>
         </div>
-  
-        <div className="flex justify-end">
-       
 
-       
+        <div className="flex justify-end">
+          <Document form={form} />
+
           <button
             type="submit"
             className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
             Submit
           </button>
-       
-      </div>
+        </div>
       </form>
     </>
   );

@@ -30,21 +30,12 @@ const reducer = (state, action) => {
           : state.accidentsArray,
         showAdditionalAccidentFields: false,
       };
-    case "ADD_TRAFFIC_CONVICTION":
-      return {
-        ...state,
-        trafficConvictionsArray: state.trafficConvictions
-          ? [
-              ...state.trafficConvictionsArray,
-              {
-                convictionDate: state.convictionDate,
-                convictionLocation: state.convictionLocation,
-                charge: state.charge,
-                penalty: state.penalty,
-              },
-            ]
-          : state.trafficConvictionsArray,
-      };
+      // eslint-disable-next-line no-duplicate-case
+      case "ADD_ACCIDENT":
+        return {
+          ...state,
+          accidentsArray: [...state.accidentsArray, action.payload],
+        };
     case "TOGGLE_ACCIDENT_STATUS":
       return {
         ...state,
@@ -146,6 +137,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
       noOfInjuries,
     } = state;
   
+    // Create a new accident object
     const newAccident = {
       dateOfAccident,
       accidentDescription,
@@ -154,15 +146,17 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
       noOfInjuries,
     };
   
+    // Dispatch an action to add the new accident to the accidentsArray
     dispatch({ type: "ADD_ACCIDENT", payload: newAccident });
   
-    // Clear the accident fields
+    // Clear the accident fields by dispatching individual SET_VALUE actions
     dispatch({ type: "SET_VALUE", field: "dateOfAccident", payload: "" });
     dispatch({ type: "SET_VALUE", field: "accidentDescription", payload: "" });
     dispatch({ type: "SET_VALUE", field: "accidentLocation", payload: "" });
     dispatch({ type: "SET_VALUE", field: "noOfFatalities", payload: "" });
     dispatch({ type: "SET_VALUE", field: "noOfInjuries", payload: "" });
   };
+  
   const handleAddTrafficConviction = () => {
     const newTrafficConviction = {
       convictionDate: state.convictionDate,
