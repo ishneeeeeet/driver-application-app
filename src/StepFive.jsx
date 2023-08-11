@@ -53,7 +53,7 @@ const StepSix = ({ onNextStep }) => {
 
   return (
     <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mt-6 mb-4 lg:text-3xl md:mb-6">
+      {/* <h1 className="text-2xl font-bold text-center text-gray-800 mt-6 mb-4 lg:text-3xl md:mb-6">
         Work History for the Last 14 Days
       </h1>
       <div className="grid grid-cols-2 gap-4">
@@ -81,7 +81,7 @@ const StepSix = ({ onNextStep }) => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
       <div className="flex justify-end">
         <button
           type="submit"

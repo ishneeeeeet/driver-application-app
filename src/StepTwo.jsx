@@ -39,14 +39,16 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setForm((prevForm) => ({ ...prevForm, stepTwoData: addresses }));
+    setForm((prevForm) => ({
+      ...prevForm,
+      stepTwoData: { ...prevForm.stepTwoData, addressesArray: addresses },
+    }));
 
     onNextStep();
   };
 
- 
   const handlePreviousStep = () => {
-    onPreviousStep(); // Call the onPreviousStep function from props to move back to Step 1
+    onPreviousStep();
   };
 
   useEffect(() => {
@@ -82,7 +84,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 name="streetAddress"
                 autoComplete="street-address"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={form.stepTwoData[index]?.streetAddress ? form.stepTwoData[index]?.streetAddress : null}
+                value={form.stepTwoData?.addressesArray[index]?.streetAddress ? form.stepTwoData?.addressesArray[index]?.streetAddress : null}
                 onChange={(e) =>
                   handleAddressChange(index, "streetAddress", e.target.value)
                 }
@@ -105,7 +107,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 name="city"
                 autoComplete="address-level2"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={form.stepTwoData[index]?.city ? form.stepTwoData[index]?.city : null}
+                value={form.stepTwoData?.addressesArray[index]?.city ? form.stepTwoData?.addressesArray[index]?.city : null}
                 onChange={(e) =>
                   handleAddressChange(index, "city", e.target.value)
                 }
@@ -128,7 +130,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 name="province"
                 autoComplete="address-level1"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={form.stepTwoData[index]?.region ? form.stepTwoData[index]?.region : null}
+                value={form.stepTwoData?.addressesArray[index]?.region ? form.stepTwoData?.addressesArray[index]?.region : null}
                 onChange={(e) =>
                   handleAddressChange(index, "region", e.target.value)
                 }
@@ -150,7 +152,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 name="postalCode"
                 autoComplete="postal-code"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={form.stepTwoData[index]?.postalCode ? form.stepTwoData[index]?.postalCode : null}
+                value={form.stepTwoData?.addressesArray[index]?.postalCode ? form.stepTwoData?.addressesArray[index]?.postalCode : null}
                 onChange={(e) =>
                   handleAddressChange(index, "postalCode", e.target.value)
                 }
@@ -173,7 +175,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 name={`country-${index}`}
                 autoComplete="country"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={form.stepTwoData[index]?.country ? form.stepTwoData[index]?.country : null}
+                value={form.stepTwoData?.addressesArray[index]?.country ? form.stepTwoData?.addressesArray[index]?.country : null}
                 onChange={(e) =>
                   handleAddressChange(index, "country", e.target.value)
                 }
@@ -194,7 +196,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 id={`from-date-${index}`}
                 name="fromDate"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={form.stepTwoData[index]?.fromDate ? form.stepTwoData[index]?.fromDate : null}
+                value={form.stepTwoData?.addressesArray[index]?.fromDate ? form.stepTwoData?.addressesArray[index]?.fromDate : null}
                 onChange={(e) =>
                   handleAddressChange(index, "fromDate", e.target.value)
                 }
@@ -216,7 +218,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 id={`to-date-${index}`}
                 name="toDate"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={form.stepTwoData[index]?.toDate ? form.stepTwoData[index]?.toDate : null}
+                value={form.stepTwoData?.addressesArray[index]?.toDate ? form.stepTwoData?.addressesArray[index]?.toDate : null}
                 onChange={(e) =>
                   handleAddressChange(index, "toDate", e.target.value)
                 }
