@@ -484,26 +484,122 @@ const StepOne = ({ onNextStep }) => {
           Driver Experience(years)
         </h2>
       <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        {experienceFields.map(({ name, label }) => (
-          <div className="sm:col-span-3" key={name}>
+        
+          <div className="sm:col-span-3" >
             <label
-              htmlFor={name}
+              htmlFor=""
               className="block text-sm font-medium leading-6 text-gray-900"
             >
-              {label}
+              Tractor, Semi Tractor
             </label>
             <div className="mt-2">
               <input
               required
                 type="number"
-                id={name}
-                name={name}
-                value={form.stepOneData?.[name] ? form.stepOneData?.[name] : null}
+                id=""
+                name="tractor"
+                onChange={handleChange}
+                value={form.stepOneData?.tractor ? form.stepOneData.tractor : null }
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-        ))}
+          <div className="sm:col-span-3" >
+            <label
+              htmlFor=""
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Dry Van Reefer
+            </label>
+            <div className="mt-2">
+              <input
+              required
+                type="number"
+                id=""
+                name="van"
+                onChange={handleChange}
+                value={form.stepOneData?.van ? form.stepOneData.van : null }
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-3" >
+            <label
+              htmlFor=""
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Turn Pike/Super B
+            </label>
+            <div className="mt-2">
+              <input
+              required
+                type="number"
+                id=""
+                name="pike"
+                onChange={handleChange}
+                value={form.stepOneData?.pike ? form.stepOneData.pike : null }
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-3" >
+            <label
+              htmlFor=""
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Manual Transmission
+            </label>
+            <div className="mt-2">
+              <input
+              required
+                type="number"
+                id=""
+                name="manual"
+                onChange={handleChange}
+                value={form.stepOneData?.manual ? form.stepOneData.manual : null }
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-3" >
+            <label
+              htmlFor=""
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Chassis Trailer
+            </label>
+            <div className="mt-2">
+              <input
+              required
+                type="number"
+                id=""
+                name="chassis"
+                onChange={handleChange}
+                value={form.stepOneData?.chassis ? form.stepOneData.chassis : null }
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div className="sm:col-span-3" >
+            <label
+              htmlFor=""
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Long Haul
+            </label>
+            <div className="mt-2">
+              <input
+              required
+                type="number"
+                id=""
+                name="haul"
+                onChange={handleChange}
+                value={form.stepOneData?.haul ? form.stepOneData.haul : null }
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+        
       </div>
 
       <div className="flex justify-end mt-6">
