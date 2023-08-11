@@ -95,11 +95,11 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 <input
                 required
                   type="text"
-                  name={`employer-name-${index}`}
+                  name="employerName"
                   id={`employer-name-${index}`}
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.employerName}
+                  value={form.stepThreeData?.employmentHistory[index].employerName ?form.stepThreeData?.employmentHistory[index].employerName: null }
                   onChange={(e) =>
                     handleEmploymentChange(
                       index,
@@ -124,9 +124,9 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   type="text"
                   name={`position-held-${index}`}
                   id={`position-held-${index}`}
-                  autoComplete="family-name"
+                
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.positionHeld}
+                  value={form.stepThreeData?.employmentHistory[index].positionHeld ?form.stepThreeData?.employmentHistory[index].positionHeld: null }
                   onChange={(e) =>
                     handleEmploymentChange(
                       index,
@@ -153,7 +153,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 id={`contact-name-${index}`}
                 autoComplete="off"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={employment.contactName}
+                value={form.stepThreeData?.employmentHistory[index].contactName ?form.stepThreeData?.employmentHistory[index].contactName: null }
                 onChange={(e) =>
                   handleEmploymentChange(index, "contactName", e.target.value)
                 }
@@ -175,7 +175,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 id={`contact-phone-${index}`}
                 autoComplete="tel"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={employment.contactPhone}
+                value={form.stepThreeData?.employmentHistory[index].contactPhone ?form.stepThreeData?.employmentHistory[index].contactPhone: null }
                 onChange={(e) =>
                   handleEmploymentChange(index, "contactPhone", e.target.value)
                 }
@@ -198,7 +198,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`street-address-${index}`}
                   autoComplete="street-address"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.streetAddress}
+                  value={form.stepThreeData?.employmentHistory[index].streetAddress ?form.stepThreeData?.employmentHistory[index].streetAddress: null }
                   onChange={(e) =>
                     handleEmploymentChange(
                       index,
@@ -225,7 +225,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`city-${index}`}
                   autoComplete="address-level2"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.city}
+                  value={form.stepThreeData?.employmentHistory[index].city ?form.stepThreeData?.employmentHistory[index].city: null }
                   onChange={(e) =>
                     handleEmploymentChange(index, "city", e.target.value)
                   }
@@ -248,7 +248,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`region-${index}`}
                   autoComplete="address-level1"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.region}
+                  value={form.stepThreeData?.employmentHistory[index].region ?form.stepThreeData?.employmentHistory[index].region: null }
                   onChange={(e) =>
                     handleEmploymentChange(index, "region", e.target.value)
                   }
@@ -271,7 +271,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`postal-code-${index}`}
                   autoComplete="postal-code"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.postalCode}
+                  value={form.stepThreeData?.employmentHistory[index].postalCode ?form.stepThreeData?.employmentHistory[index].postalCode: null }
                   onChange={(e) =>
                     handleEmploymentChange(index, "postalCode", e.target.value)
                   }
@@ -293,7 +293,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 id={`country-${index}`}
                 autoComplete="country-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={employment.country}
+                value={form.stepThreeData?.employmentHistory[index].country ?form.stepThreeData?.employmentHistory[index].country: null }
                 onChange={(e) =>
                   handleEmploymentChange(index, "country", e.target.value)
                 }
@@ -316,7 +316,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   name={`from-date-${index}`}
                   id={`from-date-${index}`}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.fromDate}
+                  value={form.stepThreeData?.employmentHistory[index].fromDate ?form.stepThreeData?.employmentHistory[index].fromDate: null }
                   onChange={(e) =>
                     handleEmploymentChange(index, "fromDate", e.target.value)
                   }
@@ -338,7 +338,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   name={`to-date-${index}`}
                   id={`to-date-${index}`}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.toDate}
+                  value={form.stepThreeData?.employmentHistory[index].toDate ?form.stepThreeData?.employmentHistory[index].toDate: null }
                   onChange={(e) =>
                     handleEmploymentChange(index, "toDate", e.target.value)
                   }
@@ -361,7 +361,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`reason-for-leaving-${index}`}
                   autoComplete="off"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={employment.reasonForLeaving}
+                  value={form.stepThreeData?.employmentHistory[index].reasonForLeaving ?form.stepThreeData?.employmentHistory[index].reasonForLeaving: null }
                   onChange={(e) =>
                     handleEmploymentChange(
                       index,
@@ -387,7 +387,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 id="country"
                 name="province"
                 autoComplete="country-name"
-                
+                value={form.stepThreeData?.employmentHistory[index].subjectToFMCSRs ?form.stepThreeData?.employmentHistory[index].subjectToFMCSRs: null }
+
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option selected disabled value="">
@@ -423,8 +424,9 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               <select
                 required
                 id="country"
-                name="province"
-                autoComplete="country-name"
+                name="safetySensitiveFunction"
+                value={form.stepThreeData?.employmentHistory[index].safetySensitiveFunction ?form.stepThreeData?.employmentHistory[index].safetySensitiveFunction: null }
+
                 onChange={(e) =>
                   handleEmploymentChange(
                     index,
