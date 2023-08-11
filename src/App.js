@@ -5,6 +5,7 @@ import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import StepSix from "./StepSix";
 import StepFive from "./StepFive";
+import StepSeven from "./StepSeven";
 
 function App() {
   const [activeStep, setActiveStep] = useState(1);
@@ -16,6 +17,7 @@ function App() {
   return (
     <>
       <div className="mt-6">
+        //header
         <h2 className="mb-4 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
           Driver Application Form
         </h2>
@@ -66,7 +68,7 @@ function App() {
             >
               Accident
             </button>
-            <button
+            {/* <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
                 activeStep === 5
                   ? "text-indigo-500 border-b-2 border-indigo-500"
@@ -75,7 +77,7 @@ function App() {
               onClick={() => handleStepChange(5)}
             >
               Last 14 Days
-            </button>
+            </button> */}
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
                 activeStep === 6
@@ -85,6 +87,16 @@ function App() {
               onClick={() => handleStepChange(6)}
             >
               Consent
+            </button>
+            <button
+              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+                activeStep === 6
+                  ? "text-indigo-500 border-b-2 border-indigo-500"
+                  : "border-b-2 border-gray-200"
+              } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
+              onClick={() => handleStepChange(7)}
+            >
+              Consent 2
             </button>
           </div>
           <div className="flex flex-col w-full text-center">
@@ -96,6 +108,7 @@ function App() {
                 {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(5)}  onPreviousStep={() => handleStepChange(3)} />}
                 {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)}/>}
                 {activeStep === 6 && <StepSix />}
+                {activeStep === 7 && <StepSeven />}
                 
               </div>
               
@@ -105,7 +118,7 @@ function App() {
         </div>
         
       </div>
-      
+      //footer
     </>
   );
 }

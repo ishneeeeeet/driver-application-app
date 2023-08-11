@@ -54,17 +54,8 @@ const StepSix = () => {
   return (
     <>
       <form onClick={onSubmit} className="max-w-screen-md mx-auto text-center">
-        <h1 className="mb-4 mt-6 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
-          APLLICANT'S CONSENT
-        </h1>
-        <p>
-          I hereby give my consent and authorize my prospect employer and/or
-          Compliance Wizard Inc. to contact my previous employer(s) in order to
-          verify my employment History. Safety performance history and drug &
-          alcohol history and to obtain the following information. I release my
-          prospective and previous employer(s) and its employee(s) from any and
-          all liabilities which may result from furnishing such information.
-        </p>
+       
+        
         <div className="flex justify-center mt-6 mb-6">
           <img
             src={empploymentImage}
@@ -73,6 +64,14 @@ const StepSix = () => {
           />
         </div>
         {/* Signature 1 */}
+        <p className="text-left text-sm">
+          I hereby give my consent and authorize my prospect employer and/or
+          Compliance Wizard Inc. to contact my previous employer(s) in order to
+          verify my employment History. Safety performance history and drug &
+          alcohol history and to obtain the following information. I release my
+          prospective and previous employer(s) and its employee(s) from any and
+          all liabilities which may result from furnishing such information.
+        </p>
         <label
           className="text-base font-semibold leading-7 text-gray-900 text-center"
           htmlFor=""
@@ -125,7 +124,7 @@ const StepSix = () => {
         </div>
 
         <div className="flex justify-end">
-          <Document form={form} />
+          
 
           <button
             type="submit"
