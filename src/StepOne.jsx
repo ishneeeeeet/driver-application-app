@@ -366,13 +366,13 @@ const StepOne = ({ onNextStep }) => {
                 <option selected disabled value="">
                   Select an option
                 </option>
-                <option value="option1">Class 1</option>
-                <option value="option2">Class 2</option>
-                <option value="option2">Class 3</option>
-                <option value="option2">Class 4</option>
-                <option value="option2">Class 5</option>
-                <option value="option2">Class 6</option>
-                <option value="option2">Class 7</option>
+                <option value="Class 1">Class 1</option>
+                <option value="Class 2">Class 2</option>
+                <option value="Class 3">Class 3</option>
+                <option value="Class 4">Class 4</option>
+                <option value="Class 5">Class 5</option>
+                <option value="Class 6">Class 6</option>
+                <option value="Class 7">Class 7</option>
               </select>
             </div>
           </div>
