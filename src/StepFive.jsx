@@ -18,14 +18,14 @@ const StepSix = ({ onNextStep }) => {
     // Validate work history
     
 
-    const workHistoryObjects = workHistory.map((hours, index) => ({
-      date: last14Days[index],
-      hoursWorked: hours,
-    }));
+    // const workHistoryObjects = workHistory.map((hours, index) => ({
+    //   date: last14Days[index],
+    //   hoursWorked: hours,
+    // }));
 
-    setForm({ ...form, workHistory: workHistoryObjects });
+    // setForm({ ...form, workHistory: workHistoryObjects });
 
-    console.log("Work history submitted successfully!");
+    // console.log("Work history submitted successfully!");
     onNextStep();
   };
 

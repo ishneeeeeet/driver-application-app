@@ -376,38 +376,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
             </div>
           </div>
 
-          <div className="sm:col-span-3">
-            <label className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6">
-              Fatalities
-            </label>
-            <div className="mt-2">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="hasFatalities"
-                  id="fatalities-true"
-                  value="true"
-                  checked={state.hasFatalities}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="fatalities-true" className="mr-4">
-                  Yes
-                </label>
-
-                <input
-                  type="radio"
-                  name="hasFatalities"
-                  id="fatalities-false"
-                  value="false"
-                  checked={state.hasFatalities}
-                  onChange={handleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="fatalities-false">No</label>
-              </div>
-            </div>
-          </div>
+          
 
           <div className="sm:col-span-3">
             <label
