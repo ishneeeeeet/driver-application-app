@@ -107,7 +107,7 @@ const StepSix = () => {
           </div>
         </div>
   
-        <div className="flex justify-between">
+        <div className="flex justify-end">
        
 
        
@@ -115,7 +115,7 @@ const StepSix = () => {
             type="submit"
             className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
-            Next
+            Submit
           </button>
        
       </div>

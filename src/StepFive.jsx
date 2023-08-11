@@ -7,7 +7,8 @@ const StepSix = ({ onNextStep }) => {
 
   const handleHoursWorkedChange = (index, hoursWorked) => {
     const updatedWorkHistory = [...workHistory];
-    updatedWorkHistory[index] = hoursWorked;
+    updatedWorkHistory[index] = { ...updatedWorkHistory[index], hoursWorked };
+    
     setWorkHistory(updatedWorkHistory);
   };
 
@@ -15,10 +16,7 @@ const StepSix = ({ onNextStep }) => {
     e.preventDefault();
 
     // Validate work history
-    if (workHistory.some((hours) => hours === "" || isNaN(hours) || hours < 0)) {
-      alert("Please enter valid hours worked for all days.");
-      return;
-    }
+    
 
     const workHistoryObjects = workHistory.map((hours, index) => ({
       date: last14Days[index],
@@ -43,6 +41,10 @@ const StepSix = ({ onNextStep }) => {
       setWorkHistory(form.workHistory);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(form);
+  }, [form])
 
   const formatDate = (date) => {
     const options = { weekday: "short", month: "short", day: "numeric" };
@@ -69,7 +71,6 @@ const StepSix = ({ onNextStep }) => {
                 id={`hours-worked-${index}`}
                 name={`hoursWorked-${index}`}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={workHistory[index]}
                 onChange={(e) => handleHoursWorkedChange(index, e.target.value)}
                 required
                 min="0"

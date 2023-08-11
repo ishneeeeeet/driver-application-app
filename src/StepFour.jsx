@@ -1,14 +1,14 @@
-
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
+import { FormContext } from "./context";
 
 const initialState = {
   accidentInLast3Years: null,
   dateOfAccident: "",
   accidentDescription: "",
   accidentLocation: "",
-  hasFatalities: false,
-  hasInjuries: false,
+  noOfFatalities: "",
+  noOfInjuries: "",
   accidentsArray: [],
   trafficConvictions: false,
   convictionDate: "",
@@ -65,7 +65,8 @@ const reducer = (state, action) => {
   }
 };
 
-const StepFour = ({ onNextStep }) => {
+const StepFour = ({ onNextStep, onPreviousStep }) => {
+  const { form, setForm } = useContext(FormContext);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [sign, setSign] = useState();
 
@@ -73,7 +74,6 @@ const StepFour = ({ onNextStep }) => {
     e.preventDefault();
     sign.clear();
   };
-  
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -95,10 +95,22 @@ const StepFour = ({ onNextStep }) => {
       alert("Please answer all required questions.");
       return;
     }
+    setForm({
+      ...form,
+      stepFourData: {
+        accidentInLast3Years: state.accidentInLast3Years,
+        accidents: state.accidentsArray,
+        trafficConvictions: state.trafficConvictions,
+        trafficConvictionsData: state.trafficConvictionsArray,
+      },
+    });
 
-    console.log("Form submitted successfully!");
+    console.log(form);
     onNextStep();
   };
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -130,17 +142,26 @@ const StepFour = ({ onNextStep }) => {
       dateOfAccident,
       accidentDescription,
       accidentLocation,
-      hasFatalities,
-      hasInjuries,
+      noOfFatalities,
+      noOfInjuries,
     } = state;
+  
     const newAccident = {
       dateOfAccident,
       accidentDescription,
       accidentLocation,
-      hasFatalities: hasFatalities === "true",
-      hasInjuries: hasInjuries === "true",
+      noOfFatalities,
+      noOfInjuries,
     };
+  
     dispatch({ type: "ADD_ACCIDENT", payload: newAccident });
+  
+    // Clear the accident fields
+    dispatch({ type: "SET_VALUE", field: "dateOfAccident", payload: "" });
+    dispatch({ type: "SET_VALUE", field: "accidentDescription", payload: "" });
+    dispatch({ type: "SET_VALUE", field: "accidentLocation", payload: "" });
+    dispatch({ type: "SET_VALUE", field: "noOfFatalities", payload: "" });
+    dispatch({ type: "SET_VALUE", field: "noOfInjuries", payload: "" });
   };
   const handleAddTrafficConviction = () => {
     const newTrafficConviction = {
@@ -198,7 +219,7 @@ const StepFour = ({ onNextStep }) => {
                 name={`accidentDate-${index}`}
                 id={`accident-date-${index}`}
                 className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={accident.dateOfAccident}
+                value={form.stepFourData.accidents[index]?.acidentDate}
                 onChange={handleChange}
               />
             </div>
@@ -217,7 +238,6 @@ const StepFour = ({ onNextStep }) => {
                 name="accidentDescription"
                 rows="3"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.accidentDescription}
                 onChange={handleChange}
               />
             </div>
@@ -236,7 +256,6 @@ const StepFour = ({ onNextStep }) => {
                 id="accident-location"
                 name="accidentLocation"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.accidentLocation}
                 onChange={handleChange}
               />
             </div>
@@ -255,7 +274,6 @@ const StepFour = ({ onNextStep }) => {
                 name="numberOfInjuries"
                 id="number-of-injuries"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.numberOfInjuries}
                 onChange={handleChange}
               />
             </div>
@@ -274,7 +292,6 @@ const StepFour = ({ onNextStep }) => {
                 name="numberOfFatalities"
                 id="number-of-fatalities"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.numberOfFatalities}
                 onChange={handleChange}
               />
             </div>
@@ -293,12 +310,11 @@ const StepFour = ({ onNextStep }) => {
                 name="numberOfHazardousMaterialSpills"
                 id="number-of-hazardous-material-spill"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.numberOfHazardousMaterialSpills}
                 onChange={handleChange}
               />
             </div>
           </div>
-          </div>
+        </div>
       ))}
 
       {state.accidentInLast3Years ? (
@@ -471,7 +487,8 @@ const StepFour = ({ onNextStep }) => {
           htmlFor="traffic-convictions"
           className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
         >
-          Any Traffic Convictions in the last 3 years? (Other than parking violations)
+          Any Traffic Convictions in the last 3 years? (Other than parking
+          violations)
         </label>
         <div className="mt-2">
           <select
@@ -688,9 +705,10 @@ const StepFour = ({ onNextStep }) => {
         also, that I am required to abide by all rules and regulations of the
         company.
       </p>
-      <h2 className="mt-6 mb-6 text-base font-semibold leading-7 text-gray-900 text-center">Signature</h2>
+      <h2 className="mt-6 mb-6 text-base font-semibold leading-7 text-gray-900 text-center">
+        Signature
+      </h2>
       <div className="flex justify-center">
-        
         <div className="sm:col-span-3 border border-black">
           <SignatureCanvas
             required
@@ -698,25 +716,25 @@ const StepFour = ({ onNextStep }) => {
             ref={(data) => setSign(data)}
           />
         </div>
-        
       </div>
-      <button className="mt-2 mb-6" onClick={handleClear}>Clear</button>
+      <button className="mt-2 mb-6" onClick={handleClear}>
+        Clear
+      </button>
       <div className="flex justify-between">
         <button
           type="button"
-          
+          onClick={onPreviousStep}
           className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
         >
           Previous Step
         </button>
-        
-          <button
-            type="submit"
-            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-          >
-            Next
-          </button>
-        
+
+        <button
+          type="submit"
+          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+        >
+          Next
+        </button>
       </div>
     </form>
   );
