@@ -36,6 +36,12 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
       },
     ]);
   };
+  const removeAddress = (index) => {
+    setAddresses((prevAddresses) => {
+      const updatedAddresses = prevAddresses.filter((_, i) => i !== index);
+      return updatedAddresses;
+    });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -132,7 +138,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={form.stepTwoData?.addressesArray[index]?.region ? form.stepTwoData?.addressesArray[index]?.region : null}
                 onChange={(e) =>
-                  handleAddressChange(index, "region", e.target.value)
+                  handleAddressChange(index, "province", e.target.value)
                 }
               />
             </div>
@@ -147,6 +153,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="text"
                 id={`postal-code-${index}`}
                 name="postalCode"
@@ -224,6 +231,15 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 }
               />
             </div>
+          </div>
+          <div className="sm:col-span-1 sm:col-end-7">
+            <button
+              type="button"
+              className="py-2 px-4 mt-6 bg-red-500 text-white rounded-md hover:bg-indigo-700 "
+              onClick={() => removeAddress(index)}
+            >
+              Remove
+            </button>
           </div>
         </div>
       ))}

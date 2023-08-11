@@ -1,36 +1,7 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect} from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
-
-const experienceFields = [
-  {
-    name: "tractorSemiTrailer",
-    label: "Tractor, Semi-Trailer",
-  },
-  {
-    name: "dryVanReefer",
-    label: "Dry Van Reefer",
-  },
-  {
-    name: "turnPikeSuperB",
-    label: "Turn Pike/Super B",
-  },
-  {
-    name: "manualTransmission",
-    label: "Manual Transmission",
-  },
-  {
-    name: "chassisTrailer",
-    label: "Chassis Trailer",
-  },
-  {
-    name: "longHaul",
-    label: "Long Haul",
-  },
-];
-
-
 
 const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
@@ -67,7 +38,7 @@ const StepOne = ({ onNextStep }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "cellno" || name === "phone") {
+    if (name === "cellNo" || name === "homeNo") {
       const input = value;
       const formattedInput = formatCellNo(input);
       setForm((prevForm) => ({
@@ -108,10 +79,25 @@ const StepOne = ({ onNextStep }) => {
     console.log(form);
     onNextStep();
   };
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const intValue = parseInt(value);
+    if (isNaN(intValue) || intValue < 0 || intValue > 24) {
+      alert('Please enter a number between 0 and 24 in the driving experience year fields.');
+      setForm((prevForm) => ({
+        ...prevForm,
+        stepOneData: {
+          ...prevForm.stepOneData,
+          [name]: '',
+        },
+      }));
+    }
+  };
 
   return (
     <Form.Root className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
+   
         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="sm:col-span-3">
             <Label.Root
@@ -143,6 +129,7 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-2">
               <input
+              required
                 type="text"
                 name="lastName"
                 id="last-name"
@@ -237,7 +224,7 @@ const StepOne = ({ onNextStep }) => {
             <div className="mt-2">
               <input
                 type="tel"
-                name="cellno"
+                name="cellNo"
                 id="cellNo"
                 placeholder="123-456-7890"
                 value={form.stepOneData?.cellNo ? form.stepOneData?.cellNo : null}
@@ -336,7 +323,7 @@ const StepOne = ({ onNextStep }) => {
             <div className="mt-2">
               <input
                 required
-                type="number"
+                type="text"
                 name="driverLicenseNumber"
                 value={form.stepOneData?.driverLicenseNumber ? form.stepOneData?.driverLicenseNumber : null}
                 onChange={handleChange}
@@ -481,9 +468,12 @@ const StepOne = ({ onNextStep }) => {
         </div>
       </div>
       <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
-          Driver Experience(years)
+          Driving Experience
         </h2>
-      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <p className="max-w-screen-md mx-auto text-center text-gray-500 md:text-md">
+          Please select the number of years of experience driving the vehicle
+        </p>
+      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 text-left">
         
           <div className="sm:col-span-3" >
             <label
@@ -493,15 +483,32 @@ const StepOne = ({ onNextStep }) => {
               Tractor, Semi Tractor
             </label>
             <div className="mt-2">
-              <input
+            <select
               required
-                type="number"
-                id=""
-                name="tractor"
-                onChange={handleChange}
-                value={form.stepOneData?.tractor ? form.stepOneData.tractor : null }
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+              id="status"
+              name="tractor"
+              autoComplete=""
+              value={form.stepOneData?.tractor ? form.stepOneData?.tractor : null}
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="0">No Experience</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10 years</option>
+              <option value="More than 10 years">More than 10 years of expereince</option>
+              
+            </select>
             </div>
           </div>
           <div className="sm:col-span-3" >
@@ -512,15 +519,32 @@ const StepOne = ({ onNextStep }) => {
               Dry Van Reefer
             </label>
             <div className="mt-2">
-              <input
+            <select
               required
-                type="number"
-                id=""
-                name="van"
-                onChange={handleChange}
-                value={form.stepOneData?.van ? form.stepOneData.van : null }
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+              id="status"
+              name="van"
+              autoComplete=""
+              value={form.stepOneData?.van ? form.stepOneData?.van : null}
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="0">No Experience</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10 years</option>
+              <option value="More than 10 years">More than 10 years of expereince</option>
+              
+            </select>
             </div>
           </div>
           <div className="sm:col-span-3" >
@@ -531,15 +555,32 @@ const StepOne = ({ onNextStep }) => {
               Turn Pike/Super B
             </label>
             <div className="mt-2">
-              <input
+            <select
               required
-                type="number"
-                id=""
-                name="pike"
-                onChange={handleChange}
-                value={form.stepOneData?.pike ? form.stepOneData.pike : null }
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+              id="status"
+              name="pike"
+              autoComplete=""
+              value={form.stepOneData?.pike ? form.stepOneData?.pike : null}
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="0">No Experience</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10 years</option>
+              <option value="More than 10 years">More than 10 years of expereince</option>
+              
+            </select>
             </div>
           </div>
           <div className="sm:col-span-3" >
@@ -550,15 +591,32 @@ const StepOne = ({ onNextStep }) => {
               Manual Transmission
             </label>
             <div className="mt-2">
-              <input
+            <select
               required
-                type="number"
-                id=""
-                name="manual"
-                onChange={handleChange}
-                value={form.stepOneData?.manual ? form.stepOneData.manual : null }
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+              id="status"
+              name="manual"
+              autoComplete=""
+              value={form.stepOneData?.manual ? form.stepOneData?.manual : null}
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="0">No Experience</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10 years</option>
+              <option value="More than 10 years">More than 10 years of expereince</option>
+              
+            </select>
             </div>
           </div>
           <div className="sm:col-span-3" >
@@ -569,15 +627,32 @@ const StepOne = ({ onNextStep }) => {
               Chassis Trailer
             </label>
             <div className="mt-2">
-              <input
+            <select
               required
-                type="number"
-                id=""
-                name="chassis"
-                onChange={handleChange}
-                value={form.stepOneData?.chassis ? form.stepOneData.chassis : null }
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+              id="status"
+              name="chassis"
+              autoComplete=""
+              value={form.stepOneData?.chassis ? form.stepOneData?.chassis : null}
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="0">No Experience</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10 years</option>
+              <option value="More than 10 years">More than 10 years of expereince</option>
+              
+            </select>
             </div>
           </div>
           <div className="sm:col-span-3" >
@@ -588,15 +663,32 @@ const StepOne = ({ onNextStep }) => {
               Long Haul
             </label>
             <div className="mt-2">
-              <input
+            <select
               required
-                type="number"
-                id=""
-                name="haul"
-                onChange={handleChange}
-                value={form.stepOneData?.haul ? form.stepOneData.haul : null }
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+              id="status"
+              name="haul"
+              autoComplete=""
+              value={form.stepOneData?.haul ? form.stepOneData?.haul : null}
+              onChange={handleChange}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option selected disabled value="">
+                Select an option
+              </option>
+              <option value="0">No Experience</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10 years</option>
+              <option value="More than 10 years">More than 10 years of expereince</option>
+              
+            </select>
             </div>
           </div>
         
