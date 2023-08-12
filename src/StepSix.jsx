@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
 import { FormContext } from "./context";
-import { saveAs } from "file-saver";
+
 import empploymentImage from "./images/Employment-verification.png";
 import SignatureCanvas from "react-signature-canvas";
 
@@ -61,8 +60,6 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
             </button>
           </div>
         </div>
-
-        {/* Signature 2 */}
 
         <div className="flex justify-between">
           <button

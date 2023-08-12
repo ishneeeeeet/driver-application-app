@@ -126,19 +126,7 @@ function App() {
                   />
                 )}
                 {/* {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)}/>} */}
-                {activeStep === 6 && (
-                  <StepSix
-                    onNextStep={() => handleStepChange(7)}
-                    onPreviousStep={() => handleStepChange(4)}
-                  />
-                )}
 
-                {activeStep === 4 && (
-                  <StepFour
-                    onNextStep={() => handleStepChange(5)}
-                    onPreviousStep={() => handleStepChange(3)}
-                  />
-                )}
                 {activeStep === 5 && (
                   <StepFive
                     onNextStep={() => handleStepChange(6)}
