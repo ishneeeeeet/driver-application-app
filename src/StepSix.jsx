@@ -9,19 +9,8 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
   const [sign1, setSign1] = useState(null);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    
-    
-  };
-  const handleNextStep = () => {
-    if (sign1 && !sign1.isEmpty()) {
-      setForm({});
-      onNextStep();
-    } else {
-      alert("Please provide a signature for consent")
-    }
-  };
+ 
+ 
   const handleClear = (e, signRef) => {
     e.preventDefault();
     signRef.clear();
@@ -29,8 +18,7 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
 
   return (
     <>
-      <form onClick={onSubmit} className="max-w-screen-md mx-auto text-center">
-              
+      <form  className="max-w-screen-md mx-auto text-center">
         <div className="flex justify-center mb-10">
           <img
             src={empploymentImage}
@@ -38,7 +26,7 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
             style={{ maxWidth: "896px", maxHeight: "884px" }}
           />
         </div>
-       
+
         <p className="text-justify font-bold text-sm mb-10">
           I hereby give my consent and authorize my prospect employer and/or
           Compliance Wizard Inc. to contact my previous employer(s) in order to
@@ -65,33 +53,34 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
                 ref={(data) => setSign1(data)}
               />
             </div>
-            <button className="mt-2 mb-6 text-xs underline" onClick={(e) => handleClear(e, sign1)}>Clear</button>
+            <button
+              className="mt-2 mb-6 text-xs underline"
+              onClick={(e) => handleClear(e, sign1)}
+            >
+              Clear
+            </button>
           </div>
         </div>
-        
+
         {/* Signature 2 */}
-        
 
         <div className="flex justify-between">
-        <button
-          type="button"
-          onClick={onPreviousStep}
-          className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
-        >
-          ◄ Previous Step
-        </button>
+          <button
+            type="button"
+            onClick={onPreviousStep}
+            className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
+          >
+            ◄ Previous Step
+          </button>
 
-       
           <button
             type="submit"
-            onClick={handleNextStep}
+            onClick={onNextStep}
             className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
           >
             Next ►
           </button>
-        
-      </div>
-       
+        </div>
       </form>
     </>
   );

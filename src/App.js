@@ -68,7 +68,7 @@ function App() {
             >
               Accident Record
             </button>
-            <button
+            {/* <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 5
                   ? "text-indigo-500 border-b-2 border-indigo-500"
@@ -77,7 +77,7 @@ function App() {
               onClick={() => handleStepChange(5)}
             >
               Last 14 Days
-            </button>
+            </button> */}
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 6
@@ -106,7 +106,7 @@ function App() {
                 {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)} onPreviousStep={() => handleStepChange(1)} />}
                 {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)}  onPreviousStep={() => handleStepChange(2)}/>}
                 {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(6)}  onPreviousStep={() => handleStepChange(3)} />}
-                {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)}/>}
+                {/* {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)}/>} */}
                 {activeStep === 6 && <StepSix onNextStep={() => handleStepChange(7)} onPreviousStep={() => handleStepChange(4)}/>}
                 {activeStep === 7 && <StepSeven />}
                 
