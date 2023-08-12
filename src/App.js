@@ -68,7 +68,7 @@ function App() {
             >
               Accident Record
             </button>
-            {/* <button
+            <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 5
                   ? "text-indigo-500 border-b-2 border-indigo-500"
@@ -77,7 +77,7 @@ function App() {
               onClick={() => handleStepChange(5)}
             >
               Last 14 Days
-            </button> */}
+            </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 6
