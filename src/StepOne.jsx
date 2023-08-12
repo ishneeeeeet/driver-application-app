@@ -435,7 +435,7 @@ const StepOne = ({ onNextStep }) => {
               value={form.stepOneData?.driverLicenseCondition ? form.stepOneData?.driverLicenseCondition : null}
               onChange={handleChange}
               className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
-              required
+            
             />
           </div>
         </div>

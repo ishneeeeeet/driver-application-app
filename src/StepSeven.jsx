@@ -7,32 +7,51 @@ import { FormContext } from "./context";
 
 const StepSeven = () => {
   const { form, setForm } = useContext(FormContext);
-  const [sign2, setSign2] = useState("")
+  const [sign2, setSign2] = useState(null);
+  const [isSignatureComplete, setIsSignatureComplete] = useState(false);
+
   const handleClear = (e, signRef) => {
     e.preventDefault();
     signRef.clear();
+    setIsSignatureComplete(false);
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async () => {
+  
 
-    await axios.post(`http://localhost:8000/createPdf`, form);
-    const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
-      responseType: "blob",
-    });
+    if (sign2 && !sign2.isEmpty()) {
+      setIsSignatureComplete(true);
 
-    const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-    saveAs(pdfBlob, "InvoiceDocument.pdf");
+      await axios.post(`http://localhost:8000/createPdf`, form);
+      const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
+        responseType: "blob",
+      });
 
-    // Send PDF via email
-    const emailResponse = await axios.post("http://localhost:8000/sendPdf");
-    console.log(emailResponse.data);
+      const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
+      saveAs(pdfBlob, "InvoiceDocument.pdf");
 
-    // Clear form data or navigate to next step
-    setForm({}); // Clear form data
-    // or
-    // navigateToNextStep();
+      // Send PDF via email
+      const emailResponse = await axios.post("http://localhost:8000/sendPdf");
+      console.log(emailResponse.data);
+
+      // Clear form data or navigate to next step
+      setForm({}); // Clear form data
+      // or
+      // navigateToNextStep();
+    } else {
+      setIsSignatureComplete(false);
+      alert("Please provide your signature before submitting the form.");
+    }
   };
+  const handleNextStep = () => {
+    if (sign2 && !sign2.isEmpty()) {
+      setForm({});
+      onSubmit();
+    } else {
+      alert("Please provide a signature to submit")
+    }
+  };
+
   return (
     <div>
       <h4 className="max-w-screen-md mx-auto font-semibold text-center text-gray-500">
@@ -66,13 +85,17 @@ const StepSeven = () => {
             <button className="mt-2 mb-6 text-xs underline" onClick={(e) => handleClear(e, sign2)}>Clear</button>
           </div>
         </div>
-      <button
-        type="submit"
-        onClick={onSubmit}
-        className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-      >
-        Submit
-      </button>
+     
+        <button
+          type="submit"
+          onClick={handleNextStep}
+          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+        >
+          Submit
+        </button>
+     
+      
+    
     </div>
   );
 };

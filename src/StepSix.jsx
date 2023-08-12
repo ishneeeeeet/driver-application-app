@@ -9,18 +9,19 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
   const [sign1, setSign1] = useState(null);
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-
-    if (!sign1.isEmpty()) {
-      onNextStep()
-      setForm({}); 
-     
+    
+    
+  };
+  const handleNextStep = () => {
+    if (sign1 && !sign1.isEmpty()) {
+      setForm({});
+      onNextStep();
     } else {
-      alert("please sign")
+      alert("Please provide a signature for consent")
     }
   };
-
   const handleClear = (e, signRef) => {
     e.preventDefault();
     signRef.clear();
@@ -83,6 +84,7 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
        
           <button
             type="submit"
+            onClick={handleNextStep}
             className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
           >
             Next ►

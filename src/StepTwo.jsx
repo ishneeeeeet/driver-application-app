@@ -1,20 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import * as Form from "@radix-ui/react-form";
 import { FormContext } from "./context";
-const initialAddresses = [
-  {
-    streetAddress: "",
-    city: "",
-    region: "",
-    postalCode: "",
-    fromDate: "",
-    toDate: "",
-  },
-];
 
 const StepTwo = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [addresses, setAddresses] = useState(initialAddresses);
+  const [addresses, setAddresses] = useState([
+    {
+      streetAddress: "",
+      city: "",
+      region: "",
+      postalCode: "",
+      fromDate: "",
+      toDate: "",
+    },
+  ]);
 
   const handleAddressChange = (index, field, value) => {
     setAddresses((prevAddresses) => {
@@ -74,11 +73,11 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
       {addresses.map((address, index) => (
         <div
           key={index}
-          className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 border rounded-md bg-orange-50"
+          className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 bg-orange-50"
         >
           <div className="col-span-full">
             <label
-              htmlFor={`street-address-${index}`}
+              htmlFor=""
               className="block text-xs px-1.5 font-medium text-gray-900"
             >
               Street address
@@ -233,15 +232,18 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
               />
             </div>
           </div>
-          <div className="sm:col-span-2 sm:col-end-7 text-right">
-            <button
-              type="button"
-              className="py-2 px-2 mt-4 bg-red-500 text-white rounded-md hover:bg-indigo-700 "
-              onClick={() => removeAddress(index)}
-            >
-              Remove address
-            </button>
-          </div>
+          {index > 0 && (
+            <div className="sm:col-span-2 sm:col-end-7 text-right">
+              <button
+                type="button"
+                className="py-2 px-2 mt-4 bg-red-500 text-white rounded-md hover:bg-indigo-700 "
+                onClick={() => removeAddress(index)}
+              >
+                Remove address
+              </button>
+            </div>
+          )}
+
         </div>
       ))}
 
