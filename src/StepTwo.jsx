@@ -1,19 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import * as Form from "@radix-ui/react-form";
 import { FormContext } from "./context";
+const initialAddresses = [
+  {
+    streetAddress: "",
+    city: "",
+    region: "",
+    postalCode: "",
+    fromDate: "",
+    toDate: "",
+  },
+];
 
 const StepTwo = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [addresses, setAddresses] = useState([
-    {
-      streetAddress: "",
-      city: "",
-      region: "",
-      postalCode: "",
-      fromDate: "",
-      toDate: "",
-    },
-  ]);
+  const [addresses, setAddresses] = useState(initialAddresses);
 
   const handleAddressChange = (index, field, value) => {
     setAddresses((prevAddresses) => {

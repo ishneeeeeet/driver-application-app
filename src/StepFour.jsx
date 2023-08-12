@@ -4,17 +4,9 @@ import { FormContext } from "./context";
 
 const initialState = {
   accidentInLast3Years: null,
-  dateOfAccident: "",
-  accidentDescription: "",
-  accidentLocation: "",
-  noOfFatalities: "",
-  noOfInjuries: "",
   accidentsArray: [],
   trafficConvictions: false,
   convictionDate: "",
-  convictionLocation: "",
-  charge: "",
-  penalty: "",
   trafficConvictionsArray: [],
 };
 
@@ -22,19 +14,11 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "SET_VALUE":
       return { ...state, [action.field]: action.payload };
-    case "ADD_ACCIDENT":
-      return {
-        ...state,
-        accidentsArray: state.accidentInLast3Years
-          ? [...state.accidentsArray, { ...state }]
-          : state.accidentsArray,
-        showAdditionalAccidentFields: false,
-      };
-      // eslint-disable-next-line no-duplicate-case
       case "ADD_ACCIDENT":
         return {
           ...state,
           accidentsArray: [...state.accidentsArray, action.payload],
+          showAdditionalAccidentFields: false,
         };
     case "TOGGLE_ACCIDENT_STATUS":
       return {
@@ -68,47 +52,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    // Check if any required questions are not answered
-    if (
-      state.accidentInLast3Years === null ||
-      state.trafficConvictions === null ||
-      (state.accidentInLast3Years &&
-        (!state.dateOfAccident ||
-          !state.accidentDescription ||
-          !state.accidentLocation)) ||
-      (state.trafficConvictions &&
-        (!state.convictionDate ||
-          !state.convictionLocation ||
-          !state.charge ||
-          !state.penalty))
-    ) {
-      alert("Please answer all required questions.");
-      return;
-    }
-    setForm({
-      ...form,
-      stepFourData: {
-        accidentInLast3Years: state.accidentInLast3Years,
-        accidents: state.accidentsArray,
-        trafficConvictions: state.trafficConvictions,
-        trafficConvictionsData: state.trafficConvictionsArray,
-      },
-    });
-
-    console.log(form);
     onNextStep();
   };
+
   useEffect(() => {
     console.log(form);
   }, [form]);
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
-
-    // For radio buttons, 'checked' indicates the selected value.
-    // So we directly set the value to 'checked' instead of 'value'.
-    const payload = type === "radio" ? e.target.checked : value;
+    const { name, value } = e.target;
+    const payload =  value;
 
     dispatch({ type: "SET_VALUE", field: name, payload });
 
@@ -127,23 +80,15 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
         payload: hasTrafficConvictions,
       });
     }
+    
   };
   const handleAddAccident = () => {
-    const {
-      dateOfAccident,
-      accidentDescription,
-      accidentLocation,
-      noOfFatalities,
-      noOfInjuries,
-    } = state;
-  
-    // Create a new accident object
     const newAccident = {
-      dateOfAccident,
-      accidentDescription,
-      accidentLocation,
-      noOfFatalities,
-      noOfInjuries,
+      dateOfAccident: state.dateOfAccident,
+      accidentDescription: state.accidentDescription,
+      accidentLocation: state.accidentLocation,
+      noOfFatalities: state.noOfFatalities,
+      noOfInjuries: state.noOfInjuries,
     };
   
     // Dispatch an action to add the new accident to the accidentsArray
@@ -155,6 +100,15 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
     dispatch({ type: "SET_VALUE", field: "accidentLocation", payload: "" });
     dispatch({ type: "SET_VALUE", field: "noOfFatalities", payload: "" });
     dispatch({ type: "SET_VALUE", field: "noOfInjuries", payload: "" });
+  
+    // Update stepFourData in the form context
+    setForm((prevForm) => ({
+      ...prevForm,
+      stepFourData: {
+        ...prevForm.stepFourData,
+        accidents: [...prevForm.stepFourData.accidents, newAccident],
+      },
+    }));
   };
   
   const handleAddTrafficConviction = () => {
@@ -210,15 +164,15 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
               htmlFor={`accident-date-${index}`}
               className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6 "
             >
-              Date of Accident
+              Date of Accdent
             </label>
             <div className="mt-1">
               <input
                 type="date"
-                name={`accidentDate-${index}`}
+                name="dateOfAccident"
                 id={`accident-date-${index}`}
                 className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
-                value={form.stepFourData.accidents[index]?.acidentDate}
+                value={form.stepFourData.accidents[index]?.dateOfAccident}
                 onChange={handleChange}
               />
             </div>
@@ -331,7 +285,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
                   name="dateOfAccident"
                   id="date-of-accident"
                   className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
-                  value={state.dateOfAccident}
+                  
                   onChange={handleChange}
                 />
               </div>
@@ -434,7 +388,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
       )}
       </div>
       {/* Button to add an additional accident */}
-      {state.accidentInLast3Years && (
+      {/* {state.accidentInLast3Years && (
         <div className="sm:col-span-3 flex justify-end">
           <button
             type="button"
@@ -444,7 +398,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
             Add more Accidents +
           </button>
         </div>
-      )}
+      )} */}
 
       <div className="grid px-4 py-4 grid-cols-1 mb-10 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-50 border rounded-md">
         <div className="sm:col-span-4">
@@ -634,7 +588,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           </div>
         </div>
       )}
-      {state.trafficConvictions && (
+      {/* {state.trafficConvictions && (
         <div className="flex justify-end mt-6">
           <button
             type="button"
@@ -644,7 +598,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
             Add more Convictions +
           </button>
         </div>
-      )}
+      )} */}
 
       <h4 className="mb-4 mt-6 text-xl font-bold text-center text-gray-800  md:mb-6">
         TO BE READ AND SIGNED BY THE APLLICANT

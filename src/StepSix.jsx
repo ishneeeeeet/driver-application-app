@@ -2,47 +2,22 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { FormContext } from "./context";
 import { saveAs } from "file-saver";
-
-
 import empploymentImage from "./images/Employment-verification.png";
 import SignatureCanvas from "react-signature-canvas";
-import Document from "./Document";
 
-const StepSix = () => {
+const StepSix = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [sign1, setSign1] = useState();
-  const [sign2, setSign2] = useState();
+  const [sign1, setSign1] = useState(null);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (sign1 && sign2 && !sign1.isEmpty() && !sign2.isEmpty()) {
-      // Signature fields are filled
-      console.log("Signature fields are filled. Submitting the form...");
-
-      // Your form submission logic here
-
-      // Send form data to backend and get PDF
-      await axios.post(`http://localhost:8000/createPdf`, form);
-      const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
-        responseType: "blob",
-      });
-
-      // Save and download PDF
-      const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-      saveAs(pdfBlob, "InvoiceDocument.pdf");
-
-      // Send PDF via email
-      const emailResponse = await axios.post("http://localhost:8000/sendPdf");
-      console.log(emailResponse.data);
-
-      // Clear form data or navigate to next step
-      setForm({}); // Clear form data
-      // or
-      // navigateToNextStep();
+    if (!sign1.isEmpty()) {
+      onNextStep()
+      setForm({}); 
+     
     } else {
-      // Signature fields are not filled
-      alert("Please provide your signature in both fields before submitting.");
+      alert("please sign")
     }
   };
 
@@ -62,7 +37,7 @@ const StepSix = () => {
             style={{ maxWidth: "896px", maxHeight: "884px" }}
           />
         </div>
-        {/* Signature 1 */}
+       
         <p className="text-justify font-bold text-sm mb-10">
           I hereby give my consent and authorize my prospect employer and/or
           Compliance Wizard Inc. to contact my previous employer(s) in order to
@@ -95,18 +70,26 @@ const StepSix = () => {
         
         {/* Signature 2 */}
         
-        
 
-        <div className="flex justify-end">
-          
+        <div className="flex justify-between">
+        <button
+          type="button"
+          onClick={onPreviousStep}
+          className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
+        >
+          ◄ Previous Step
+        </button>
 
+       
           <button
             type="submit"
-            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
           >
-            Submit
+            Next ►
           </button>
-        </div>
+        
+      </div>
+       
       </form>
     </>
   );
