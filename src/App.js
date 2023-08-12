@@ -105,9 +105,15 @@ function App() {
                 {activeStep === 1 && <StepOne onNextStep={() => handleStepChange(2)}  />}
                 {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)} onPreviousStep={() => handleStepChange(1)} />}
                 {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)}  onPreviousStep={() => handleStepChange(2)}/>}
+<<<<<<< HEAD
                 {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(6)}  onPreviousStep={() => handleStepChange(3)} />}
                 {/* {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)}/>} */}
                 {activeStep === 6 && <StepSix onNextStep={() => handleStepChange(7)} onPreviousStep={() => handleStepChange(4)}/>}
+=======
+                {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(5)}  onPreviousStep={() => handleStepChange(3)} />}
+                {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)} onPreviousStep={() => handleStepChange(4)}/>}
+                {activeStep === 6 && <StepSix onNextStep={() => handleStepChange(7)} onPreviousStep={() => handleStepChange(5)}/>}
+>>>>>>> e6bb637176269ced9dad971e332f4fa639d6dc3b
                 {activeStep === 7 && <StepSeven />}
                 
               </div>
