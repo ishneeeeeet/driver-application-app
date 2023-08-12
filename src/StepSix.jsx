@@ -3,7 +3,7 @@ import axios from "axios";
 import { FormContext } from "./context";
 import { saveAs } from "file-saver";
 
-import myimage from "./images/roadtestevaluation.png";
+
 import empploymentImage from "./images/Employment-verification.png";
 import SignatureCanvas from "react-signature-canvas";
 import Document from "./Document";
@@ -54,17 +54,16 @@ const StepSix = () => {
   return (
     <>
       <form onClick={onSubmit} className="max-w-screen-md mx-auto text-center">
-       
-        
-        <div className="flex justify-center mt-6 mb-6">
+              
+        <div className="flex justify-center mb-10">
           <img
             src={empploymentImage}
             alt="EmploymentImage"
-            style={{ maxWidth: "800px", maxHeight: "600px" }}
+            style={{ maxWidth: "896px", maxHeight: "884px" }}
           />
         </div>
         {/* Signature 1 */}
-        <p className="text-left text-sm">
+        <p className="text-justify font-bold text-sm mb-10">
           I hereby give my consent and authorize my prospect employer and/or
           Compliance Wizard Inc. to contact my previous employer(s) in order to
           verify my employment History. Safety performance history and drug &
@@ -73,55 +72,30 @@ const StepSix = () => {
           all liabilities which may result from furnishing such information.
         </p>
         <label
-          className="text-base font-semibold leading-7 text-gray-900 text-center"
+          className="text-base mt-6 font-semibold text-gray-900 text-center"
           htmlFor=""
         >
-          Signature 1
+          Applicant Signature
         </label>
         <div className="flex justify-center">
           <div className="sm:col-span-3 ">
-            <div className="border border-gray-300 p-4 rounded mb-6">
+            <div className="border border-gray-300 p-4 rounded mb-1">
               <SignatureCanvas
                 canvasProps={{
-                  width: 400,
-                  height: 70,
+                  width: 500,
+                  height: 120,
                   className: "signCanvas",
                 }}
                 ref={(data) => setSign1(data)}
               />
             </div>
-            <button onClick={(e) => handleClear(e, sign1)}>Clear</button>
+            <button className="mt-2 mb-6 text-xs underline" onClick={(e) => handleClear(e, sign1)}>Clear</button>
           </div>
         </div>
-        <div className="flex justify-center mt-6 mb-6">
-          <img
-            src={myimage}
-            alt="EmploymentImage"
-            style={{ maxWidth: "800px", maxHeight: "600px" }}
-          />
-        </div>
+        
         {/* Signature 2 */}
-        <label
-          className="text-base font-semibold leading-7 text-gray-900 text-center"
-          htmlFor=""
-        >
-          Signature 2
-        </label>
-        <div className="flex justify-center">
-          <div className="sm:col-span-3 ">
-            <div className="border border-gray-300 p-4 rounded mb-6">
-              <SignatureCanvas
-                canvasProps={{
-                  width: 400,
-                  height: 70,
-                  className: "signCanvas",
-                }}
-                ref={(data) => setSign2(data)}
-              />
-            </div>
-            <button onClick={(e) => handleClear(e, sign2)}>Clear</button>
-          </div>
-        </div>
+        
+        
 
         <div className="flex justify-end">
           

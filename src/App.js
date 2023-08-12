@@ -17,29 +17,29 @@ function App() {
   return (
     <>
       <div className="mt-6">
-        //header
-        <h2 className="mb-4 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
-          Driver Application Form
-        </h2>
-        <p className="max-w-screen-md mx-auto text-center text-gray-500 md:text-lg">
-          Please fill in the details below so that we can get in contact with you.
+        
+        <h3 className="mb-4 text-xl text-blue-600 font-bold text-center text-gray-800 lg:text-xl md:mb-4">
+          DRIVER'S APPLICATION FOR EMPLOYMENT
+        </h3>
+        <p className="max-w-screen-md mx-auto font-semibold text-center text-gray-500 sm:text-xs">
+          Please fill in the details below to the best of your knowledge, the information provided below will help us to find a better job prospect for you.
         </p>
       </div>
       <div className="text-gray-600">
-        <div className="container flex flex-col flex-wrap px-5 py-4 mx-auto">
+        <div className="container flex flex-col flex-wrap px-1 py-4">
           <div className="flex flex-wrap mx-auto">
             <button
-              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+              className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 1
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
               } rounded-t sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(1)}
             >
-              Personal
+              Personal Info
             </button>
             <button
-              className={`inline-flex items-right justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+              className={`inline-flex items-right justify-center w-1/4 py-3 text-sm  font-medium leading-none tracking-wider ${
                 activeStep === 2
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
@@ -49,7 +49,7 @@ function App() {
               Address
             </button>
             <button
-              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+              className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 3
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
@@ -59,17 +59,17 @@ function App() {
               Employment
             </button>
             <button
-              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+              className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 4
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(4)}
             >
-              Accident
+              Accident Record
             </button>
             {/* <button
-              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+              className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 5
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
@@ -79,24 +79,24 @@ function App() {
               Last 14 Days
             </button> */}
             <button
-              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
+              className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 6
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(6)}
             >
-              Consent
+              Verification Consent
             </button>
             <button
-              className={`inline-flex items-center justify-center w-1/4 py-3 font-medium leading-none tracking-wider ${
-                activeStep === 6
+              className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
+                activeStep === 7
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(7)}
             >
-              Consent 2
+              Evaluation Consent
             </button>
           </div>
           <div className="flex flex-col w-full text-center">
@@ -118,7 +118,7 @@ function App() {
         </div>
         
       </div>
-      //footer
+      
     </>
   );
 }

@@ -173,46 +173,51 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
 
   return (
     <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
-      <div className="sm:col-span-3">
-        <label
-          htmlFor="country"
-          className="block text-sm font-medium leading-6 text-gray-900 text-left"
-        >
-          Any accidents in the last 3 years?
-        </label>
-        <div className="mt-2">
-          <select
-            required
-            id="accidentInLast3Years"
-            name="accidentInLast3Years"
-            autoComplete="off" // Disable browser's autocomplete for better UX
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-            onChange={handleChange}
-            defaultValue="" // Initially set to an empty value
-          >
-            <option value="" disabled>
-              Select
-            </option>
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
+      <div className="max-w-screen-md mx-auto  pb-12 text-left px-4 py-4">
+        <div className="grid px-4 py-4 grid-cols-1 mb-10 gap-x-6 gap-y-8 sm:grid-cols-6 bg-amber-50 border rounded-md">
+          <div className="sm:col-span-4">
+            <label
+              htmlFor="country"
+              className="block text-xs mt-2 px-1 font-medium text-gray-900 text-left"
+            >
+              Any accidents in the last 3 years?
+            </label>
+            </div>
+            <div className="sm:col-span-2">
+            <div className="mt-1">
+              <select
+                required
+                id="accidentInLast3Years"
+                name="accidentInLast3Years"
+                autoComplete="off" // Disable browser's autocomplete for better UX
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
+                onChange={handleChange}
+                defaultValue="" // Initially set to an empty value
+              >
+                <option value="" disabled>
+                  Select
+                </option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
       {state.accidentsArray.map((accident, index) => (
         <div key={index}>
           <div className="sm:col-span-3">
             <label
               htmlFor={`accident-date-${index}`}
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6 "
             >
               Date of Accident
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="date"
                 name={`accidentDate-${index}`}
                 id={`accident-date-${index}`}
-                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                 value={form.stepFourData.accidents[index]?.acidentDate}
                 onChange={handleChange}
               />
@@ -222,16 +227,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="accident-description"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
-              Nature of Accident (Head-On, Rear-End, Upset, Etc)
+              Nature of Accident (Head-On, Rear-End, Back-end, etc.)
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <textarea
                 id="accident-description"
                 name="accidentDescription"
                 rows="3"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={handleChange}
               />
             </div>
@@ -240,16 +245,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="accident-location"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
               Location of Accident
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 id="accident-location"
                 name="accidentLocation"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={handleChange}
               />
             </div>
@@ -258,16 +263,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="number-of-injuries"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
               Number of Injuries
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="number"
                 name="numberOfInjuries"
                 id="number-of-injuries"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={handleChange}
               />
             </div>
@@ -276,16 +281,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="number-of-fatalities"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
               Number of Fatalities
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="number"
                 name="numberOfFatalities"
                 id="number-of-fatalities"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={handleChange}
               />
             </div>
@@ -294,16 +299,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="number-of-hazardous-material-spill"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
               Number of Hazardous Material Spills
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="number"
                 name="numberOfHazardousMaterialSpills"
                 id="number-of-hazardous-material-spill"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 onChange={handleChange}
               />
             </div>
@@ -312,160 +317,160 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
       ))}
 
       {state.accidentInLast3Years ? (
-        <>
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="date-of-birth"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
-              Date of Accident
-            </label>
-            <div className="mt-2">
-              <input
-                type="date"
-                name="dateOfAccident"
-                id="date-of-birth"
-                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.dateOfAccident}
-                onChange={handleChange}
-              />
+        <div className="grid px-4 py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-amber-100 border rounded-md">
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="date-of-accident"
+                className="block text-xs px-1 font-medium text-gray-900 text-left mt-2"
+              >
+                Date of accident
+              </label>
+              <div className="mt-1">
+                <input
+                  type="date"
+                  name="dateOfAccident"
+                  id="date-of-accident"
+                  className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
+                  value={state.dateOfAccident}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="accident-description"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
-              Nature of Accident (Head-On, Rear-End, Upset, Etc)
-            </label>
-            <div className="mt-2">
-              <textarea
-                id="accident-description"
-                name="accidentDescription"
-                rows="3"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.accidentDescription}
-                onChange={handleChange}
-              />
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="accident-location"
+                className="block text-xs px-1 font-medium text-gray-900 text-left mt-2"
+              >
+                Location of Accident
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  id="accident-location"
+                  name="accidentLocation"
+                  className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
+                  value={state.accidentLocation}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="accident-location"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
-              Location of Accident
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                id="accident-location"
-                name="accidentLocation"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.accidentLocation}
-                onChange={handleChange}
-              />
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="number-of-injuries"
+                className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
+              >
+                Number of Injuries
+              </label>
+              <div className="mt-1">
+                <input
+                  type="number"
+                  name="numberOfInjuries"
+                  id="number-of-injuries"
+                  className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={state.numberOfInjuries}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-          </div>
 
-          
-
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="number-of-injuries"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
-              Number of Injuries
-            </label>
-            <div className="mt-2">
-              <input
-                type="number"
-                name="numberOfInjuries"
-                id="number-of-injuries"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.numberOfInjuries}
-                onChange={handleChange}
-              />
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="number-of-fatalities"
+                className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
+              >
+                Number of Fatalities
+              </label>
+              <div className="mt-1">
+                <input
+                  type="number"
+                  name="numberOfFatalities"
+                  id="number-of-fatalities"
+                  className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={state.numberOfFatalities}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="number-of-fatalities"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
-              Number of Fatalities
-            </label>
-            <div className="mt-2">
-              <input
-                type="number"
-                name="numberOfFatalities"
-                id="number-of-fatalities"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.numberOfFatalities}
-                onChange={handleChange}
-              />
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="number-of-hazardous-material-spill"
+                className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
+              >
+                Number of Hazardous Material Spills
+              </label>
+              <div className="mt-1">
+                <input
+                  type="number"
+                  name="numberOfHazardousMaterialSpills"
+                  id="number-of-hazardous-material-spill"
+                  className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={state.numberOfHazardousMaterialSpills}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
+            <div className="sm:col-span-6">
+              <label
+                htmlFor="accident-description"
+                className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
+              >
+                Describe Accident with some details (Head-On, Rear-End, Back-end, etc.)
+              </label>
+              <div className="mt-1">
+                <textarea
+                  id="accident-description"
+                  name="accidentDescription"
+                  rows="2"
+                  className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
+                  value={state.accidentDescription}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>            
           </div>
-
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="number-of-hazardous-material-spill"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-            >
-              Number of Hazardous Material Spills
-            </label>
-            <div className="mt-2">
-              <input
-                type="number"
-                name="numberOfHazardousMaterialSpills"
-                id="number-of-hazardous-material-spill"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={state.numberOfHazardousMaterialSpills}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-        </>
       ) : (
         ""
       )}
+      </div>
       {/* Button to add an additional accident */}
       {state.accidentInLast3Years && (
         <div className="sm:col-span-3 flex justify-end">
           <button
             type="button"
             onClick={handleAddAccident}
-            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-400 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-800"
           >
-            Add Additional Accident
+            Add more Accidents +
           </button>
         </div>
       )}
 
-      <div className="sm:col-span-3">
-        <label
-          htmlFor="traffic-convictions"
-          className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
-        >
-          Any Traffic Convictions in the last 3 years? (Other than parking
-          violations)
-        </label>
-        <div className="mt-2">
-          <select
-            id="traffic-convictions"
-            name="trafficConvictions"
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-            onChange={handleChange}
+      <div className="grid px-4 py-4 grid-cols-1 mb-10 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-50 border rounded-md">
+        <div className="sm:col-span-4">
+          <label
+            htmlFor="traffic-convictions"
+            className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-1"
           >
-            <option disabled selected hidden>
-              Select
-            </option>
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
+            Any Traffic Convictions in the last 3 years? (Other than parking
+            violations)
+          </label>
+        </div>
+        <div className="sm:col-span-2">
+          <div className="mt-1">
+            <select
+              id="traffic-convictions"
+              name="trafficConvictions"
+              className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
+              onChange={handleChange}
+            >
+              <option disabled selected hidden>
+                Select
+              </option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
         </div>
       </div>
       {state.trafficConvictionsArray.map((conviction, index) => (
@@ -474,17 +479,17 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor={`conviction-date-${index}`}
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
               Conviction Date
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 required
                 type="date"
                 name={`convictionDate-${index}`}
                 id={`conviction-date-${index}`}
-                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={conviction.convictionDate}
                 onChange={handleChange}
               />
@@ -494,17 +499,17 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="conviction-location"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
               Conviction Location
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 required
                 type="text"
                 id="conviction-location"
                 name="convictionLocation"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={state.convictionLocation}
                 onChange={handleChange}
               />
@@ -514,16 +519,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="charge"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
               Charge
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 id="charge"
                 name="charge"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={state.charge}
                 onChange={handleChange}
               />
@@ -533,16 +538,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="penalty"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium leading-6 text-gray-900 text-left mt-6"
             >
-              Penalty
+              Penalty ($)
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 id="penalty"
                 name="penalty"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={state.penalty}
                 onChange={handleChange}
               />
@@ -551,39 +556,39 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
         </div>
       ))}
       {state.trafficConvictions && (
-        <>
-          <div className="sm:col-span-3">
+        <div className="grid px-4 py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-100 border rounded-md">
+          <div className="sm:col-span-2">
             <label
               htmlFor="conviction-date"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
             >
               Conviction Date
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="date"
                 name="convictionDate"
                 id="conviction-date"
-                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                 value={state.convictionDate}
                 onChange={handleChange}
               />
             </div>
           </div>
 
-          <div className="sm:col-span-3">
+          <div className="sm:col-span-4">
             <label
               htmlFor="conviction-location"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
             >
               Conviction Location
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 id="conviction-location"
                 name="convictionLocation"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                 value={state.convictionLocation}
                 onChange={handleChange}
               />
@@ -593,16 +598,16 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="charge"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium  text-gray-900 text-left mt-0"
             >
-              Charge
+              Charges
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 id="charge"
                 name="charge"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={state.charge}
                 onChange={handleChange}
               />
@@ -612,39 +617,39 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="penalty"
-              className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+              className="block text-xs px-1 font-medium  text-gray-900 text-left mt-0"
             >
-              Penalty
+              Penalty ($)
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 id="penalty"
                 name="penalty"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={state.penalty}
                 onChange={handleChange}
               />
             </div>
           </div>
-        </>
+        </div>
       )}
       {state.trafficConvictions && (
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-6">
           <button
             type="button"
             onClick={handleAddTrafficConviction}
-            className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-400 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-800"
           >
-            Add Additional Traffic Conviction
+            Add more Convictions +
           </button>
         </div>
       )}
 
-      <h1 className="mb-4 mt-6 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
+      <h4 className="mb-4 mt-6 text-xl font-bold text-center text-gray-800  md:mb-6">
         TO BE READ AND SIGNED BY THE APLLICANT
-      </h1>
-      <p>
+      </h4>
+      <p className="text-sm text-justify">
         I understand that information I provide regarding current and/or
         previous employers may be used, and those employer(s) will be contacted,
         for the purpose of investigating my safety performance history. I
@@ -668,35 +673,35 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
         also, that I am required to abide by all rules and regulations of the
         company.
       </p>
-      <h2 className="mt-6 mb-6 text-base font-semibold leading-7 text-gray-900 text-center">
-        Signature
+      <h2 className="mt-6 mb-2 text-base font-semibold leading-7 text-gray-900 text-center">
+        Applicant Signature
       </h2>
       <div className="flex justify-center">
         <div className="sm:col-span-3 border border-black">
           <SignatureCanvas
             required
-            canvasProps={{ width: 400, height: 70, className: "signCanvas" }}
+            canvasProps={{ width: 500, height: 120, className: "signCanvas" }}
             ref={(data) => setSign(data)}
           />
         </div>
       </div>
-      <button className="mt-2 mb-6" onClick={handleClear}>
+      <button className="mt-1 mb-6 text-xs underline" onClick={handleClear}>
         Clear
       </button>
       <div className="flex justify-between">
         <button
           type="button"
           onClick={onPreviousStep}
-          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
         >
-          Previous Step
+          ◄ Previous Step
         </button>
 
         <button
           type="submit"
-          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
         >
-          Next
+          Next ►
         </button>
       </div>
     </form>
