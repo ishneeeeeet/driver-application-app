@@ -17,12 +17,13 @@ function App() {
   return (
     <>
       <div className="mt-6">
-        
         <h3 className="mb-4 text-xl text-blue-600 font-bold text-center text-gray-800 lg:text-xl md:mb-4">
           DRIVER'S APPLICATION FOR EMPLOYMENT
         </h3>
         <p className="max-w-screen-md mx-auto font-semibold text-center text-gray-500 sm:text-xs">
-          Please fill in the details below to the best of your knowledge, the information provided below will help us to find a better job prospect for you.
+          Please fill in the details below to the best of your knowledge, the
+          information provided below will help us to find a better job prospect
+          for you.
         </p>
       </div>
       <div className="text-gray-600">
@@ -102,29 +103,61 @@ function App() {
           <div className="flex flex-col w-full text-center">
             <div className="py-4 bg-white sm:py-8 lg:py-12">
               <div className="px-4 mx-auto max-w-screen-2xl md:px-8">
-                {activeStep === 1 && <StepOne onNextStep={() => handleStepChange(2)}  />}
-                {activeStep === 2 && <StepTwo onNextStep={() => handleStepChange(3)} onPreviousStep={() => handleStepChange(1)} />}
-                {activeStep === 3 && <StepThree onNextStep={() => handleStepChange(4)}  onPreviousStep={() => handleStepChange(2)}/>}
-<<<<<<< HEAD
-                {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(6)}  onPreviousStep={() => handleStepChange(3)} />}
+                {activeStep === 1 && (
+                  <StepOne onNextStep={() => handleStepChange(2)} />
+                )}
+                {activeStep === 2 && (
+                  <StepTwo
+                    onNextStep={() => handleStepChange(3)}
+                    onPreviousStep={() => handleStepChange(1)}
+                  />
+                )}
+                {activeStep === 3 && (
+                  <StepThree
+                    onNextStep={() => handleStepChange(4)}
+                    onPreviousStep={() => handleStepChange(2)}
+                  />
+                )}
+
+                {activeStep === 4 && (
+                  <StepFour
+                    onNextStep={() => handleStepChange(6)}
+                    onPreviousStep={() => handleStepChange(3)}
+                  />
+                )}
                 {/* {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)}/>} */}
-                {activeStep === 6 && <StepSix onNextStep={() => handleStepChange(7)} onPreviousStep={() => handleStepChange(4)}/>}
-=======
-                {activeStep === 4 && <StepFour onNextStep={() => handleStepChange(5)}  onPreviousStep={() => handleStepChange(3)} />}
-                {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)} onPreviousStep={() => handleStepChange(4)}/>}
-                {activeStep === 6 && <StepSix onNextStep={() => handleStepChange(7)} onPreviousStep={() => handleStepChange(5)}/>}
->>>>>>> e6bb637176269ced9dad971e332f4fa639d6dc3b
+                {activeStep === 6 && (
+                  <StepSix
+                    onNextStep={() => handleStepChange(7)}
+                    onPreviousStep={() => handleStepChange(4)}
+                  />
+                )}
+
+                {activeStep === 4 && (
+                  <StepFour
+                    onNextStep={() => handleStepChange(5)}
+                    onPreviousStep={() => handleStepChange(3)}
+                  />
+                )}
+                {activeStep === 5 && (
+                  <StepFive
+                    onNextStep={() => handleStepChange(6)}
+                    onPreviousStep={() => handleStepChange(4)}
+                  />
+                )}
+                {activeStep === 6 && (
+                  <StepSix
+                    onNextStep={() => handleStepChange(7)}
+                    onPreviousStep={() => handleStepChange(5)}
+                  />
+                )}
+
                 {activeStep === 7 && <StepSeven />}
-                
               </div>
-              
             </div>
-            
           </div>
         </div>
-        
       </div>
-      
     </>
   );
 }
