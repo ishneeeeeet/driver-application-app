@@ -5,8 +5,7 @@ import { FormContext } from "./context";
 const initialState = {
   accidentInLast3Years: null,
   accidentsArray: [],
-  trafficConvictions: false,
-  convictionDate: "",
+  trafficConvictions: null,
   trafficConvictionsArray: [],
 };
 
@@ -50,10 +49,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
     sign.clear();
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    onNextStep();
-  };
+ 
 
   useEffect(() => {
     console.log(form);
@@ -126,7 +122,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
   }, [state.accidentInLast3Years]);
 
   return (
-    <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
+    <form className="max-w-screen-md mx-auto">
       <div className="max-w-screen-md mx-auto  pb-12 text-left px-4 py-4">
         <div className="grid px-4 py-4 grid-cols-1 mb-10 gap-x-6 gap-y-8 sm:grid-cols-6 bg-amber-50 border rounded-md">
           <div className="sm:col-span-4">
@@ -588,7 +584,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           </div>
         </div>
       )}
-      {/* {state.trafficConvictions && (
+      {state.trafficConvictions && (
         <div className="flex justify-end mt-6">
           <button
             type="button"
@@ -598,7 +594,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
             Add more Convictions +
           </button>
         </div>
-      )} */}
+      )}
 
       <h4 className="mb-4 mt-6 text-xl font-bold text-center text-gray-800  md:mb-6">
         TO BE READ AND SIGNED BY THE APLLICANT
@@ -652,7 +648,8 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
         </button>
 
         <button
-          type="submit"
+          type="button"
+          onClick={onNextStep}
           className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
         >
           Next ►

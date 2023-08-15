@@ -4,15 +4,10 @@ const FormContext = createContext();
 
 const FormDataContext = ({ children }) => {
   const [form, setForm] = useState({
-    // Initialize your form data properties here
-    // For example:
-    stepOneData: {
-      // ...
-    },
+    stepOneData: {},
     stepTwoData: {
       addressesArray: [],
     },
-    // ... other steps
   });
 
   const data = {

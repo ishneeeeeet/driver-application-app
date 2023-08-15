@@ -10,9 +10,7 @@ if (process.env.NODE_ENV === "production") disableReactDevTools();
 const rootElement = document.getElementById("root");
 
 ReactDOM.createRoot(rootElement).render(
-  <React.StrictMode>
-    <FormDataContext>
-      <App />
-    </FormDataContext>
-  </React.StrictMode>
+  <FormDataContext>
+    <App />
+  </FormDataContext>
 );
