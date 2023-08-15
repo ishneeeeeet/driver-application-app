@@ -6,6 +6,7 @@ import StepFour from "./StepFour";
 import StepSix from "./StepSix";
 import StepFive from "./StepFive";
 import StepSeven from "./StepSeven";
+import StepEight from "./StepEight";
 
 function App() {
   const [activeStep, setActiveStep] = useState(1);
@@ -69,7 +70,7 @@ function App() {
             >
               Accident Record
             </button>
-            {/* <button
+            <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 5
                   ? "text-indigo-500 border-b-2 border-indigo-500"
@@ -77,8 +78,8 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(5)}
             >
-              Last 14 Days
-            </button> */}
+              Convictions Record
+            </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
                 activeStep === 6
@@ -87,7 +88,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(6)}
             >
-              Verification Consent
+              Last 14 days
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
@@ -97,7 +98,17 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(7)}
             >
-              Evaluation Consent
+              Consent 1
+            </button>
+            <button
+              className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
+                activeStep === 7
+                  ? "text-indigo-500 border-b-2 border-indigo-500"
+                  : "border-b-2 border-gray-200"
+              } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
+              onClick={() => handleStepChange(8)}
+            >
+             Consent 2
             </button>
           </div>
           <div className="flex flex-col w-full text-center">
@@ -125,7 +136,7 @@ function App() {
                     onPreviousStep={() => handleStepChange(3)}
                   />
                 )}
-                {/* {activeStep === 5 && <StepFive  onNextStep={() => handleStepChange(6)}/>} */}
+               
 
                 {activeStep === 5 && (
                   <StepFive
@@ -140,7 +151,9 @@ function App() {
                   />
                 )}
 
-                {activeStep === 7 && <StepSeven />}
+                {activeStep === 7 && <StepSeven onNextStep={() => handleStepChange(8)}
+                    onPreviousStep={() => handleStepChange(6)}/>}
+                {activeStep === 8 && <StepEight onNextStep={() => handleStepChange(8)} />}
               </div>
             </div>
           </div>

@@ -8,6 +8,12 @@ const FormDataContext = ({ children }) => {
     stepTwoData: {
       addressesArray: [],
     },
+    stepFourData: {
+      accidentsArray: [],
+    },
+    stepFiveData: {
+    convictionsArray: [],
+    },
   });
 
   const data = {

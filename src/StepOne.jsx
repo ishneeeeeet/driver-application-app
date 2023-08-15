@@ -246,14 +246,14 @@ const StepOne = ({ onNextStep }) => {
           </div>
           <div className="sm:col-span-3">
             <label
-              htmlFor="cellno"
+              htmlFor="phone"
               className="block mb-1 text-xs font-medium text-gray-900"
             >
               Cell Phone Number
             </label>
             <div className="mt-1">
               <input
-                type="tel"
+                type="tell"
                 name="cellNo"
                 id="cellNo"
                 placeholder="403-456-7890"

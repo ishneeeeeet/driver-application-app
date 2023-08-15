@@ -1,109 +1,184 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormContext } from "./context";
+import { Form } from "@radix-ui/react-form";
 
-
-const initialState = {
-  hoursWorked: new Array(14).fill(0),
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "SET_HOURS":
-      return { ...state, hoursWorked: action.payload };
-    default:
-      return state;
-  }
-};
-
-const StepFive = ({ onNextStep, onPreviousStep }) => {
+const StepFive = ({onNextStep, onPreviousStep}) => {
   const { form, setForm } = useContext(FormContext);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [convictions, setConvictions] = useState([{}]);
 
-  const handleChange = (index, value) => {
-    const updatedHours = [...state.hoursWorked];
-    updatedHours[index] = value;
-    dispatch({ type: "SET_HOURS", payload: updatedHours });
+  const  handleChange = (index, field, value) => {
+    setConvictions((prevConvictions) => {
+      const updatedConvictions = [...prevConvictions];
+      updatedConvictions[index][field] = value;
+      return updatedConvictions;
+    });
+  };
+  const addConvictions = () => {
+    setConvictions([...convictions, {}]);
+  };
+
+  const removeConviction = (index) => {
+    setConvictions((prevConvictions) => {
+      const updatedConvictions = prevConvictions.filter((_, i) => i !== index);
+      return updatedConvictions;
+    });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setForm({
-      ...form,
-      stepFiveData: {
-        hoursWorked: state.hoursWorked,
-      },
-    });
+    setForm((prevForm) => ({
+      ...prevForm,
+      stepFiveData: { ...prevForm.stepFiveData, convictionsArray: convictions },
+    }));
+
     onNextStep();
   };
 
-  const getFormattedDate = (index) => {
-    const today = new Date();
-    const date = new Date(today);
-    date.setDate(today.getDate() - index);
-    return date.toISOString().split("T")[0];
-  };
+  useEffect(() => {
+    console.log("Updated form data:", form);
+  }, [form]);
 
   return (
-    <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
-      <h1 className="mb-4 mt-6 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
-        Hours Worked in the Last 14 Days
-      </h1>
-      {state.hoursWorked.map((hours, index) => (
-        <div key={index} className="sm:col-span-3">
+    <form
+      className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-6 text-left"
+      onSubmit={onSubmit}
+    >
+      <h2 className="text-base font-semibold leading-6 text-gray-900 text-center">
+        Any convictions in the last 3 years? Please leave the columns empty if
+        there are none.
+      </h2>
+
+      {convictions.map((address, index) => (
+        <div key={index} className="grid px-4 pt- py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-100 border rounded-md">
+        <div className="sm:col-span-2">
           <label
-            htmlFor={`hours-worked-${index}`}
-            className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            htmlFor="conviction-date"
+            className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
           >
-            Date: {getFormattedDate(index)}
+            Conviction Date
           </label>
-          <div className="mt-2">
-            <select
-            required
-              name={`hoursWorked-${index}`}
-              id={`hours-worked-${index}`}
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={hours}
-              onChange={(e) => handleChange(index, e.target.value)}
-            >
-              <option selected disabled value="">Select from options</option>
-              <option value="did not work">Did not work</option>
-              <option value="1">1 hour</option>
-              <option value="3">2 hours</option>
-              <option value="3">3 hours</option>
-              <option value="2">4 hours</option>
-              <option value="5">5 hours</option>
-              <option value="6">6 hours</option>
-              <option value="7">7 hours</option>
-              <option value="8">8 hours</option>
-              <option value="9">9 hours</option>
-              <option value="10">10 hours</option>
-              <option value="1">11 hours</option>
-              <option value="2">12 hours</option>
-              <option value="3">13 hours</option>
-              <option value="4">14 hours</option>
-              <option value="5">15 hours</option>
-              <option value="6">16 hours</option>
-              
-            </select>
+          <div className="mt-1">
+            <input
+              type="date"
+              name="convictionDate"
+              id="conviction-date"
+              className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
+              value={
+                form.stepFiveData?.convictionsArray[index]?.convictionDate
+                  ? form.stepFiveData?.convictionsArray[index]?.convictionDate
+                  : null
+              }
+              onChange={(e) => handleChange(index, e.target.name, e.target.value)}
+            />
           </div>
         </div>
+
+        <div className="sm:col-span-4">
+          <label
+            htmlFor="conviction-location"
+            className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
+          >
+            Conviction Location
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              id="conviction-location"
+              name="convictionLocation"
+              className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
+              value={
+                form.stepFiveData?.convictionsArray[index]?.convictionLocation
+                  ? form.stepFiveData?.convictionsArray[index]?.convictionLocation
+                  : null
+              }
+              onChange={(e) => handleChange(index, e.target.name, e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-3">
+          <label
+            htmlFor="charge"
+            className="block text-xs px-1 font-medium  text-gray-900 text-left mt-0"
+          >
+            Charges
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              id="charge"
+              name="charge"
+              className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              value={
+                form.stepFiveData?.convictionsArray[index]?.charge
+                  ? form.stepFiveData?.convictionsArray[index]?.charge
+                  : null
+              }
+              onChange={(e) => handleChange(index, e.target.name, e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-3">
+          <label
+            htmlFor="penalty"
+            className="block text-xs px-1 font-medium  text-gray-900 text-left mt-0"
+          >
+            Penalty ($)
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              id="penalty"
+              name="penalty"
+              className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              value={
+                form.stepFiveData?.convictionsArray[index]?.penalty
+                  ? form.stepFiveData?.convictionsArray[index]?.penalty
+                  : null
+              }
+              onChange={(e) => handleChange(index, e.target.name, e.target.value)}
+            />
+          </div>
+        </div>
+        {index > 0 && (
+            <div className="sm:col-span-2 sm:col-end-7 text-right">
+              <button
+                type="button"
+                className="py-2 px-2 mt-4 bg-red-500 text-white rounded-md hover:bg-indigo-700"
+                onClick={() => removeConviction(index)}
+              >
+                Remove Conviction
+              </button>
+            </div>
+          )}
+      </div>
       ))}
 
+<div className="flex justify-end mt-6">
+          <button
+            type="button"
+            onClick={addConvictions}
+            className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-400 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-800"
+          >
+            Add more Convictions +
+          </button>
+        </div>
       <div className="flex justify-between">
         <button
           type="button"
           onClick={onPreviousStep}
-          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
         >
-          Previous Step
-        </button>
-
-        <button
-          type="submit"
-          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Next
-        </button>
+          ◄ Previous Step
+        </button>        
+          <button
+            type="submit"
+            className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
+          >
+            Next ►
+          </button>
+        
       </div>
     </form>
   );
