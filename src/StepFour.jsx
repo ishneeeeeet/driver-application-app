@@ -4,7 +4,7 @@ import { FormContext } from "./context";
 
 const StepFour = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [accidents, setAccidents] = useState([{}]);
+  const [accidents, setAccidents] = useState(form.stepFourData.accidentsArray);
 
   const handleAccidentsChange = (index, field, value) => {
     setAccidents((prevAddresses) => {
@@ -31,10 +31,12 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setForm((prevForm) => ({
-      ...prevForm,
-      stepFourData: { ...prevForm.stepFourData, accidentsArray: accidents },
-    }));
+    const updatedForm = {
+      ...form,
+      stepFourData: { ...form.stepFourData, accidentsArray: accidents },
+    }
+    localStorage.setItem('form', JSON.stringify(updatedForm)) 
+    setForm(updatedForm);
 
     onNextStep();
   };
@@ -60,7 +62,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
       {accidents.map((address, index) => (
         <div
           key={index}
-          className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 bg-orange-50"
+          className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 bg-sky-100"
         >
           <div className="sm:col-span-4">
             <label
@@ -192,7 +194,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-2 sm:col-end-7 text-right">
               <button
                 type="button"
-                className="py-2 px-2 mt-4 bg-red-500 text-white rounded-md hover:bg-indigo-700"
+                className="py-2 px-2 bg-red-500 text-white rounded-md hover:bg-indigo-700"
                 onClick={() => removeAccident(index)}
               >
                 Remove Accident
@@ -208,7 +210,7 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           onClick={addAccident}
         >
-          Add Accident
+          + Add Accident
         </button>
       </div>
       <div className="flex justify-between">

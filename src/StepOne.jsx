@@ -78,6 +78,7 @@ const StepOne = ({ onNextStep }) => {
     e.preventDefault();
     console.log(form);
     onNextStep();
+    localStorage.setItem('form', JSON.stringify(form))
   };
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -97,7 +98,7 @@ const StepOne = ({ onNextStep }) => {
   return (
     <Form.Root className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
-      <div className="grid mb-4 px-4 py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div className="grid px-4 py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-100 border rounded-md">
         <div className="sm:col-span-3">
             <label
               htmlFor="company-applied-for"
@@ -144,8 +145,6 @@ const StepOne = ({ onNextStep }) => {
             </select>
           </div>
         </div>
-      </div>
-      <div className="grid px-4 py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-teal-50 border rounded-md">
           
           <div className="sm:col-span-3">
             <Label.Root
@@ -311,7 +310,7 @@ const StepOne = ({ onNextStep }) => {
         </div>
         </div>
       </div>
-      <div className="max-w-screen-md mx-auto  pb-12 text-left px-4 py-4 bg-cyan-50 border rounded-md">
+      <div className="max-w-screen-md mx-auto text-left px-4 py-4 bg-sky-100 border rounded-md mb-12">
         <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
           Driver License Information
         </h2>
@@ -472,13 +471,16 @@ const StepOne = ({ onNextStep }) => {
             </div>
           ))}
         </div>
-        <h2 className="text-base font-semibold mt-10 text-blue-900 text-center">
+      </div>
+      <div className="max-w-screen-md mx-auto  pb-12 text-left px-4 py-4 bg-sky-100 border rounded-md">
+        <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">
           Driving Experience
         </h2>
         <p className="max-w-screen-md mx-auto mb-0 text-center text-gray-500 sm:text-xs">
           Please tell us how much experience you have driving these specific types of vehicle(s).
         </p>
-        <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 text-left">
+
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div className="sm:col-span-2" >
               <label
                 htmlFor=""
@@ -696,7 +698,7 @@ const StepOne = ({ onNextStep }) => {
               </div>
             </div>
           </div>
-      </div>
+</div>
       
       
         

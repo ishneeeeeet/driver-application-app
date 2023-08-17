@@ -102,7 +102,7 @@ function App() {
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
-                activeStep === 7
+                activeStep === 8
                   ? "text-indigo-500 border-b-2 border-indigo-500"
                   : "border-b-2 border-gray-200"
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}

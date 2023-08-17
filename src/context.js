@@ -3,18 +3,49 @@ import React, { createContext, useState } from "react";
 const FormContext = createContext();
 
 const FormDataContext = ({ children }) => {
-  const [form, setForm] = useState({
+  let existingFormData = localStorage.getItem("form")
+  if(existingFormData) {
+    existingFormData = JSON.parse(existingFormData)
+  } else existingFormData = {
     stepOneData: {},
     stepTwoData: {
-      addressesArray: [],
+      addressesArray: [{
+        streetAddress: "",
+        city: "",
+        region: "",
+        postalCode: "",
+        fromDate: "",
+        toDate: "",
+      }],
     },
+    stepThreeData: {
+      employmentHistory: [
+        {
+          employerName: "",
+          positionHeld: "",
+          streetAddress: "",
+          city: "",
+          region: "",
+          postalCode: "",
+          fromDate: "",
+          toDate: "",
+          reasonForLeaving: "",
+          subjectToFMCSRs: "",
+          safetySensitiveFunction: "",
+        },
+      ],
+    },  
     stepFourData: {
-      accidentsArray: [],
+      accidentsArray: [{}],
     },
     stepFiveData: {
-    convictionsArray: [],
+    convictionsArray: [{}],
     },
-  });
+    stepSixData: {
+      hoursWorked: new Array(14).fill(0)
+    }
+  }
+  const [form, setForm] = useState(existingFormData);
 
   const data = {
     form,

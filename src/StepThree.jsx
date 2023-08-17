@@ -5,23 +5,7 @@ import * as Form from "@radix-ui/react-form";
 const StepThree = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
   const [sign, setSign] = useState();
-  const [formData, setFormData] = useState({
-    employmentHistory: [
-      {
-        employerName: "",
-        positionHeld: "",
-        streetAddress: "",
-        city: "",
-        region: "",
-        postalCode: "",
-        fromDate: "",
-        toDate: "",
-        reasonForLeaving: "",
-        subjectToFMCSRs: "",
-        safetySensitiveFunction: "",
-      },
-    ],
-  });
+  const [formData, setFormData] = useState(form.stepThreeData);
 
   const handlePreviousStep = () => {
     onPreviousStep();
@@ -29,7 +13,6 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
 
   const addEmployment = () => {
     setFormData((prevFormData) => ({
-      ...prevFormData,
       employmentHistory: [
         ...prevFormData.employmentHistory,
         {
@@ -49,6 +32,13 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
     }));
   };
 
+  const removeEmployment = (index) => {
+    setFormData((prevFormData) => {
+      const updtdEmployHistory = { employmentHistory: prevFormData.employmentHistory.filter((_, i) => i !== index)}
+      return updtdEmployHistory;
+    });
+  };
+
   const handleEmploymentChange = (index, field, value) => {
     setFormData((prevFormData) => {
       const updatedHistory = [...prevFormData.employmentHistory];
@@ -59,8 +49,12 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    setForm((prevForm) => ({ ...prevForm, stepThreeData: formData }));
+    const updatedForm = {
+      ...form,
+      stepThreeData: { ...form.stepThreeData, ...formData },
+    }
+    localStorage.setItem('form', JSON.stringify(updatedForm))
+    setForm(updatedForm);
     onNextStep();
     console.log(form);
   };
@@ -80,7 +74,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
         <div>
           <div
             key={index}
-            className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 border rounded-md bg-orange-50"
+            className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 border rounded-md bg-sky-100"
           >
             <div className="sm:col-span-3">
               <label
@@ -273,7 +267,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 <input
                   required
                   type="text"
-                  name="province"
+                  name="region"
                   id={`region-${index}`}
                   autoComplete="address-level1"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
@@ -283,7 +277,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                       : null
                   }
                   onChange={(e) =>
-                    handleEmploymentChange(index, "province", e.target.value)
+                    handleEmploymentChange(index, "region", e.target.value)
                   }
                 />
               </div>
@@ -440,7 +434,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                 <select
                   required
                   id="country"
-                  name="province"
+                  name="subjectToFMCSRs"
                   autoComplete="country-name"
                   value={
                     form.stepThreeData?.employmentHistory[index].subjectToFMCSRs
@@ -448,13 +442,6 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                           .subjectToFMCSRs
                       : null
                   }
-                  className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
-                >
-                  <option selected disabled value="">
-                    Select an option
-                  </option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
                   onChange=
                   {(e) =>
                     handleEmploymentChange(
@@ -463,6 +450,14 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                       e.target.value
                     )
                   }
+                  className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
+                >
+                  <option selected disabled value="">
+                    Select an option
+                  </option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                  
                 </select>
               </div>
             </div>
@@ -509,8 +504,18 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </div>
             </div>
           </div>
+          {index > 0 && (
+            <div className="sm:col-span-2 sm:col-end-7 text-right">
+              <button
+                type="button"
+                className="py-2 px-2 mt-4 bg-red-500 text-white rounded-md hover:bg-indigo-700 "
+                onClick={() => removeEmployment(index)}
+              >
+                Remove Employer
+              </button>
+            </div>
+          )}
           </div>
-          
           
         </div>
       ))}
@@ -521,7 +526,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
           className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           onClick={addEmployment}
         >
-          Add more Employer +
+         + Add More Employer
         </button>
       </div>
       <div className="flex justify-between">

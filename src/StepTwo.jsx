@@ -4,16 +4,7 @@ import { FormContext } from "./context";
 
 const StepTwo = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [addresses, setAddresses] = useState([
-    {
-      streetAddress: "",
-      city: "",
-      region: "",
-      postalCode: "",
-      fromDate: "",
-      toDate: "",
-    },
-  ]);
+  const [addresses, setAddresses] = useState(form.stepTwoData.addressesArray);
 
   const handleAddressChange = (index, field, value) => {
     setAddresses((prevAddresses) => {
@@ -45,11 +36,13 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setForm((prevForm) => ({
-      ...prevForm,
-      stepTwoData: { ...prevForm.stepTwoData, addressesArray: addresses },
-    }));
-
+    const updatedForm = {
+      ...form,
+      stepTwoData: { ...form.stepTwoData, addressesArray: addresses },
+    }
+    localStorage.setItem('form', JSON.stringify(updatedForm))
+    setForm(updatedForm);
+    
     onNextStep();
   };
 
@@ -73,7 +66,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
       {addresses.map((address, index) => (
         <div
           key={index}
-          className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 bg-orange-50"
+          className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 px-6 py-7 bg-sky-100"
         >
           <div className="col-span-full">
             <label
@@ -138,7 +131,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
                 className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                 value={form.stepTwoData?.addressesArray[index]?.region ? form.stepTwoData?.addressesArray[index]?.region : null}
                 onChange={(e) =>
-                  handleAddressChange(index, "province", e.target.value)
+                  handleAddressChange(index, "region", e.target.value)
                 }
               />
             </div>
@@ -253,7 +246,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           onClick={addAddress}
         >
-          add more Address +
+          + Add More Address
         </button>
       </div>
       <div className="flex justify-between">

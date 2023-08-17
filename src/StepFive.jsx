@@ -4,7 +4,7 @@ import { Form } from "@radix-ui/react-form";
 
 const StepFive = ({onNextStep, onPreviousStep}) => {
   const { form, setForm } = useContext(FormContext);
-  const [convictions, setConvictions] = useState([{}]);
+  const [convictions, setConvictions] = useState(form.stepFiveData.convictionsArray);
 
   const  handleChange = (index, field, value) => {
     setConvictions((prevConvictions) => {
@@ -26,11 +26,13 @@ const StepFive = ({onNextStep, onPreviousStep}) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setForm((prevForm) => ({
-      ...prevForm,
-      stepFiveData: { ...prevForm.stepFiveData, convictionsArray: convictions },
-    }));
 
+    const updatedForm = {
+      ...form,
+      stepFiveData: { ...form.stepFiveData, convictionsArray: convictions },
+    }
+    localStorage.setItem('form', JSON.stringify(updatedForm)) 
+    setForm(updatedForm);
     onNextStep();
   };
 
@@ -49,7 +51,7 @@ const StepFive = ({onNextStep, onPreviousStep}) => {
       </h2>
 
       {convictions.map((address, index) => (
-        <div key={index} className="grid px-4 pt- py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-100 border rounded-md">
+        <div key={index} className="mt-8 grid px-4 pt- py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-100 border rounded-md">
         <div className="sm:col-span-2">
           <label
             htmlFor="conviction-date"
@@ -145,7 +147,7 @@ const StepFive = ({onNextStep, onPreviousStep}) => {
             <div className="sm:col-span-2 sm:col-end-7 text-right">
               <button
                 type="button"
-                className="py-2 px-2 mt-4 bg-red-500 text-white rounded-md hover:bg-indigo-700"
+                className="py-2 px-2 bg-red-500 text-white rounded-md hover:bg-indigo-700"
                 onClick={() => removeConviction(index)}
               >
                 Remove Conviction
@@ -157,12 +159,12 @@ const StepFive = ({onNextStep, onPreviousStep}) => {
 
 <div className="flex justify-end mt-6">
           <button
-            type="button"
-            onClick={addConvictions}
-            className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-400 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-800"
-          >
-            Add more Convictions +
-          </button>
+          type="button"
+          className="px-4 py-2 border mx-auto border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          onClick={addConvictions}
+        >
+          + Add More Convictions
+        </button>
         </div>
       <div className="flex justify-between">
         <button

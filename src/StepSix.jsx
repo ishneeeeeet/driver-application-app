@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import { FormContext } from "./context";
+import * as Form from "@radix-ui/react-form";
 
-const initialState = {
-  hoursWorked: new Array(14).fill(0),
-};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -16,7 +14,7 @@ const reducer = (state, action) => {
 
 const StepSix = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, form.stepSixData);
 
   const handleChange = (index, value) => {
     const updatedHours = [...state.hoursWorked];
@@ -26,12 +24,12 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setForm({
+    const updatedForm = {
       ...form,
-      stepSixData: {
-        hoursWorked: state.hoursWorked,
-      },
-    });
+      stepSixData: { ...form.stepSixData, hoursWorked: state.hoursWorked },
+    }
+    localStorage.setItem('form', JSON.stringify(updatedForm)) 
+    setForm(updatedForm);
     onNextStep();
   };
 
@@ -47,10 +45,11 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="max-w-screen-md mx-auto">
-      <h1 className="mb-4 mt-6 text-2xl font-bold text-center text-gray-800 lg:text-3xl md:mb-6">
-        Hours Worked in the Last 14 Days
-      </h1>
+    <Form.Root onSubmit={onSubmit} className="max-w-screen-md mx-auto">
+      <h2 className="text-base font-semibold leading-6 text-gray-900 text-center">
+      Hours Worked in the Last 14 Days
+      </h2>
+      <div className="bg-sky-100 border rounded-md mt-8 pb-8 pl-8 pr-8">
       {state.hoursWorked.map((hours, index) => (
         <div key={index} className="sm:col-span-3">
           <label
@@ -92,24 +91,26 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
           </div>
         </div>
       ))}
+      </div>
 
       <div className="flex justify-between">
         <button
           type="button"
           onClick={onPreviousStep}
-          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
         >
-          Previous Step
+          ◄ Previous Step
         </button>
-
-        <button
-          type="submit"
-          className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Next
-        </button>
+        <Form.Submit asChild>
+          <button
+            type="submit"
+            className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
+          >
+            Next ►
+          </button>
+        </Form.Submit>
       </div>
-    </form>
+      </Form.Root>
   );
 };
 

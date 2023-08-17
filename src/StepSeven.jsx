@@ -19,7 +19,7 @@ const StepSeven = ({ onNextStep, onPreviousStep }) => {
   
   const handleNextStep = () => {
     if (sign2 && !sign2.isEmpty()) {
-      setForm({});
+      // setForm({});
       onNextStep()
     } else {
       alert("Please provide a signature to submit");
