@@ -42,7 +42,7 @@ const FormDataContext = ({ children }) => {
     convictionsArray: [{}],
     },
     stepSixData: {
-      hoursWorked: new Array(14).fill(0)
+      hoursWorked: new Array(14).fill("")
     }
   }
   const [form, setForm] = useState(existingFormData);

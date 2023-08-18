@@ -36,9 +36,7 @@ const StepFive = ({onNextStep, onPreviousStep}) => {
     onNextStep();
   };
 
-  useEffect(() => {
-    console.log("Updated form data:", form);
-  }, [form]);
+ 
 
   return (
     <form

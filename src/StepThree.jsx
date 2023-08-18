@@ -56,7 +56,6 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
     localStorage.setItem('form', JSON.stringify(updatedForm))
     setForm(updatedForm);
     onNextStep();
-    console.log(form);
   };
   useEffect(() => {
     console.log("Updated form data:", form);
@@ -92,8 +91,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].employerName
-                      ? form.stepThreeData?.employmentHistory[index]
+                    employment.employerName
+                      ? employment
                           .employerName
                       : null
                   }
@@ -123,8 +122,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`position-held-${index}`}
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].positionHeld
-                      ? form.stepThreeData?.employmentHistory[index]
+                    employment.positionHeld
+                      ? employment
                           .positionHeld
                       : null
                   }
@@ -155,8 +154,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="off"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].contactName
-                      ? form.stepThreeData?.employmentHistory[index].contactName
+                    employment.contactName
+                      ? employment.contactName
                       : null
                   }
                   onChange={(e) =>
@@ -181,8 +180,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="tel"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].contactPhone
-                      ? form.stepThreeData?.employmentHistory[index]
+                    employment.contactPhone
+                      ? employment
                           .contactPhone
                       : null
                   }
@@ -213,8 +212,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="street-address"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].streetAddress
-                      ? form.stepThreeData?.employmentHistory[index]
+                    employment.streetAddress
+                      ? employment
                           .streetAddress
                       : null
                   }
@@ -245,8 +244,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="address-level2"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].city
-                      ? form.stepThreeData?.employmentHistory[index].city
+                    employment.city
+                      ? employment.city
                       : null
                   }
                   onChange={(e) =>
@@ -272,8 +271,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="address-level1"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].region
-                      ? form.stepThreeData?.employmentHistory[index].region
+                    employment.region
+                      ? employment.region
                       : null
                   }
                   onChange={(e) =>
@@ -299,8 +298,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="postal-code"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].postalCode
-                      ? form.stepThreeData?.employmentHistory[index].postalCode
+                    employment.postalCode
+                      ? employment.postalCode
                       : null
                   }
                   onChange={(e) =>
@@ -325,8 +324,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="country-name"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].country
-                      ? form.stepThreeData?.employmentHistory[index].country
+                    employment.country
+                      ? employment.country
                       : null
                   }
                   onChange={(e) =>
@@ -351,8 +350,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`from-date-${index}`}
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].fromDate
-                      ? form.stepThreeData?.employmentHistory[index].fromDate
+                    employment.fromDate
+                      ? employment.fromDate
                       : null
                   }
                   onChange={(e) =>
@@ -377,8 +376,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id={`to-date-${index}`}
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index].toDate
-                      ? form.stepThreeData?.employmentHistory[index].toDate
+                    employment.toDate
+                      ? employment.toDate
                       : null
                   }
                   onChange={(e) =>
@@ -404,9 +403,9 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   autoComplete="off"
                   className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
                   value={
-                    form.stepThreeData?.employmentHistory[index]
+                    employment
                       .reasonForLeaving
-                      ? form.stepThreeData?.employmentHistory[index]
+                      ? employment
                           .reasonForLeaving
                       : null
                   }
@@ -437,8 +436,8 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   name="subjectToFMCSRs"
                   autoComplete="country-name"
                   value={
-                    form.stepThreeData?.employmentHistory[index].subjectToFMCSRs
-                      ? form.stepThreeData?.employmentHistory[index]
+                    employment.subjectToFMCSRs
+                      ? employment
                           .subjectToFMCSRs
                       : null
                   }
@@ -480,9 +479,9 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
                   id="country"
                   name="safetySensitiveFunction"
                   value={
-                    form.stepThreeData?.employmentHistory[index]
+                    employment
                       .safetySensitiveFunction
-                      ? form.stepThreeData?.employmentHistory[index]
+                      ? employment
                           .safetySensitiveFunction
                       : null
                   }

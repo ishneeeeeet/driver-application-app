@@ -16,7 +16,7 @@ const ThankYouPage = () => {
   );
 };
 
-const StepEight = () => {
+const StepEight = ({jumpToStep}) => {
   const { form, setForm } = useContext(FormContext);
   const [sign2, setSign2] = useState(null);
   const [isSignatureComplete, setIsSignatureComplete] = useState(false);
@@ -29,25 +29,90 @@ const StepEight = () => {
     setIsSignatureComplete(false);
   };
 
+  const validated = () => {
+    const stepOneFields = Object.keys(form.stepOneData)
+    for(let i=0; i<stepOneFields.length; i++){
+      let key = stepOneFields[i]
+      if(key !== "driverLicenseCondition" && key !== "homeNo") {
+        let validatedStep = form.stepOneData[key] !== ""
+        if(!validatedStep) return { status: false, step: 1}
+      }
+    }
+    for(let i=0; i<form.stepTwoData.addressesArray.length;i++){
+      let currAddressArr = form.stepTwoData.addressesArray[i]
+      let currAddressArrFields = Object.keys(currAddressArr)
+      for(let j=0; j<currAddressArrFields.length; j++){
+        let key= currAddressArrFields[j]
+        let validatedStep = currAddressArr[key] !== ""
+        if(!validatedStep) return { status: false, step: 2}
+      }
+    }
+
+    for(let i=0; i<form.stepThreeData.employmentHistory.length;i++){
+      let currEmpArr = form.stepThreeData.employmentHistory[i]
+      let currEmpArrFields = Object.keys(currEmpArr)
+      for(let j=0; j<currEmpArrFields.length; j++){
+        let key= currEmpArrFields[j]
+        let validatedStep = currEmpArr[key] !== ""
+        if(!validatedStep) return { status: false, step: 3}
+      }
+    }
+
+    for(let i=0; i<form.stepFourData.accidentsArray.length;i++){
+      let currAccidentArr = form.stepFourData.accidentsArray[i]
+      let currAccidentArrFields = Object.keys(currAccidentArr)
+      for(let j=0; j<currAccidentArrFields.length; j++){
+        let key= currAccidentArrFields[j]
+        let validatedStep = currAccidentArr[key] !== ""
+        if(!validatedStep) return { status: false, step: 4}
+      }
+    }
+
+
+  for(let i=0; i<form.stepFiveData.convictionsArray.length;i++){
+    let currConvictionArr = form.stepFiveData.convictionsArray[i]
+    let currConvictionArrFields = Object.keys(currConvictionArr)
+    for(let j=0; j<currConvictionArrFields.length; j++){
+      let key= currConvictionArrFields[j]
+      let validatedStep = currConvictionArr[key] !== ""
+      if(!validatedStep) return { status: false, step: 5}
+    }
+  }
+  for(let i=0; i<form.stepSixData.hoursWorked.length;i++){
+    let validatedStep = form.stepSixData.hoursWorked[i] !== ""
+    if(!validatedStep) return { status: false, step: 6}
+  }
+  return {status: true}
+}
+
+
   const onSubmit = async () => {
     try {
       if (sign2 && !sign2.isEmpty()) {
         setIsSignatureComplete(true);
+           
+        const validatedData = validated()
 
-        await axios.post(`http://localhost:8000/createPdf`, form);
-        const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
-          responseType: "blob",
-        });
-
-        const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-        saveAs(pdfBlob, "InvoiceDocument.pdf");
-
-        // Send PDF via email
-        const emailResponse = await axios.post("http://localhost:8000/sendPdf");
-        console.log(emailResponse.data);
-
-        setIsSubmitted(true); // Mark submission as successful
-        setForm({}); // Clear form data
+        if(validatedData.status){
+          await axios.post(`http://localhost:8000/createPdf`, form);
+          const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
+            responseType: "blob",
+          });
+  
+          const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
+          saveAs(pdfBlob, "InvoiceDocument.pdf");
+  
+          // Send PDF via email
+          const emailResponse = await axios.post("http://localhost:8000/sendPdf");
+          console.log(emailResponse.data);
+  
+          setIsSubmitted(true); // Mark submission as successful
+          setForm({}); // Clear form data
+          localStorage.clear()
+        } else {
+          console.log("here")
+          jumpToStep(validatedData.step)
+        }
       } else {
         setIsSignatureComplete(false);
         alert("Please provide your signature before submitting the form.");
@@ -60,7 +125,6 @@ const StepEight = () => {
 
   const handleNextStep = () => {
     if (sign2 && !sign2.isEmpty()) {
-      setForm({});
       onSubmit();
     } else {
       alert("Please provide a signature to submit");
