@@ -97,7 +97,7 @@ const StepEight = ({jumpToStep}) => {
     try {
       if (sign2 && !sign2.isEmpty()) {
         setIsSignatureComplete(true);
-           
+        const BACKEND_URL = "https://driver-appication-app-real.onrender.com/" 
         const validatedData = validated()
 
         if(validatedData.status){
@@ -109,8 +109,8 @@ const StepEight = ({jumpToStep}) => {
           },
           }
           setForm(updatedForm);
-          await axios.post(`${process.env.BACKEND_URL}createPdf`, updatedForm);
-          const pdfResponse = await axios.get(`${process.env.BACKEND_URL}fetchPdf`, {
+          await axios.post(`${BACKEND_URL}createPdf`, updatedForm);
+          const pdfResponse = await axios.get(`${BACKEND_URL}fetchPdf`, {
             responseType: "blob",
           });
   
@@ -118,7 +118,7 @@ const StepEight = ({jumpToStep}) => {
           saveAs(pdfBlob, "InvoiceDocument.pdf");
   
           // Send PDF via email
-          const emailResponse = await axios.post(`${process.env.BACKEND_URL}sendPdf`);
+          const emailResponse = await axios.post(`${BACKEND_URL}sendPdf`);
           console.log(emailResponse.data);
   
           setIsSubmitted(true); // Mark submission as successful
