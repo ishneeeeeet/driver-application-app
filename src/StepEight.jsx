@@ -109,8 +109,8 @@ const StepEight = ({jumpToStep}) => {
           },
           }
           setForm(updatedForm);
-          await axios.post(`http://localhost:8000/createPdf`, updatedForm);
-          const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
+          await axios.post(`${process.env.BACKEND_URL}createPdf`, updatedForm);
+          const pdfResponse = await axios.get(`${process.env.BACKEND_URL}fetchPdf`, {
             responseType: "blob",
           });
   
@@ -118,7 +118,7 @@ const StepEight = ({jumpToStep}) => {
           saveAs(pdfBlob, "InvoiceDocument.pdf");
   
           // Send PDF via email
-          const emailResponse = await axios.post("http://localhost:8000/sendPdf");
+          const emailResponse = await axios.post(`${process.env.BACKEND_URL}sendPdf`);
           console.log(emailResponse.data);
   
           setIsSubmitted(true); // Mark submission as successful
