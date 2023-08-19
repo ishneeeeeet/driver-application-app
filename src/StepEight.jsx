@@ -97,7 +97,9 @@ const StepEight = ({jumpToStep}) => {
     try {
       if (sign2 && !sign2.isEmpty()) {
         setIsSignatureComplete(true);
-        const BACKEND_URL = "https://driver-appication-app-real.onrender.com/" 
+        const BACKEND_URL = "https://final-backend-z2ta.onrender.com/" 
+        // const BACKEND_URL = "https://driver-appication-app-real.onrender.com/" 
+        // const BACKEND_URL = "http://localhost:8000/" 
         const validatedData = validated()
 
         if(validatedData.status){
@@ -125,7 +127,6 @@ const StepEight = ({jumpToStep}) => {
           setForm({}); // Clear form data
           localStorage.clear()
         } else {
-          console.log("here")
           jumpToStep(validatedData.step)
         }
       } else {
