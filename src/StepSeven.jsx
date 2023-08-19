@@ -6,8 +6,8 @@ import SignatureCanvas from "react-signature-canvas";
 
 const StepSeven = ({ onNextStep, onPreviousStep }) => {
   const { form, setForm } = useContext(FormContext);
-  const [sign1, setSign1] = useState(null);
-  const [sign2, setSign2] = useState(null);
+  const [sign1, setSign1] = useState("");
+  const [sign2, setSign2] = useState("");
 
  
  
@@ -18,7 +18,16 @@ const StepSeven = ({ onNextStep, onPreviousStep }) => {
 
   
   const handleNextStep = () => {
-    if (sign2 && !sign2.isEmpty()) {
+    if (sign1 && !sign1.isEmpty() && sign2 && !sign2.isEmpty()) {
+      const updatedForm = {
+        ...form,
+        stepSevenData: { 
+        ...form.stepSevenData, 
+        sign1: sign1.getTrimmedCanvas().toDataURL('image/png'),
+        sign2: sign2.getTrimmedCanvas().toDataURL('image/png')
+      },
+      }
+      setForm(updatedForm);
       // setForm({});
       onNextStep()
     } else {

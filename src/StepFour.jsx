@@ -90,6 +90,31 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
           </div>
           <div className="sm:col-span-2">
             <label
+              htmlFor="date-of-accident"
+              className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
+            >
+              Date of Accident
+            </label>
+            <div className="mt-1">
+              <input
+                type="date"
+                name="dateOfAccident"
+                id="date-of-accident"
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={
+                  form.stepFourData?.accidentsArray[index]?.dateOfAccident
+                    ? form.stepFourData?.accidentsArray[index]?.dateOfAccident
+                    : null
+                }
+                onChange={(e) =>
+                  handleAccidentsChange(index, e.target.name, e.target.value)
+                }
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <label
               htmlFor="number-of-injuries"
               className="block text-xs px-1 font-medium text-gray-900 text-left mt-0"
             >
@@ -127,8 +152,8 @@ const StepFour = ({ onNextStep, onPreviousStep }) => {
                 id="number-of-fatalities"
                 className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={
-                  form.stepFourData?.accidentsArray[index]?.numberOfInjuries
-                    ? form.stepFourData?.accidentsArray[index]?.numberOfInjuries
+                  form.stepFourData?.accidentsArray[index]?.numberOfFatalities
+                    ? form.stepFourData?.accidentsArray[index]?.numberOfFatalities
                     : null
                 }
                 onChange={(e) =>

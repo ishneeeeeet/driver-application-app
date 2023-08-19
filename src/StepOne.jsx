@@ -35,7 +35,14 @@ const StepOne = ({ onNextStep }) => {
     },
   ];
 
-  const handleChange = (e) => {
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+});
+
+  const handleChange = async (e) => {
     const { name, value } = e.target;
 
     if (name === "cellNo" || name === "homeNo") {
@@ -48,6 +55,28 @@ const StepOne = ({ onNextStep }) => {
           [name]: formattedInput,
         },
       }));
+    } else if(name == "driverLicenseBack" || name == "driverLicenseFront") {
+      try {
+        const file =  e.target.files[0]
+        const result = file.size > 1000000 ? '' : {name: file.name, base64: await toBase64(file)};
+
+        setForm((prevForm) => ({
+          ...prevForm,
+          stepOneData: {
+            ...prevForm.stepOneData,
+            [name]: result,
+          },
+        }));
+     } catch(error) {
+        console.error(error);
+        setForm((prevForm) => ({
+          ...prevForm,
+          stepOneData: {
+            ...prevForm.stepOneData,
+            [name]: '',
+          },
+        }));
+     }
     } else {
       setForm((prevForm) => ({
         ...prevForm,
@@ -436,6 +465,46 @@ const StepOne = ({ onNextStep }) => {
               className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
             
             />
+          </div>
+        </div>
+        <div className="sm:col-span-3">
+          <label
+            htmlFor="driver-license-front"
+            className="block text-xs px-1 font-medium mb-1 text-gray-900"
+          >
+            Driving License Front (Max. Allowed: 1MB)
+          </label>
+          <div className="mt-1">
+            <input
+              type="file"
+              id="driver-license-front"
+              name="driverLicenseFront"
+              onChange={handleChange}
+              accept="image/*"
+              className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
+              required
+            />
+            {form.stepOneData?.driverLicenseFront ? form.stepOneData?.driverLicenseFront?.name : ''}
+          </div>
+        </div>
+        <div className="sm:col-span-3">
+          <label
+            htmlFor="driver-license-back"
+            className="block text-xs px-1 font-medium mb-1 text-gray-900"
+          >
+            Driving License Back (Max. Allowed: 1MB)
+          </label>
+          <div className="mt-1">
+            <input
+              type="file"
+              id="driver-license-back"
+              name="driverLicenseBack"
+              onChange={handleChange}
+              accept="image/*"
+              className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
+              required
+              />
+             {form.stepOneData?.driverLicenseBack ? form.stepOneData?.driverLicenseBack.name : ''}
           </div>
         </div>
         </div>

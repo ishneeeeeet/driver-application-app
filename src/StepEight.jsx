@@ -58,29 +58,36 @@ const StepEight = ({jumpToStep}) => {
       }
     }
 
-    for(let i=0; i<form.stepFourData.accidentsArray.length;i++){
-      let currAccidentArr = form.stepFourData.accidentsArray[i]
-      let currAccidentArrFields = Object.keys(currAccidentArr)
-      for(let j=0; j<currAccidentArrFields.length; j++){
-        let key= currAccidentArrFields[j]
-        let validatedStep = currAccidentArr[key] !== ""
-        if(!validatedStep) return { status: false, step: 4}
-      }
-    }
+    // for(let i=0; i<form.stepFourData.accidentsArray.length;i++){
+    //   let currAccidentArr = form.stepFourData.accidentsArray[i]
+    //   let currAccidentArrFields = Object.keys(currAccidentArr)
+    //   for(let j=0; j<currAccidentArrFields.length; j++){
+    //     let key= currAccidentArrFields[j]
+    //     let validatedStep = currAccidentArr[key] !== ""
+    //     if(!validatedStep) return { status: false, step: 4}
+    //   }
+    // }
 
 
-  for(let i=0; i<form.stepFiveData.convictionsArray.length;i++){
-    let currConvictionArr = form.stepFiveData.convictionsArray[i]
-    let currConvictionArrFields = Object.keys(currConvictionArr)
-    for(let j=0; j<currConvictionArrFields.length; j++){
-      let key= currConvictionArrFields[j]
-      let validatedStep = currConvictionArr[key] !== ""
-      if(!validatedStep) return { status: false, step: 5}
-    }
-  }
+  // for(let i=0; i<form.stepFiveData.convictionsArray.length;i++){
+  //   let currConvictionArr = form.stepFiveData.convictionsArray[i]
+  //   let currConvictionArrFields = Object.keys(currConvictionArr)
+  //   for(let j=0; j<currConvictionArrFields.length; j++){
+  //     let key= currConvictionArrFields[j]
+  //     let validatedStep = currConvictionArr[key] !== ""
+  //     if(!validatedStep) return { status: false, step: 5}
+  //   }
+  // }
   for(let i=0; i<form.stepSixData.hoursWorked.length;i++){
     let validatedStep = form.stepSixData.hoursWorked[i] !== ""
     if(!validatedStep) return { status: false, step: 6}
+  }
+
+  const stepSevenFields = Object.keys(form.stepSevenData)
+  for(let i=0; i<stepSevenFields.length; i++){
+    let key = stepSevenFields[i]
+      let validatedStep = form.stepSevenData[key] !== ""
+      if(!validatedStep) return { status: false, step: 7}
   }
   return {status: true}
 }
@@ -94,7 +101,15 @@ const StepEight = ({jumpToStep}) => {
         const validatedData = validated()
 
         if(validatedData.status){
-          await axios.post(`http://localhost:8000/createPdf`, form);
+          const updatedForm = {
+            ...form,
+            stepEightData: { 
+            ...form.stepEightData, 
+            sign2: sign2.getTrimmedCanvas().toDataURL('image/png')
+          },
+          }
+          setForm(updatedForm);
+          await axios.post(`http://localhost:8000/createPdf`, updatedForm);
           const pdfResponse = await axios.get(`http://localhost:8000/fetchPdf`, {
             responseType: "blob",
           });

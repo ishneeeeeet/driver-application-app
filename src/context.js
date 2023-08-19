@@ -7,7 +7,35 @@ const FormDataContext = ({ children }) => {
   if(existingFormData) {
     existingFormData = JSON.parse(existingFormData)
   } else existingFormData = {
-    stepOneData: {},
+    stepOneData: {
+      companyAppliedFor: "",
+      position: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      dateOfBirth: "",
+      cellNo: "",
+      homeNo: "",
+      status: "",
+      driverLicenseNumber: "",
+      driverLicenseClass: "",
+      province: "",
+      driverLicenseExpiry: "",
+      driverLicenseCondition: "",
+      driverLicenseFront: "",
+      driverLicenseBack: "",
+      questionOne: "",
+      questionTwo: "",
+      questionThree: "",
+      questionFour: "",
+      questionFive: "",
+      tractor: "",
+      van: "",
+      pike: "",
+      manual: "",
+      chassis: "",
+      haul: ""
+    },
     stepTwoData: {
       addressesArray: [{
         streetAddress: "",
@@ -16,6 +44,7 @@ const FormDataContext = ({ children }) => {
         postalCode: "",
         fromDate: "",
         toDate: "",
+        country: ""
       }],
     },
     stepThreeData: {
@@ -23,10 +52,13 @@ const FormDataContext = ({ children }) => {
         {
           employerName: "",
           positionHeld: "",
+          contactName: "",
+          contactPhone: "",
           streetAddress: "",
           city: "",
           region: "",
           postalCode: "",
+          country: "",
           fromDate: "",
           toDate: "",
           reasonForLeaving: "",
@@ -36,13 +68,32 @@ const FormDataContext = ({ children }) => {
       ],
     },  
     stepFourData: {
-      accidentsArray: [{}],
+      accidentsArray: [{
+        dateOfAccident: "",
+        accidentLocation: "",
+        numberOfInjuries: "",
+        numberOfFatalities: "",
+        numberOfHazardousMaterialSpills: "",
+        accidentDescription: ""
+      }],
     },
     stepFiveData: {
-    convictionsArray: [{}],
+    convictionsArray: [{
+      convictionDate: "",
+      convictionLocation: "",
+      charge: "",
+      penalty: ""
+    }],
     },
     stepSixData: {
       hoursWorked: new Array(14).fill("")
+    },
+    stepSevenData: {
+      sign1: "",
+      sign2: ""
+    },
+    stepEightData: {
+      sign1: ""
     }
   }
   const [form, setForm] = useState(existingFormData);
