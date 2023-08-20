@@ -22,12 +22,23 @@ const StepEight = ({jumpToStep}) => {
   const [isSignatureComplete, setIsSignatureComplete] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false); // Track successful submission
   const [isError, setIsError] = useState(false); // Track submission error
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleClear = (e, signRef) => {
     e.preventDefault();
     signRef.clear();
     setIsSignatureComplete(false);
   };
+
+  const setProgressMode = (status) => {
+   if(status) {
+    setIsLoading(true)
+    document.body.style.opacity = 0.5;
+   } else {
+    setIsLoading(false)
+    document.body.style.opacity = 1;
+   }
+  }
 
   const validated = () => {
     const stepOneFields = Object.keys(form.stepOneData)
@@ -129,21 +140,26 @@ const StepEight = ({jumpToStep}) => {
         } else {
           jumpToStep(validatedData.step)
         }
+        setProgressMode(false)
       } else {
         setIsSignatureComplete(false);
         alert("Please provide your signature before submitting the form.");
+        setProgressMode(false)
       }
     } catch (error) {
       setIsError(true); // Mark submission error
       console.error("Error submitting form:", error);
+      setProgressMode(false)
     }
   };
 
   const handleNextStep = () => {
+    setProgressMode(true)
     if (sign2 && !sign2.isEmpty()) {
       onSubmit();
     } else {
       alert("Please provide a signature to submit");
+      setProgressMode(false)
     }
   };
 
@@ -193,9 +209,10 @@ const StepEight = ({jumpToStep}) => {
           <button
             type="submit"
             onClick={handleNextStep}
+            disabled={isLoading}
             className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
-            Submit
+            {isLoading ? 'Loading...' : 'Submit'}
           </button>
         </>
       )}
