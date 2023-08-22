@@ -98,7 +98,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(7)}
             >
-              Consent 
+              Consent
             </button>
             <button
               className={`inline-flex items-center justify-center w-1/4 py-3 text-sm font-medium leading-none tracking-wider ${
@@ -108,7 +108,7 @@ function App() {
               } sm:px-6 sm:w-auto sm:justify-start title-font hover:text-gray-900`}
               onClick={() => handleStepChange(8)}
             >
-             Submit
+              Submit
             </button>
           </div>
           <div className="flex flex-col w-full text-center">
@@ -136,7 +136,6 @@ function App() {
                     onPreviousStep={() => handleStepChange(3)}
                   />
                 )}
-               
 
                 {activeStep === 5 && (
                   <StepFive
@@ -151,9 +150,18 @@ function App() {
                   />
                 )}
 
-                {activeStep === 7 && <StepSeven onNextStep={() => handleStepChange(8)}
-                    onPreviousStep={() => handleStepChange(6)}/>}
-                {activeStep === 8 && <StepEight jumpToStep={(stepNo) => handleStepChange(stepNo)} onNextStep={() => handleStepChange(8)} />}
+                {activeStep === 7 && (
+                  <StepSeven
+                    onNextStep={() => handleStepChange(8)}
+                    onPreviousStep={() => handleStepChange(6)}
+                  />
+                )}
+                {activeStep === 8 && (
+                  <StepEight
+                    jumpToStep={(stepNo) => handleStepChange(stepNo)}
+                    onNextStep={() => handleStepChange(8)}
+                  />
+                )}
               </div>
             </div>
           </div>
