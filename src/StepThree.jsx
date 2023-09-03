@@ -147,7 +147,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-1">
                 <input
-                  required
+                 
                   type="text"
                   name={`contact-name-${index}`}
                   id={`contact-name-${index}`}
@@ -173,7 +173,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
               </label>
               <div className="mt-1">
                 <input
-                  required
+                  
                   type="tel"
                   name={`contact-phone-${index}`}
                   id={`contact-phone-${index}`}
