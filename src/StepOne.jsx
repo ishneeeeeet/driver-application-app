@@ -2,6 +2,7 @@ import React, { useContext, useEffect} from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
+const PDFJS = require("pdfjs-dist/webpack");
 
 const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
@@ -35,11 +36,29 @@ const StepOne = ({ onNextStep }) => {
     },
   ];
 
+  const convertPdfToImages = async (file) => {
+    const images = [];
+    const data = await toBase64(file);
+    const pdf = await PDFJS.getDocument(data).promise;
+    const canvas = document.createElement("canvas");
+    for (let i = 0; i < pdf.numPages; i++) {
+      const page = await pdf.getPage(i + 1);
+      const viewport = page.getViewport({ scale: 1 });
+      const context = canvas.getContext("2d");
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      await page.render({ canvasContext: context, viewport: viewport }).promise;
+      images.push(canvas.toDataURL());
+    }
+    canvas.remove();
+    return images;
+  }
+
   const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
+    reader.readAsDataURL(file);
 });
 
   const handleChange = async (e) => {
@@ -58,7 +77,7 @@ const StepOne = ({ onNextStep }) => {
     } else if(name == "driverLicenseBack" || name == "driverLicenseFront") {
       try {
         const file =  e.target.files[0]
-        const result = file.size > 1000000 ? '' : {name: file.name, base64: await toBase64(file)};
+        const result = file.size > 1000000 ? '' : {name: file.name, base64: file.name.split('.').pop() === 'pdf' ? await convertPdfToImages(file) : [await toBase64(file)]};
 
         setForm((prevForm) => ({
           ...prevForm,
@@ -480,7 +499,7 @@ const StepOne = ({ onNextStep }) => {
               id="driver-license-front"
               name="driverLicenseFront"
               onChange={handleChange}
-              accept="image/*"
+              accept="image/*,application/pdf"
               className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
               required
             />
@@ -492,7 +511,7 @@ const StepOne = ({ onNextStep }) => {
             htmlFor="driver-license-back"
             className="block text-xs px-1 font-medium mb-1 text-gray-900"
           >
-            Driving License Back (Max. Allowed: 1MB)
+            Driver's Abstract (Max. Allowed: 1MB)
           </label>
           <div className="mt-1">
             <input
@@ -500,7 +519,7 @@ const StepOne = ({ onNextStep }) => {
               id="driver-license-back"
               name="driverLicenseBack"
               onChange={handleChange}
-              accept="image/*"
+              accept="image/*,application/pdf"
               className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
               required
               />
