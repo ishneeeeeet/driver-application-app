@@ -246,7 +246,7 @@ const StepEight = ({jumpToStep}) => {
             disabled={isLoading}
             className="py-2 px-4 mt-6 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
-            {isLoading ? 'Loading...' : 'Submit'}
+            {isLoading ? 'Please wait! Form data being submitted' : 'Submit'}
           </button>
         </>
       )}

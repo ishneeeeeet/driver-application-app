@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { FormContext } from "./context";
 import * as Form from "@radix-ui/react-form";
 import * as Label from "@radix-ui/react-label";
@@ -6,7 +6,6 @@ const PDFJS = require("pdfjs-dist/webpack");
 
 const StepOne = ({ onNextStep }) => {
   const { form, setForm } = useContext(FormContext);
-
 
   const questionFields = [
     {
@@ -74,7 +73,7 @@ const StepOne = ({ onNextStep }) => {
           [name]: formattedInput,
         },
       }));
-    } else if(name == "driverLicenseBack" || name == "driverLicenseFront") {
+    } else if (name == "driverLicenseBack" || name == "driverLicenseFront") {
       try {
         const file =  e.target.files[0]
         const result = file.size > 1000000 ? '' : {name: file.name, base64: file.name.split('.').pop() === 'pdf' ? await convertPdfToImages(file) : [await toBase64(file)]};
@@ -86,16 +85,16 @@ const StepOne = ({ onNextStep }) => {
             [name]: result,
           },
         }));
-     } catch(error) {
+      } catch (error) {
         console.error(error);
         setForm((prevForm) => ({
           ...prevForm,
           stepOneData: {
             ...prevForm.stepOneData,
-            [name]: '',
+            [name]: "",
           },
         }));
-     }
+      }
     } else {
       setForm((prevForm) => ({
         ...prevForm,
@@ -126,18 +125,20 @@ const StepOne = ({ onNextStep }) => {
     e.preventDefault();
     console.log(form);
     onNextStep();
-    localStorage.setItem('form', JSON.stringify(form))
+    localStorage.setItem("form", JSON.stringify(form));
   };
   const handleBlur = (e) => {
     const { name, value } = e.target;
     const intValue = parseInt(value);
     if (isNaN(intValue) || intValue < 0 || intValue > 24) {
-      alert('Please enter a number between 0 and 24 in the driving experience year fields.');
+      alert(
+        "Please enter a number between 0 and 24 in the driving experience year fields."
+      );
       setForm((prevForm) => ({
         ...prevForm,
         stepOneData: {
           ...prevForm.stepOneData,
-          [name]: '',
+          [name]: "",
         },
       }));
     }
@@ -146,8 +147,8 @@ const StepOne = ({ onNextStep }) => {
   return (
     <Form.Root className="max-w-screen-md mx-auto" onSubmit={onSubmit}>
       <div className="max-w-screen-md mx-auto border-b border-gray-900/10 pb-12 text-left">
-      <div className="grid px-4 py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-100 border rounded-md">
-        <div className="sm:col-span-3">
+        <div className="grid px-4 py-4 grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-sky-100 border rounded-md">
+          <div className="sm:col-span-3">
             <label
               htmlFor="company-applied-for"
               className="block text-sm font-medium mb-1 px-1 text-gray-900"
@@ -160,7 +161,11 @@ const StepOne = ({ onNextStep }) => {
                 type="text"
                 name="companyAppliedFor"
                 id="company-applied-for"
-                value={form.stepOneData?.companyAppliedFor ? form.stepOneData?.companyAppliedFor : null}
+                value={
+                  form.stepOneData?.companyAppliedFor
+                    ? form.stepOneData?.companyAppliedFor
+                    : null
+                }
                 onChange={handleChange}
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
@@ -168,32 +173,34 @@ const StepOne = ({ onNextStep }) => {
             </div>
           </div>
           <div className="sm:col-span-3">
-          <label
-            htmlFor="position"
-            className="block text-sm font-medium mb-1 px-1 text-gray-900"
-          >
-            Position Applying for?
-          </label>
-          <div className="mt-1">
-            <select
-              required
-              id="position"
-              name="position"
-              value={form.stepOneData?.position ? form.stepOneData?.position : null}
-              autoComplete="country-name"
-              onChange={handleChange}
-              className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
+            <label
+              htmlFor="position"
+              className="block text-sm font-medium mb-1 px-1 text-gray-900"
             >
-              <option selected disabled value="">
-                Select an option
-              </option>
-              <option value="Driver">Driver</option>
-              <option value="Owner Operator">Owner Operator</option>
-              <option value="Owner Operator">Other</option>
-            </select>
+              Position Applying for?
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="position"
+                name="position"
+                value={
+                  form.stepOneData?.position ? form.stepOneData?.position : null
+                }
+                autoComplete="country-name"
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
+              >
+                <option selected disabled value="">
+                  Select an option
+                </option>
+                <option value="Driver">Driver</option>
+                <option value="Owner Operator">Owner Operator</option>
+                <option value="Owner Operator">Other</option>
+              </select>
+            </div>
           </div>
-        </div>
-          
+
           <div className="sm:col-span-3">
             <Label.Root
               htmlFor="first-name"
@@ -207,7 +214,11 @@ const StepOne = ({ onNextStep }) => {
                 type="text"
                 name="firstName"
                 id="first-name"
-                value={form.stepOneData?.firstName ? form.stepOneData?.firstName : null}
+                value={
+                  form.stepOneData?.firstName
+                    ? form.stepOneData?.firstName
+                    : null
+                }
                 onChange={handleChange}
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
@@ -224,11 +235,13 @@ const StepOne = ({ onNextStep }) => {
             </label>
             <div className="mt-1">
               <input
-              required
+                required
                 type="text"
                 name="lastName"
                 id="last-name"
-                value={form.stepOneData?.lastName ? form.stepOneData?.lastName : null}
+                value={
+                  form.stepOneData?.lastName ? form.stepOneData?.lastName : null
+                }
                 onChange={handleChange}
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
@@ -236,9 +249,6 @@ const StepOne = ({ onNextStep }) => {
             </div>
           </div>
 
-          
-
-          
           <Form.Field className="sm:col-span-3">
             <Form.Label
               htmlFor="email"
@@ -285,7 +295,11 @@ const StepOne = ({ onNextStep }) => {
                 type="date"
                 name="dateOfBirth"
                 id="date-of-birth"
-                value={form.stepOneData?.dateOfBirth ? form.stepOneData?.dateOfBirth : null}
+                value={
+                  form.stepOneData?.dateOfBirth
+                    ? form.stepOneData?.dateOfBirth
+                    : null
+                }
                 onChange={handleChange}
                 className="block rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
               />
@@ -304,7 +318,9 @@ const StepOne = ({ onNextStep }) => {
                 name="cellNo"
                 id="cellNo"
                 placeholder="403-456-7890"
-                value={form.stepOneData?.cellNo ? form.stepOneData?.cellNo : null}
+                value={
+                  form.stepOneData?.cellNo ? form.stepOneData?.cellNo : null
+                }
                 onChange={handleChange}
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 py-1 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
@@ -330,32 +346,34 @@ const StepOne = ({ onNextStep }) => {
             />
           </div>
           <div className="sm:col-span-4">
-          <label
-            htmlFor="country"
-            className="block text-xs font-medium mb-1 px-1 text-gray-900"
-          >
-            Your Status in Canada
-          </label>
-          <div className="mt-1">
-            <select
-              required
-              id="status"
-              name="status"
-              autoComplete=""
-              value={form.stepOneData?.status ? form.stepOneData?.status : null}
-              onChange={handleChange}
-              className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
+            <label
+              htmlFor="country"
+              className="block text-xs font-medium mb-1 px-1 text-gray-900"
             >
-              <option selected disabled value="">
-                Select an option
-              </option>
-              <option value="WP">Work Permit</option>
-              <option value="PR">Permanent Resident</option>
-              <option value="CC">Canadian Citizen</option>
-              <option value="Other">Other</option>
-            </select>
+              Your Status in Canada
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="status"
+                name="status"
+                autoComplete=""
+                value={
+                  form.stepOneData?.status ? form.stepOneData?.status : null
+                }
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
+              >
+                <option selected disabled value="">
+                  Select an option
+                </option>
+                <option value="WP">Work Permit</option>
+                <option value="PR">Permanent Resident</option>
+                <option value="CC">Canadian Citizen</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
           </div>
-        </div>
         </div>
       </div>
       <div className="max-w-screen-md mx-auto text-left px-4 py-4 bg-sky-100 border rounded-md mb-12">
@@ -364,7 +382,7 @@ const StepOne = ({ onNextStep }) => {
         </h2>
 
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        <div className="sm:col-span-2">
+          <div className="sm:col-span-2">
             <label
               htmlFor="first-name"
               className="block px-1 text-xs font-medium mb-1 text-gray-900"
@@ -376,12 +394,15 @@ const StepOne = ({ onNextStep }) => {
                 required
                 type="text"
                 name="driverLicenseNumber"
-                value={form.stepOneData?.driverLicenseNumber ? form.stepOneData?.driverLicenseNumber : null}
+                value={
+                  form.stepOneData?.driverLicenseNumber
+                    ? form.stepOneData?.driverLicenseNumber
+                    : null
+                }
                 onChange={handleChange}
                 id="driver-license-number"
                 autoComplete="number"
                 className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
-                
               />
             </div>
           </div>
@@ -396,9 +417,12 @@ const StepOne = ({ onNextStep }) => {
               <select
                 required
                 name="driverLicenseClass"
-                value={form.stepOneData?.driverLicenseClass ? form.stepOneData?.driverLicenseClass : null}
+                value={
+                  form.stepOneData?.driverLicenseClass
+                    ? form.stepOneData?.driverLicenseClass
+                    : null
+                }
                 onChange={handleChange}
-                
                 className="block w-full rounded-md border-0 py-1 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
               >
                 <option selected disabled value="">
@@ -427,7 +451,9 @@ const StepOne = ({ onNextStep }) => {
                 required
                 id="country"
                 name="province"
-                value={form.stepOneData?.province ? form.stepOneData?.province : null}
+                value={
+                  form.stepOneData?.province ? form.stepOneData?.province : null
+                }
                 autoComplete="country-name"
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs sm:leading-6"
@@ -438,12 +464,12 @@ const StepOne = ({ onNextStep }) => {
                 <option value="AB">Alberta</option>
                 <option value="BC">British Columbia</option>
                 <option value="ON">Ontario</option>
-                <option value="ON">Saskatchewan</option>
-                <option value="ON">Manitoba</option>
-                <option value="ON">Nova Scotia</option>
-                <option value="ON">New Brunswick</option>
-                <option value="ON">Newfoundland</option>
-                <option value="ON">Quebec</option>
+                <option value="SA">Saskatchewan</option>
+                <option value="MB">Manitoba</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland</option>
+                <option value="QC">Quebec</option>
               </select>
             </div>
           </div>
@@ -460,13 +486,17 @@ const StepOne = ({ onNextStep }) => {
                 required
                 type="date"
                 name="driverLicenseExpiry"
-                value={form.stepOneData?.driverLicenseExpiry ? form.stepOneData?.driverLicenseExpiry : null}
+                value={
+                  form.stepOneData?.driverLicenseExpiry
+                    ? form.stepOneData?.driverLicenseExpiry
+                    : null
+                }
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
               />
             </div>
           </div>
-          
+
           <div className="sm:col-span-1">
           <label
             htmlFor="driver-license-condition"
@@ -523,11 +553,10 @@ const StepOne = ({ onNextStep }) => {
               className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
               required
               />
-             {form.stepOneData?.driverLicenseBack ? form.stepOneData?.driverLicenseBack.name : ''}
+            </div>
           </div>
         </div>
-        </div>
-        
+
         <div className="mt-6">
           {questionFields.map(({ name, question }) => (
             <div key={name} className="flex flex-col mb-4">
@@ -544,7 +573,9 @@ const StepOne = ({ onNextStep }) => {
                     id="country"
                     name={name}
                     autoComplete="country-name"
-                    value={form.stepOneData?.[name] ? form.stepOneData?.[name] : null}
+                    value={
+                      form.stepOneData?.[name] ? form.stepOneData?.[name] : null
+                    }
                     onChange={handleChange}
                     className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
                   >
@@ -565,31 +596,34 @@ const StepOne = ({ onNextStep }) => {
           Driving Experience
         </h2>
         <p className="max-w-screen-md mx-auto mb-0 text-center text-gray-500 sm:text-xs">
-          Please tell us how much experience you have driving these specific types of vehicle(s).
+          Please tell us how much experience you have driving these specific
+          types of vehicle(s).
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div className="sm:col-span-2" >
-              <label
-                htmlFor=""
-                className="block text-xs px-1 font-medium text-gray-900"
-              >
-                Tractor, Semi Tractor
-              </label>
-              <div className="mt-1">
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900"
+            >
+              Tractor, Semi Tractor
+            </label>
+            <div className="mt-1">
               <select
                 required
                 id="status"
                 name="tractor"
                 autoComplete=""
-                value={form.stepOneData?.tractor ? form.stepOneData?.tractor : null}
+                value={
+                  form.stepOneData?.tractor ? form.stepOneData?.tractor : null
+                }
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="">
-                  Select an option
+               <option selected disabled value="0">
+                  No Experience
                 </option>
-                <option value="0">No Experience</option>
+                <option value="less than one year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -601,18 +635,17 @@ const StepOne = ({ onNextStep }) => {
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
                 <option value="More than 10 years">More than 10 years</option>
-                
               </select>
-              </div>
             </div>
-            <div className="sm:col-span-2" >
-              <label
-                htmlFor=""
-                className="block text-xs px-1 font-medium text-gray-900"
-              >
-                Dry Van Reefer
-              </label>
-              <div className="mt-1">
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900"
+            >
+              Dry Van Reefer
+            </label>
+            <div className="mt-1">
               <select
                 required
                 id="status"
@@ -622,10 +655,10 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="">
-                  Select an option
+                <option selected disabled value="0">
+                  No Experience
                 </option>
-                <option value="0">No Experience</option>
+                <option value="less than one year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -637,18 +670,17 @@ const StepOne = ({ onNextStep }) => {
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
                 <option value="More than 10 years">More than 10 years</option>
-                
               </select>
-              </div>
             </div>
-            <div className="sm:col-span-2" >
-              <label
-                htmlFor=""
-                className="block text-xs px-1 font-medium text-gray-900"
-              >
-                Turn Pike/Super B
-              </label>
-              <div className="mt-1">
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900"
+            >
+              Turn Pike/Super B
+            </label>
+            <div className="mt-1">
               <select
                 required
                 id="status"
@@ -658,10 +690,10 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="">
-                  Select an option
+                <option selected disabled value="0">
+                  No Experience
                 </option>
-                <option value="0">No Experience</option>
+                <option value="less than one year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -673,31 +705,32 @@ const StepOne = ({ onNextStep }) => {
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
                 <option value="More than 10 years">More than 10 years</option>
-                
               </select>
-              </div>
             </div>
-            <div className="sm:col-span-2" >
-              <label
-                htmlFor=""
-                className="block text-xs px-1 font-medium text-gray-900"
-              >
-                Manual Transmission
-              </label>
-              <div className="mt-1">
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900"
+            >
+              Manual Transmission
+            </label>
+            <div className="mt-1">
               <select
                 required
                 id="status"
                 name="manual"
                 autoComplete=""
-                value={form.stepOneData?.manual ? form.stepOneData?.manual : null}
+                value={
+                  form.stepOneData?.manual ? form.stepOneData?.manual : null
+                }
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="">
-                  Select an option
+               <option selected disabled value="0">
+                  No Experience
                 </option>
-                <option value="0">No Experience</option>
+                <option value="less than one year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -709,31 +742,32 @@ const StepOne = ({ onNextStep }) => {
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
                 <option value="More than 10 years">More than 10 years</option>
-                
               </select>
-              </div>
             </div>
-            <div className="sm:col-span-2" >
-              <label
-                htmlFor=""
-                className="block text-xs px-1 font-medium text-gray-900"
-              >
-                Chassis Trailer
-              </label>
-              <div className="mt-1">
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900"
+            >
+              Chassis Trailer
+            </label>
+            <div className="mt-1">
               <select
                 required
                 id="status"
                 name="chassis"
                 autoComplete=""
-                value={form.stepOneData?.chassis ? form.stepOneData?.chassis : null}
+                value={
+                  form.stepOneData?.chassis ? form.stepOneData?.chassis : null
+                }
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="">
-                  Select an option
+                <option selected disabled value="0">
+                  No Experience
                 </option>
-                <option value="0">No Experience</option>
+                <option value="less than one year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -745,18 +779,17 @@ const StepOne = ({ onNextStep }) => {
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
                 <option value="More than 10 years">More than 10 years</option>
-                
               </select>
-              </div>
             </div>
-            <div className="sm:col-span-2" >
-              <label
-                htmlFor=""
-                className="block text-xs px-1 font-medium text-gray-900"
-              >
-                Long Haul
-              </label>
-              <div className="mt-1">
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900"
+            >
+              Long Haul
+            </label>
+            <div className="mt-1">
               <select
                 required
                 id="status"
@@ -766,10 +799,11 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="">
-                  Select an option
+                <option selected disabled value="0">
+                  No Experience
                 </option>
-                <option value="0">No Experience</option>
+               
+                <option value="less than one year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -781,18 +815,11 @@ const StepOne = ({ onNextStep }) => {
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
                 <option value="More than 10 years">More than 10 years</option>
-                
               </select>
-              </div>
             </div>
           </div>
-</div>
-      
-      
-        
-          
-        
-      
+        </div>
+      </div>
 
       <div className="flex justify-end mt-6">
         <Form.Submit asChild>
