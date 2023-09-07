@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import myimage from "./images/roadtestevaluation.png";
+import rules from "./images/rules.jpg";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import { FormContext } from "./context";
@@ -19,6 +20,7 @@ const ThankYouPage = () => {
 const StepEight = ({jumpToStep}) => {
   const { form, setForm } = useContext(FormContext);
   const [sign2, setSign2] = useState(null);
+  const [sign3, setSign3] = useState(null);
   const [isSignatureComplete, setIsSignatureComplete] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false); // Track successful submission
   const [isError, setIsError] = useState(false); // Track submission error
@@ -106,7 +108,7 @@ const StepEight = ({jumpToStep}) => {
 
   const onSubmit = async () => {
     try {
-      if (sign2 && !sign2.isEmpty()) {
+      if (sign2 && !sign2.isEmpty() && sign3 && !sign3.isEmpty()) {
         setIsSignatureComplete(true);
         const BACKEND_URL = "https://driver-app-tipn.onrender.com/" 
         // const BACKEND_URL = "https://driver-appication-app-real.onrender.com/" 
@@ -118,7 +120,8 @@ const StepEight = ({jumpToStep}) => {
             ...form,
             stepEightData: { 
             ...form.stepEightData, 
-            sign2: sign2.getTrimmedCanvas().toDataURL('image/png')
+            sign2: sign2.getTrimmedCanvas().toDataURL('image/png'),
+            sign3: sign3.getTrimmedCanvas().toDataURL('image/png')
           },
           }
           setForm(updatedForm);
@@ -128,11 +131,11 @@ const StepEight = ({jumpToStep}) => {
           });
   
           const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-          saveAs(pdfBlob, "InvoiceDocument.pdf");
+          saveAs(pdfBlob, "DriverApplication.pdf");
   
           // Send PDF via email
           const emailResponse = await axios.post(`${BACKEND_URL}sendPdf`);
-          console.log(emailResponse.data);
+          // console.log(emailResponse.data);
   
           setIsSubmitted(true); // Mark submission as successful
           setForm({}); // Clear form data
@@ -155,7 +158,7 @@ const StepEight = ({jumpToStep}) => {
 
   const handleNextStep = () => {
     setProgressMode(true)
-    if (sign2 && !sign2.isEmpty()) {
+    if (sign2 && !sign2.isEmpty() && sign3 && !sign3.isEmpty()) {
       onSubmit();
     } else {
       alert("Please provide a signature to submit");
@@ -204,6 +207,37 @@ const StepEight = ({jumpToStep}) => {
               />
             </div>
             <button className="mt-2 mb-6 text-xs underline" onClick={(e) => handleClear(e, sign2)}>Clear</button>
+          </div>
+        </div>
+        <br/><br/>
+        <h4 className="max-w-screen-md mx-auto font-semibold text-center text-gray-500">
+            Rules
+          </h4><div className="flex justify-center mt-6 mb-6">
+        <img
+          src={rules}
+          alt="RulesImage"
+          style={{ maxWidth: "707px", maxHeight: "879px" }}
+        />
+      </div>
+      <label
+        className="text-base font-semibold leading-7 text-gray-900 text-center"
+        htmlFor=""
+      >
+        Applicant Signature
+      </label>
+      <div className="flex justify-center">
+          <div className="sm:col-span-3 ">
+            <div className="border border-gray-300 p-4 rounded mb-1">
+              <SignatureCanvas
+                canvasProps={{
+                  width: 500,
+                  height: 120,
+                  className: "signCanvas",
+                }}
+                ref={(data) => setSign3(data)}  
+              />
+            </div>
+            <button className="mt-2 mb-6 text-xs underline" onClick={(e) => handleClear(e, sign3)}>Clear</button>
           </div>
         </div>
           <button
