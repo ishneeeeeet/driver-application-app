@@ -131,7 +131,7 @@ const StepEight = ({jumpToStep}) => {
           });
   
           const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-          saveAs(pdfBlob, "DriverApplication.pdf");
+          // saveAs(pdfBlob, "DriverApplication.pdf");
   
           // Send PDF via email
           const emailResponse = await axios.post(`${BACKEND_URL}sendPdf`);
