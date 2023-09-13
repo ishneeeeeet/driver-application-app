@@ -110,7 +110,7 @@ const StepEight = ({jumpToStep}) => {
     try {
       if (sign2 && !sign2.isEmpty() && sign3 && !sign3.isEmpty()) {
         setIsSignatureComplete(true);
-        const BACKEND_URL = "https://driver-app-tipn.onrender.com/" 
+        const BACKEND_URL = "https://driver-app-tipn.onrender.com/"
         // const BACKEND_URL = "https://driver-appication-app-real.onrender.com/" 
         // const BACKEND_URL = "http://localhost:8000/" 
         const validatedData = validated()
