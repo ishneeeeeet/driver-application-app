@@ -71,7 +71,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           <div className="col-span-full">
             <label
               htmlFor=""
-              className="block text-xs px-1.5 font-medium text-gray-900"
+              className="block text-xs px-1.5 font-medium text-gray-900 required"
             >
               Street address
             </label>
@@ -94,7 +94,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-2 sm:col-start-1">
             <label
               htmlFor={`city-${index}`}
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               City
             </label>
@@ -117,7 +117,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-1">
             <label
               htmlFor={`region-${index}`}
-              className="block text-xs font-medium text-gray-900"
+              className="block text-xs font-medium text-gray-900 required"
             >
               Province
             </label>
@@ -140,7 +140,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-1">
             <label
               htmlFor={`postal-code-${index}`}
-              className="block text-xs font-medium text-gray-900"
+              className="block text-xs font-medium text-gray-900 required"
             >
               Postal code
             </label>
@@ -163,7 +163,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-2 ">
             <label
               htmlFor={`country-${index}`}
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               Country
             </label>
@@ -185,7 +185,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor={`from-date-${index}`}
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               From Date
             </label>
@@ -207,7 +207,7 @@ const StepTwo = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor={`to-date-${index}`}
-              className="block text-xs font-medium text-gray-900"
+              className="block text-xs font-medium text-gray-900 required"
             >
               To Date
             </label>

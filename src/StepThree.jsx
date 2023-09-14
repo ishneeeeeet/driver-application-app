@@ -78,7 +78,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-3">
               <label
                 htmlFor={`employer-name-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 Name of Employer
               </label>
@@ -110,7 +110,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-3">
               <label
                 htmlFor={`position-held-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 Position Held
               </label>
@@ -199,7 +199,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="col-span-full">
               <label
                 htmlFor={`street-address-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 Street Address
               </label>
@@ -231,7 +231,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-2 sm:col-start-1">
               <label
                 htmlFor={`city-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 City
               </label>
@@ -258,7 +258,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-1">
               <label
                 htmlFor={`region-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 Province
               </label>
@@ -285,7 +285,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-1">
               <label
                 htmlFor={`postal-code-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 Postal code
               </label>
@@ -311,7 +311,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-2">
               <label
                 htmlFor={`country-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 Country
               </label>
@@ -338,7 +338,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-1">
               <label
                 htmlFor={`from-date-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 From Date
               </label>
@@ -364,7 +364,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-1">
               <label
                 htmlFor={`to-date-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 To Date
               </label>
@@ -390,7 +390,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-4">
               <label
                 htmlFor={`reason-for-leaving-${index}`}
-                className="block text-xs px-1 font-medium text-gray-900"
+                className="block text-xs px-1 font-medium text-gray-900 required"
               >
                 Reason for Leaving
               </label>
@@ -422,7 +422,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
             <div className="sm:col-span-4 w-full mt-2">
             <label
               htmlFor={`question-one-${index}`}
-              className="block text-xs font-medium text-gray-900"
+              className="block text-xs font-medium text-gray-900 required"
             >
               Were you subject to the FMCSRs* while employed here?
             </label>
@@ -464,7 +464,7 @@ const StepThree = ({ onNextStep, onPreviousStep }) => {
           <div className="sm:col-span-4 mt-0">
             <label
               htmlFor={`question-two-${index}`}
-              className="block text-xs font-medium text-gray-900"
+              className="block text-xs font-medium text-gray-900 required"
             >
               Was your job designated as a safety-sensitive function in any
               DOT-regulated mode subject to the drug and alcohol testing

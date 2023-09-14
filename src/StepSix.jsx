@@ -54,7 +54,7 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
         <div key={index} className="sm:col-span-3">
           <label
             htmlFor={`hours-worked-${index}`}
-            className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6"
+            className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6 required"
           >
             Date: {getFormattedDate(index)}
           </label>

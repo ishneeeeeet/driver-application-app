@@ -151,7 +151,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="company-applied-for"
-              className="block text-sm font-medium mb-1 px-1 text-gray-900"
+              className="block text-sm font-medium mb-1 px-1 text-gray-900 required"
             >
               Company applying for?
             </label>
@@ -175,7 +175,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="position"
-              className="block text-sm font-medium mb-1 px-1 text-gray-900"
+              className="block text-sm font-medium mb-1 px-1 text-gray-900 required"
             >
               Position Applying for?
             </label>
@@ -204,7 +204,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-3">
             <Label.Root
               htmlFor="first-name"
-              className="block text-xs font-medium mb-1 px-1 text-gray-900"
+              className="block text-xs font-medium mb-1 px-1 text-gray-900 required"
             >
               First name
             </Label.Root>
@@ -229,7 +229,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="last-name"
-              className="block text-xs font-medium mb-1 px-1 text-gray-900"
+              className="block text-xs font-medium mb-1 px-1 text-gray-900 required"
             >
               Last name
             </label>
@@ -252,7 +252,7 @@ const StepOne = ({ onNextStep }) => {
           <Form.Field className="sm:col-span-3">
             <Form.Label
               htmlFor="email"
-              className="block text-xs font-medium mb-1 px-1 text-gray-900"
+              className="block text-xs font-medium mb-1 px-1 text-gray-900 required"
             >
               Email address
             </Form.Label>
@@ -284,7 +284,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-1">
             <label
               htmlFor="date-of-birth"
-              className="block text-xs font-medium mb-1 px-1 text-gray-900"
+              className="block text-xs font-medium mb-1 px-1 text-gray-900 required"
             >
               Date of Birth
             </label>
@@ -308,7 +308,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-3">
             <label
               htmlFor="phone"
-              className="block mb-1 text-xs font-medium text-gray-900"
+              className="block mb-1 text-xs font-medium text-gray-900 required"
             >
               Cell Phone Number
             </label>
@@ -348,7 +348,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-4">
             <label
               htmlFor="country"
-              className="block text-xs font-medium mb-1 px-1 text-gray-900"
+              className="block text-xs font-medium mb-1 px-1 text-gray-900 required"
             >
               Your Status in Canada
             </label>
@@ -385,7 +385,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor="first-name"
-              className="block px-1 text-xs font-medium mb-1 text-gray-900"
+              className="block px-1 text-xs font-medium mb-1 text-gray-900 required"
             >
               Driver License Number
             </label>
@@ -409,7 +409,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-1">
             <label
               htmlFor="last-name"
-              className="block px-1 text-xs font-medium mb-1 text-gray-900"
+              className="block px-1 text-xs font-medium mb-1 text-gray-900 required"
             >
               License Class
             </label>
@@ -442,7 +442,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-1">
             <label
               htmlFor="country"
-              className="block text-xs px-1 font-medium mb-1 text-gray-900"
+              className="block text-xs px-1 font-medium mb-1 text-gray-900 required"
             >
               Province
             </label>
@@ -477,7 +477,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-1">
             <label
               htmlFor="date-of-birth"
-              className="block text-xs px-1 font-medium mb-1 text-gray-900"
+              className="block text-xs px-1 font-medium mb-1 text-gray-900 required"
             >
               Expiry Date
             </label>
@@ -519,7 +519,7 @@ const StepOne = ({ onNextStep }) => {
         <div className="sm:col-span-3">
           <label
             htmlFor="driver-license-front"
-            className="block text-xs px-1 font-medium mb-1 text-gray-900"
+            className="block text-xs px-1 font-medium mb-1 text-gray-900 required"
           >
             Driving License Front (Max. Allowed: 1MB)
           </label>
@@ -539,7 +539,7 @@ const StepOne = ({ onNextStep }) => {
         <div className="sm:col-span-3">
           <label
             htmlFor="driver-license-back"
-            className="block text-xs px-1 font-medium mb-1 text-gray-900"
+            className="block text-xs px-1 font-medium mb-1 text-gray-900 required"
           >
             Driver's Abstract (Max. Allowed: 1MB)
           </label>
@@ -563,7 +563,7 @@ const StepOne = ({ onNextStep }) => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="country"
-                  className="block text-xs font-medium text-gray-900"
+                  className="block text-xs font-medium text-gray-900 required"
                 >
                   {question}
                 </label>
@@ -604,7 +604,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor=""
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               Tractor, Semi Tractor
             </label>
@@ -641,7 +641,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor=""
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               Dry Van Reefer
             </label>
@@ -676,7 +676,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor=""
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               Turn Pike/Super B
             </label>
@@ -711,7 +711,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor=""
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               Manual Transmission
             </label>
@@ -748,7 +748,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor=""
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               Chassis Trailer
             </label>
@@ -785,7 +785,7 @@ const StepOne = ({ onNextStep }) => {
           <div className="sm:col-span-2">
             <label
               htmlFor=""
-              className="block text-xs px-1 font-medium text-gray-900"
+              className="block text-xs px-1 font-medium text-gray-900 required"
             >
               Long Haul
             </label>
