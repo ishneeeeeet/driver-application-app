@@ -531,7 +531,7 @@ const StepOne = ({ onNextStep }) => {
               onChange={handleChange}
               accept="image/*,application/pdf"
               className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
-              required
+              {...(!form.stepOneData?.driverLicenseFront?.name && { required: true })} 
             />
             {form.stepOneData?.driverLicenseFront ? form.stepOneData?.driverLicenseFront?.name : ''}
           </div>
@@ -551,8 +551,9 @@ const StepOne = ({ onNextStep }) => {
               onChange={handleChange}
               accept="image/*,application/pdf"
               className="block w-full rounded-md border-0 px-1.5 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs"
-              required
+              {...(!form.stepOneData?.driverLicenseBack?.name && { required: true })} 
               />
+              {form.stepOneData?.driverLicenseBack ? form.stepOneData?.driverLicenseBack?.name : ''}
             </div>
           </div>
         </div>

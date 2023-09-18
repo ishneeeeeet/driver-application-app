@@ -110,8 +110,8 @@ const StepEight = ({jumpToStep}) => {
     try {
       if (sign2 && !sign2.isEmpty() && sign3 && !sign3.isEmpty()) {
         setIsSignatureComplete(true);
-        const BACKEND_URL = "https://driver-app-tipn.onrender.com/"
-        // const BACKEND_URL = "https://zrdrz3780l.execute-api.ca-central-1.amazonaws.com/dev/" 
+        // const BACKEND_URL = "https://driver-app-tipn.onrender.com/"
+        const BACKEND_URL = "https://zrdrz3780l.execute-api.ca-central-1.amazonaws.com/dev/" 
         // const BACKEND_URL = "http://localhost:8000/" 
         const validatedData = validated()
 
@@ -125,19 +125,23 @@ const StepEight = ({jumpToStep}) => {
           },
           }
           setForm(updatedForm);
-          await axios.post(`${BACKEND_URL}createPdf`, updatedForm);
-          const pdfResponse = await axios.get(`${BACKEND_URL}fetchPdf`, {
-            responseType: "blob",
-          });
+          const response = await axios.post(`${BACKEND_URL}createPdf`, updatedForm, {responseType: 'arraybuffer',
+          headers: {
+            'Accept': 'application/pdf'
+          }});
+            // const pdfResponse = await axios.get(`${BACKEND_URL}fetchPdf`, {
+            //   responseType: "blob",
+            // });
   
-          const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
-          // saveAs(pdfBlob, "DriverApplication.pdf");
-  
+          // const pdfBlob = new Blob([pdfResponse.data], { type: "application/pdf" });
+          
           // Send PDF via email
-          const emailResponse = await axios.post(`${BACKEND_URL}sendPdf`);
+          // const emailResponse = await axios.post(`${BACKEND_URL}sendPdf`);
           // console.log(emailResponse.data);
-  
+          
           setIsSubmitted(true); // Mark submission as successful
+          // const pdfBlob = new Blob([response.data], {type: "application/pdf"});
+          // saveAs(pdfBlob, "DriverApplication.pdf");
           setForm({}); // Clear form data
           localStorage.clear()
         } else {
