@@ -621,7 +621,7 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-               <option selected disabled value="0">
+               <option selected value="0">
                   No Experience
                 </option>
                 <option value="< 1 year">Less Than One year</option>
@@ -656,7 +656,7 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="0">
+                <option selected value="0">
                   No Experience
                 </option>
                 <option value="< 1 year">Less Than One year</option>
@@ -691,7 +691,7 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="0">
+                <option selected value="0">
                   No Experience
                 </option>
                 <option value="< 1 year">Less Than One year</option>
@@ -728,7 +728,7 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-               <option selected disabled value="0">
+               <option selected value="0">
                   No Experience
                 </option>
                 <option value="< 1 year">Less Than One year</option>
@@ -765,7 +765,7 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="0">
+                <option selected value="0">
                   No Experience
                 </option>
                 <option value="< 1 year">Less Than One year</option>
@@ -800,7 +800,223 @@ const StepOne = ({ onNextStep }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
               >
-                <option selected disabled value="0">
+                <option selected value="0">
+                  No Experience
+                </option>
+               
+                <option value="< 1 year">Less Than One year</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
+                <option value="> 10 years">More than 10 years</option>
+              </select>
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900 required"
+            >
+              Dump Truck
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="status"
+                name="dumpTruck"
+                autoComplete=""
+                value={form.stepOneData?.dumpTruck ? form.stepOneData?.dumpTruck : ''}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
+              >
+                <option selected value="0">
+                  No Experience
+                </option>
+               
+                <option value="< 1 year">Less Than One year</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
+                <option value="> 10 years">More than 10 years</option>
+              </select>
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900 required"
+            >
+              Flatbed Trailer
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="status"
+                name="flatbedTrailer"
+                autoComplete=""
+                value={form.stepOneData?.flatbedTrailer ? form.stepOneData?.flatbedTrailer : ''}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
+              >
+                <option selected value="0">
+                  No Experience
+                </option>
+               
+                <option value="< 1 year">Less Than One year</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
+                <option value="> 10 years">More than 10 years</option>
+              </select>
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900 required"
+            >
+              US Driving
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="status"
+                name="usDriving"
+                autoComplete=""
+                value={form.stepOneData?.usDriving ? form.stepOneData?.usDriving : ''}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
+              >
+                <option selected value="0">
+                  No Experience
+                </option>
+               
+                <option value="< 1 year">Less Than One year</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
+                <option value="> 10 years">More than 10 years</option>
+              </select>
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900 required"
+            >
+              Straight Truck/5 Ton
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="status"
+                name="straightTruck"
+                autoComplete=""
+                value={form.stepOneData?.straightTruck ? form.stepOneData?.straightTruck : ''}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
+              >
+                <option selected value="0">
+                  No Experience
+                </option>
+               
+                <option value="< 1 year">Less Than One year</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
+                <option value="> 10 years">More than 10 years</option>
+              </select>
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900 required"
+            >
+              Tanker/Bulk Trailer
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="status"
+                name="tanker"
+                autoComplete=""
+                value={form.stepOneData?.tanker ? form.stepOneData?.tanker : ''}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
+              >
+                <option selected value="0">
+                  No Experience
+                </option>
+               
+                <option value="< 1 year">Less Than One year</option>
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                <option value="4">4 years</option>
+                <option value="5">5 years</option>
+                <option value="6">6 years</option>
+                <option value="7">7 years</option>
+                <option value="8">8 years</option>
+                <option value="9">9 years</option>
+                <option value="10">10 years</option>
+                <option value="> 10 years">More than 10 years</option>
+              </select>
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor=""
+              className="block text-xs px-1 font-medium text-gray-900 required"
+            >
+              Winter Driving
+            </label>
+            <div className="mt-1">
+              <select
+                required
+                id="status"
+                name="winterDriving"
+                autoComplete=""
+                value={form.stepOneData?.winterDriving ? form.stepOneData?.winterDriving : ''}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-1 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-xs"
+              >
+                <option selected value="0">
                   No Experience
                 </option>
                

@@ -142,8 +142,8 @@ const StepEight = ({jumpToStep}) => {
           setIsSubmitted(true); // Mark submission as successful
           // const pdfBlob = new Blob([response.data], {type: "application/pdf"});
           // saveAs(pdfBlob, "DriverApplication.pdf");
-          // setForm({}); // Clear form data
-          // localStorage.clear()
+          setForm({}); // Clear form data
+          localStorage.clear()
         } else {
           jumpToStep(validatedData.step)
         }
