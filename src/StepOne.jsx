@@ -521,7 +521,7 @@ const StepOne = ({ onNextStep }) => {
             htmlFor="driver-license-front"
             className="block text-xs px-1 font-medium mb-1 text-gray-900 required"
           >
-            Driving License Front (Max. Allowed: 1MB)
+            Driving License (Max. Allowed: 1MB, Format: image/pdf)
           </label>
           <div className="mt-1">
             <input
@@ -541,7 +541,7 @@ const StepOne = ({ onNextStep }) => {
             htmlFor="driver-license-back"
             className="block text-xs px-1 font-medium mb-1 text-gray-900 required"
           >
-            Driver's Abstract (Max. Allowed: 1MB)
+            Driver's Abstract (Max. Allowed: 1MB, Format: image/pdf)
           </label>
           <div className="mt-1">
             <input
@@ -624,7 +624,7 @@ const StepOne = ({ onNextStep }) => {
                <option selected disabled value="0">
                   No Experience
                 </option>
-                <option value="less than one year">Less Than One year</option>
+                <option value="< 1 year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -635,7 +635,7 @@ const StepOne = ({ onNextStep }) => {
                 <option value="8">8 years</option>
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
-                <option value="More than 10 years">More than 10 years</option>
+                <option value="> 10 years">More than 10 years</option>
               </select>
             </div>
           </div>
@@ -659,7 +659,7 @@ const StepOne = ({ onNextStep }) => {
                 <option selected disabled value="0">
                   No Experience
                 </option>
-                <option value="less than one year">Less Than One year</option>
+                <option value="< 1 year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -670,7 +670,7 @@ const StepOne = ({ onNextStep }) => {
                 <option value="8">8 years</option>
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
-                <option value="More than 10 years">More than 10 years</option>
+                <option value="> 10 years">More than 10 years</option>
               </select>
             </div>
           </div>
@@ -694,7 +694,7 @@ const StepOne = ({ onNextStep }) => {
                 <option selected disabled value="0">
                   No Experience
                 </option>
-                <option value="less than one year">Less Than One year</option>
+                <option value="< 1 year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -705,7 +705,7 @@ const StepOne = ({ onNextStep }) => {
                 <option value="8">8 years</option>
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
-                <option value="More than 10 years">More than 10 years</option>
+                <option value="> 10 years">More than 10 years</option>
               </select>
             </div>
           </div>
@@ -731,7 +731,7 @@ const StepOne = ({ onNextStep }) => {
                <option selected disabled value="0">
                   No Experience
                 </option>
-                <option value="less than one year">Less Than One year</option>
+                <option value="< 1 year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -742,7 +742,7 @@ const StepOne = ({ onNextStep }) => {
                 <option value="8">8 years</option>
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
-                <option value="More than 10 years">More than 10 years</option>
+                <option value="> 10 years">More than 10 years</option>
               </select>
             </div>
           </div>
@@ -768,7 +768,7 @@ const StepOne = ({ onNextStep }) => {
                 <option selected disabled value="0">
                   No Experience
                 </option>
-                <option value="less than one year">Less Than One year</option>
+                <option value="< 1 year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -779,7 +779,7 @@ const StepOne = ({ onNextStep }) => {
                 <option value="8">8 years</option>
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
-                <option value="More than 10 years">More than 10 years</option>
+                <option value="> 10 years">More than 10 years</option>
               </select>
             </div>
           </div>
@@ -804,7 +804,7 @@ const StepOne = ({ onNextStep }) => {
                   No Experience
                 </option>
                
-                <option value="less than one year">Less Than One year</option>
+                <option value="< 1 year">Less Than One year</option>
                 <option value="1">1 year</option>
                 <option value="2">2 years</option>
                 <option value="3">3 years</option>
@@ -815,7 +815,7 @@ const StepOne = ({ onNextStep }) => {
                 <option value="8">8 years</option>
                 <option value="9">9 years</option>
                 <option value="10">10 years</option>
-                <option value="More than 10 years">More than 10 years</option>
+                <option value="> 10 years">More than 10 years</option>
               </select>
             </div>
           </div>
