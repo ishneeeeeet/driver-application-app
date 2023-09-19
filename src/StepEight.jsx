@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import myimage from "./images/roadtestevaluation.png";
-import rules from "./images/rules.jpg";
+import rules from "./images/rules.png";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import { FormContext } from "./context";
