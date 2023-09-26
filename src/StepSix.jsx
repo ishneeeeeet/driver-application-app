@@ -47,69 +47,121 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
   return (
     <Form.Root onSubmit={onSubmit} className="max-w-screen-md mx-auto">
       <h2 className="text-base font-semibold leading-6 text-gray-900 text-center">
-      Hours Worked in the Last 14 Days
+        Hours Worked in the Last 14 Days
       </h2>
-      <div className="bg-sky-100 border rounded-md mt-8 pb-8 pl-8 pr-8">
-      {state.hoursWorked.map((hours, index) => (
-        <div key={index} className="sm:col-span-3">
-          <label
-            htmlFor={`hours-worked-${index}`}
-            className="block text-sm font-medium leading-6 text-gray-900 text-left mt-6 required"
-          >
-            Date: {getFormattedDate(index)}
-          </label>
-          <div className="mt-2">
-            <select
-              required
-              name={`hoursWorked-${index}`}
-              id={`hours-worked-${index}`}
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={hours}
-              onChange={(e) => handleChange(index, e.target.value)}
-            >
-              <option selected value="">
-                Select from options
-              </option>
-              <option value="did not work">Did not Work</option>
-              <option value="1 hour">1 hour</option>
-              <option value="2 hours">2 hours</option>
-              <option value="3">3 hours</option>
-              <option value="4">4 hours</option>
-              <option value="5">5 hours</option>
-              <option value="6">6 hours</option>
-              <option value="7">7 hours</option>
-              <option value="8">8 hours</option>
-              <option value="9">9 hours</option>
-              <option value="10">10 hours</option>
-              <option value="11">11 hours</option>
-              <option value="12">12 hours</option>
-              <option value="13">13 hours</option>
-              <option value="14">14 hours</option>
-              <option value="15">15 hours</option>
-              <option value="16">16 hours</option>
-            </select>
-          </div>
-        </div>
-      ))}
-      </div>
+      <div className="bg-sky-100 border rounded-md mt-8 pb-8 pl-8 pr-8 pt-8">
 
-      <div className="flex justify-between">
-        <button
-          type="button"
-          onClick={onPreviousStep}
-          className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
-        >
-          ◄ Previous Step
-        </button>
-        <Form.Submit asChild>
-          <button
-            type="submit"
-            className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
-          >
-            Next ►
-          </button>
-        </Form.Submit>
-      </div>
+        <table width="100%">
+          <thead>
+            <tr style={{height: "50px"}}>
+            <th style={{"border": "2px solid #dddddd"}} >Date</th>
+            <th style={{"border": "2px solid #dddddd"}}>Hours Worked</th>
+            <th style={{"border": "2px solid #dddddd"}}>Date</th> 
+            <th style={{"border": "2px solid #dddddd"}}>Hours Worked</th>
+            </tr>
+          </thead>
+          <tbody>
+        {state.hoursWorked.map((hours, index) => (
+           (index % 2 != 0) ?
+            <tr style={{height: "50px"}}>
+                <td style={{"border": "1px solid #dddddd"}} className="c49" colspan="1" rowspan="1">
+                  <div  className="c7 c3">{getFormattedDate(
+                    index
+                  )}</div>
+                  </td>
+                  <td style={{"border": "1px solid #dddddd"}}>
+                  <div  className="c7 c3">
+                    <select
+                      required
+                      name={'hoursWorked-' + index}
+                      id={'hours-worked-' + index}
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={hours}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                    >
+                      <option selected value="">
+                        Select from options
+                      </option>
+                      <option value="did not work">Did not Work</option>
+                      <option value="1 hour">1 hour</option>
+                      <option value="2 hours">2 hours</option>
+                      <option value="3">3 hours</option>
+                      <option value="4">4 hours</option>
+                      <option value="5">5 hours</option>
+                      <option value="6">6 hours</option>
+                      <option value="7">7 hours</option>
+                      <option value="8">8 hours</option>
+                      <option value="9">9 hours</option>
+                      <option value="10">10 hours</option>
+                      <option value="11">11 hours</option>
+                      <option value="12">12 hours</option>
+                      <option value="13">13 hours</option>
+                      <option value="14">14 hours</option>
+                      <option value="15">15 hours</option>
+                      <option value="16">16 hours</option>
+                    </select>
+                  </div>
+                </td>
+
+                <td style={{"border": "1px solid #dddddd"}} className="c49" colspan="1" rowspan="1">
+                  <div  className="c7 c3">{getFormattedDate(
+                    index +1
+                  )}</div>
+                  </td>
+                  <td style={{"border": "1px solid #dddddd"}}>
+                  <div  className="c7 c3">
+                    <select
+                      required
+                      name={'hoursWorked-' + (index+1)}
+                      id={'hours-worked-' + (index+1)}
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={state.hoursWorked[index+1]}
+                      onChange={(e) => handleChange(index+1, e.target.value)}
+                    >
+                      <option selected value="">
+                        Select from options
+                      </option>
+                      <option value="did not work">Did not Work</option>
+                      <option value="1 hour">1 hour</option>
+                      <option value="2 hours">2 hours</option>
+                      <option value="3">3 hours</option>
+                      <option value="4">4 hours</option>
+                      <option value="5">5 hours</option>
+                      <option value="6">6 hours</option>
+                      <option value="7">7 hours</option>
+                      <option value="8">8 hours</option>
+                      <option value="9">9 hours</option>
+                      <option value="10">10 hours</option>
+                      <option value="11">11 hours</option>
+                      <option value="12">12 hours</option>
+                      <option value="13">13 hours</option>
+                      <option value="14">14 hours</option>
+                      <option value="15">15 hours</option>
+                      <option value="16">16 hours</option>
+                    </select>
+                  </div>
+                </td>
+                </tr> : <></>
+              ))}
+              </tbody>
+               </table></div>
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  onClick={onPreviousStep}
+                  className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
+                >
+                  ◄ Previous Step
+                </button>
+                <Form.Submit asChild>
+                  <button
+                    type="submit"
+                    className="py-1.5 px-4 mt-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-900"
+                  >
+                    Next ►
+                  </button>
+                </Form.Submit>
+              </div>
       </Form.Root>
   );
 };
