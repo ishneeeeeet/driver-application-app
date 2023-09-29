@@ -62,9 +62,9 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
           </thead>
           <tbody>
         {state.hoursWorked.map((hours, index) => (
-           (index % 2 != 0) ?
+           (index % 2 == 0) ?
             <tr style={{height: "50px"}}>
-                <td style={{"border": "1px solid #dddddd"}} className="c49" colspan="1" rowspan="1">
+                <td style={{"border": "1px solid #dddddd"}} className="c49" colSpan="1" rowSpan="1">
                   <div  className="c7 c3">{getFormattedDate(
                     index
                   )}</div>
@@ -85,25 +85,25 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
                       <option value="did not work">Did not Work</option>
                       <option value="1 hour">1 hour</option>
                       <option value="2 hours">2 hours</option>
-                      <option value="3">3 hours</option>
-                      <option value="4">4 hours</option>
-                      <option value="5">5 hours</option>
-                      <option value="6">6 hours</option>
-                      <option value="7">7 hours</option>
-                      <option value="8">8 hours</option>
-                      <option value="9">9 hours</option>
-                      <option value="10">10 hours</option>
-                      <option value="11">11 hours</option>
-                      <option value="12">12 hours</option>
-                      <option value="13">13 hours</option>
-                      <option value="14">14 hours</option>
-                      <option value="15">15 hours</option>
-                      <option value="16">16 hours</option>
+                      <option value="3 hours">3 hours</option>
+                      <option value="4 hours">4 hours</option>
+                      <option value="5 hours">5 hours</option>
+                      <option value="6 hours">6 hours</option>
+                      <option value="7 hours">7 hours</option>
+                      <option value="8 hours">8 hours</option>
+                      <option value="9 hours">9 hours</option>
+                      <option value="10 hours">10 hours</option>
+                      <option value="11 hours">11 hours</option>
+                      <option value="12 hours">12 hours</option>
+                      <option value="13 hours">13 hours</option>
+                      <option value="14 hours">14 hours</option>
+                      <option value="15 hours">15 hours</option>
+                      <option value="16 hours">16 hours</option>
                     </select>
                   </div>
                 </td>
 
-                <td style={{"border": "1px solid #dddddd"}} className="c49" colspan="1" rowspan="1">
+                <td style={{"border": "1px solid #dddddd"}} className="c49" colSpan="1" rowSpan="1">
                   <div  className="c7 c3">{getFormattedDate(
                     index +1
                   )}</div>
@@ -124,20 +124,20 @@ const StepSix = ({ onNextStep, onPreviousStep }) => {
                       <option value="did not work">Did not Work</option>
                       <option value="1 hour">1 hour</option>
                       <option value="2 hours">2 hours</option>
-                      <option value="3">3 hours</option>
-                      <option value="4">4 hours</option>
-                      <option value="5">5 hours</option>
-                      <option value="6">6 hours</option>
-                      <option value="7">7 hours</option>
-                      <option value="8">8 hours</option>
-                      <option value="9">9 hours</option>
-                      <option value="10">10 hours</option>
-                      <option value="11">11 hours</option>
-                      <option value="12">12 hours</option>
-                      <option value="13">13 hours</option>
-                      <option value="14">14 hours</option>
-                      <option value="15">15 hours</option>
-                      <option value="16">16 hours</option>
+                      <option value="3 hours">3 hours</option>
+                      <option value="4 hours">4 hours</option>
+                      <option value="5 hours">5 hours</option>
+                      <option value="6 hours">6 hours</option>
+                      <option value="7 hours">7 hours</option>
+                      <option value="8 hours">8 hours</option>
+                      <option value="9 hours">9 hours</option>
+                      <option value="10 hours">10 hours</option>
+                      <option value="11 hours">11 hours</option>
+                      <option value="12 hours">12 hours</option>
+                      <option value="13 hours">13 hours</option>
+                      <option value="14 hours">14 hours</option>
+                      <option value="15 hours">15 hours</option>
+                      <option value="16 hours">16 hours</option>
                     </select>
                   </div>
                 </td>
